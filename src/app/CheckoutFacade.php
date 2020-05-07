@@ -16,7 +16,7 @@ class CheckoutFacade {
     public function getPaymentLink(float $amount, bool $boleto = true, bool $credit_card = true): string {
 
         return Api::Client()->paymentLinks()->create([
-            'amount' => $amount * 100,
+            'amount' => intval($amount) * 100,
             'items' => $this->items,
             'payment_config' => [
                 'boleto' => [
