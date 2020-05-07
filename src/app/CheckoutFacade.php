@@ -27,7 +27,7 @@ class CheckoutFacade {
                     'enabled' => $credit_card,
                     'free_installments' => 4,
                     'interest_rate' => 25,
-                    'max_installments' => $this->items[0]->max_installments, # Don't support multiple items
+                    'max_installments' => $this->items[0]['max_installments'] ?? 12, # Don't support multiple items
                 ],
                 'default_payment_method' => 'boleto',
             ],
