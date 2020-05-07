@@ -1,0 +1,16 @@
+{
+    "name": "matheusfs/laravel-checkout-pagarme",
+    "description": "Laravel checkout facade to pagar.me v4 api",
+    "type": "library",
+    "require": {
+        "pagarme/pagarme-php": "^4.0.4"
+    },
+    "license": "MIT License",
+    "authors": [
+        {
+            "name": "Matheus Ferreira",
+            "email": "matheusfs97@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
