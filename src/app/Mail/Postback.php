@@ -7,14 +7,19 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
 class Postback extends Mailable {
+
     use Queueable, SerializesModels;
 
-    public function __construct() {
-        //
+    const FROM = 'matheus@refresher.com.br';
+    public $data;
+
+    public function __construct($data) {
+        
+        $this->data = $data;
     }
 
     public function build() {
 
-        return $this->from('matheus@refresher.com.br')->view('view.name');
+        return $this->from(Postback::FROM)->view('checkout::mail.postback');
     }
 }

@@ -1,5 +1,5 @@
-# laravel-checkout-pagarme
-Laravel checkout facade to pagar.me v4 api
+# Checkout with Pagar.me
+Laravel checkout facade to Pagar.me v4 api
 
 ## Simple payment link redirect
 
