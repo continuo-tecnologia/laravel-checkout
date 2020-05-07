@@ -1,9 +1,9 @@
 <?php
 
-namespace MatheusFS\PagarMe;
+namespace MatheusFS\LaravelCheckoutPagarMe;
 
 use Illuminate\Support\Facades\Mail;
-use MatheusFS\PagarMe\Mail\Postback as MailPostback;
+use MatheusFS\LaravelCheckoutPagarMe\Mail\Postback as MailPostback;
 
 class Postback {
 

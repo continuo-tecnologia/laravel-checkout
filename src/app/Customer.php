@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\PagarMe;
+namespace MatheusFS\LaravelCheckoutPagarMe;
 
 class Customer {
 

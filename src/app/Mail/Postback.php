@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\PagarMe\Mail;
+namespace MatheusFS\LaravelCheckoutPagarMe\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
