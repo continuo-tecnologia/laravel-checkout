@@ -13,10 +13,10 @@ class CheckoutFacade {
 
     public function __construct() {}
 
-    public function getPaymentLink(int $amount, bool $boleto = true, bool $credit_card = true): string {
+    public function getPaymentLink(float $amount, bool $boleto = true, bool $credit_card = true): string {
 
         return Api::Client()->paymentLinks()->create([
-            'amount' => $amount,
+            'amount' => $amount * 100,
             'items' => $this->items,
             'payment_config' => [
                 'boleto' => [
@@ -27,7 +27,7 @@ class CheckoutFacade {
                     'enabled' => $credit_card,
                     'free_installments' => 4,
                     'interest_rate' => 25,
-                    'max_installments' => 12,
+                    'max_installments' => $this->items[0]->max_installments, # Don't support multiple items
                 ],
                 'default_payment_method' => 'boleto',
             ],
@@ -39,8 +39,8 @@ class CheckoutFacade {
                 'shipping' => $this->shipping,
             ],
             'postback_config' => [
-                'orders' => route('checkout.pagarme.postback.orders'),
-                'transactions' => route('checkout.pagarme.postback.transactions'),
+                'orders' => 'https://enmvg7vuktqd.x.pipedream.net/',//route('checkout.pagarme.postback.orders'),
+                'transactions' => 'https://enmvg7vuktqd.x.pipedream.net/'//route('checkout.pagarme.postback.transactions'),
             ],
             'review_informations' => false,
         ])->url;
@@ -67,13 +67,7 @@ class CheckoutFacade {
         //
     }
 
-    public function addItem(
-        string $id,
-        string $title,
-        float $unit_price,
-        int $quantity = 1,
-        bool $tangible = true
-    ): void {
+    public function addItem(string $id, string $title, float $unit_price, int $quantity = 1, bool $tangible = true): void {
         array_push($this->items, [
             'id' => $id,
             'title' => $title,
@@ -103,34 +97,19 @@ class CheckoutFacade {
         $this->shipping = $shipping->toArray();
     }
 
-    public function useCreditCard(
-        string $name,
-        string $number,
-        string $exp,
-        string $cvv
-    ): void {
+    public function useCreditCard(string $name, string $number, string $exp, string $cvv): void {
 
         $this->payment_method = 'credit_card';
         $card_id = $this->createCreditCard($name, $number, $exp, $cvv);
         $this->transaction['card_id'] = $card_id;
     }
 
-    public function useBoleto(
-        string $name,
-        string $number,
-        string $exp,
-        string $cvv
-    ): void {
+    public function useBoleto(string $name, string $number, string $exp, string $cvv): void {
 
         $this->payment_method = 'boleto';
     }
 
-    function createCreditCard(
-        string $name,
-        string $number,
-        string $exp,
-        string $cvv
-    ): string {
+    function createCreditCard(string $name, string $number, string $exp, string $cvv): string {
         return Api::Client()->cards()->create([
             'holder_name' => $name,
             'number' => $number,

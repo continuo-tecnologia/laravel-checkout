@@ -13,11 +13,11 @@ class Shipping {
     protected $expedited;
 
 
-    public function __construct(string $name, Address $address, float $fee, DateTime $delivery_date, bool $expedited = false){
+    public function __construct(string $name, Address $address, string $fee, DateTime $delivery_date, bool $expedited = false){
 
         $this->name = $name;
         $this->address = $address->toArray();
-        $this->fee = $fee;
+        $this->fee = floatval($fee) * 100;
         $this->delivery_date = $delivery_date->format('Y-m-d');
         $this->expedited = $expedited;
     }
