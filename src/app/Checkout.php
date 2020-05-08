@@ -4,6 +4,7 @@ namespace MatheusFS\LaravelCheckoutPagarMe;
 
 class Checkout {
 
+    protected $client;
     protected $payment_method;
     protected $customer;
     protected $billing;
@@ -11,11 +12,14 @@ class Checkout {
     protected $items = array();
     protected $transaction;
 
-    public function __construct() {}
+    public function __construct(bool $sandbox = false) {
+
+        $this->client = Api::client($sandbox);
+    }
 
     public function getPaymentLink(float $amount, bool $boleto = true, bool $credit_card = true): string {
 
-        return Api::Client()->paymentLinks()->create([
+        return $this->client->paymentLinks()->create([
             'amount' => intval($amount) * 100,
             'items' => $this->items,
             'payment_config' => [
@@ -48,7 +52,7 @@ class Checkout {
 
     public function createTransaction() {
 
-        return Api::Client()->transactions()->create($this->transaction);
+        return $this->client->transactions()->create($this->transaction);
     }
 
     public function buildTransaction(float $amount) {
@@ -110,7 +114,7 @@ class Checkout {
     }
 
     function createCreditCard(string $name, string $number, string $exp, string $cvv): string {
-        return Api::Client()->cards()->create([
+        return $this->client->cards()->create([
             'holder_name' => $name,
             'number' => $number,
             'expiration_date' => $exp,

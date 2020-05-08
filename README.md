@@ -14,20 +14,20 @@ public function buy(Request $request, $id) {
 
     # Normalize address w/ Pagar.me v4 API
     $address = new Address(
-        $shipping->street, 
-        $shipping->street_number, 
-        $shipping->zipcode, 
-        'br', # Default country, if you operate w/ more than one country you can modify the request to ask user 
-        $shipping->state, 
+        $shipping->street,
+        $shipping->street_number,
+        $shipping->zipcode,
+        'br', # Default country, if you operate w/ more than one country you can modify the request to ask user
+        $shipping->state,
         $shipping->city,
         $shipping->neighborhood,
         $shipping->complementary
     );
 
     # Normalize shipping w/ Pagar.me v4 API
-    $Shipping = new Shipping($shipping->name, $address, (float) $shipping->fee*100, new DateTime());
+    $Shipping = new Shipping($shipping->name, $address, $shipping->fee, new DateTime());
 
-    # Initiate facade 
+    # Initiate facade
     $pagarme = new Checkout();
 
     # Normalize customer and billing w/ Pagar.me v4 API
@@ -39,6 +39,6 @@ public function buy(Request $request, $id) {
     $pagarme->addItem($item->id, $item->label, $item->price);
 
     # Redirect the user to the generated payment link
-    return redirect($pagarme->getPaymentLink($item->price*100 + (float)$shipping->fee*100));
-    }
+    return redirect($pagarme->getPaymentLink($item->price + $shipping->fee));
+}
 ```
