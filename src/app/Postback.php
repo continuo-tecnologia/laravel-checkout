@@ -16,6 +16,8 @@ class Postback {
 
     public function transactions(Request $request) {
 
+        Mail::to($request->customer->email)->send(new MailPostback($request->all()));
+        Mail::to(/* SUPPLIER E-MAIL */)->send(new MailPostback($request->all()));
         $this->_log($request->all());
         
     }
