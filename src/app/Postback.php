@@ -17,6 +17,7 @@ class Postback {
     public function transactions(Request $request) {
 
         $this->_log($request->all());
+        
     }
 
     protected function _log($data) {

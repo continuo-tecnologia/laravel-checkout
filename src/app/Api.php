@@ -11,5 +11,5 @@ class Api{
     public static function Client():Client{
 
         return new Client(Api::KEY);
-    } 
+    }
 }
