@@ -43,8 +43,8 @@ class Checkout {
                 'shipping' => $this->shipping,
             ],
             'postback_config' => [
-                'orders' => 'https://enmvg7vuktqd.x.pipedream.net/', //route('checkout.pagarme.postback.orders'),
-                'transactions' => 'https://enmvg7vuktqd.x.pipedream.net/' //route('checkout.pagarme.postback.transactions')
+                'orders' => 'https://enmvg7vuktqd.x.pipedream.net/orders', //route('checkout.pagarme.postback.orders'),
+                'transactions' => 'https://enmvg7vuktqd.x.pipedream.net/transactions' //route('checkout.pagarme.postback.transactions')
             ],
             'review_informations' => false,
         ])->url;
