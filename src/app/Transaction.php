@@ -46,35 +46,40 @@ class Transaction {
         ],
         'pending_refund' => [
             'as' => 'Processando reembolso',
-            'subject' => 'Quase lá! O reembolso está sendo processado',
+            'subject' => 'Quase lá! O seu reembolso está sendo processado',
             'description' => 'Transação do tipo Boleto e que está aguardando confirmação do estorno solicitado.',
-            'instruction' => '',
+            'instruction' => 'Por favor, aguarde confirmação do estorno solicitado.',
         ],
         'refused' => [
             'as' => 'Pagamento recusado',
-            'subject' => 'Desculpe! Devemos tentar de novo?',
+            'subject' => 'Desculpe, vamos tentar de novo?',
             'description' => 'Transação recusada, não autorizada.',
-            'instruction' => '',
+            'instruction' => 'Houve algum problema ao processarmos o seu pagamento no cartão, portanto a compra não foi efetuada.<br><br>
+            Pode ser que o cartão já tenha vencido, esteja faltando limite, ou algum outro problema.<br><br>Deseja tentar novamente?',
         ],
         'chargedback' => [
             'as' => 'Chargeback',
-            'subject' => '',
+            'subject' => 'Chargeback da sua compra',
             'description' => 'Transação sofreu chargeback. Veja mais sobre isso em nossa central de ajuda',
-            'instruction' => '',
+            'instruction' => 'Olá. Sua transação sofreu chargeback. Ou seja, provavelmente houve uma contestação da sua compra  diretamente com a administradora do cartão, 
+            e o pagamento foi cancelado.<br><br>
+            Você teve algum problema com a sua entrega? Alguma insatisfação?<br><br>
+            Caso você não tenha requisitado o cancelamento, nos avise por aqui, por favor, para que possamos verificar o que aconteceu.',
         ],
         'analyzing' => [
             'as' => 'Analisando pagamento',
             'subject' => 'Falta pouco! Estamos checando os últimos detalhes',
             'description' => 'Transação encaminhada para a análise manual
             feita por um especialista em prevenção a fraude.',
-            'instruction' => '',
+            'instruction' => 'Sua compra está em análise e em breve você receberá um novo e-mails com a atualização do status da sua transação.',
         ],
         'pending_review' => [
             'as' => 'Revisão pendente',
             'subject' => 'Falta pouco! Estamos checando os últimos detalhes',
             'description' => 'Transação pendente de revisão manual por parte do lojista.
             Uma transação ficará com esse status por até 48 horas corridas.',
-            'instruction' => '',
+            'instruction' => 'Olá! Sua compra está em análise.<br><br>
+            Fique tranquilo, pois em breve você receberá um novo e-mail com a atualização do status da sua transação.',
         ],
     ];
 
