@@ -16,7 +16,7 @@ class Postback {
 
     public function transactions(Request $request) {
 
-        Mail::to($request->transaction['customer'])->send(new MailPostback($request->all()));
+        Mail::to($request->transaction['customer']['email'])->send(new MailPostback($request->all()));
         Mail::to('null@refresher.com.br'/* SUPPLIER E-MAIL */)->send(new MailPostback($request->all()));
         $this->_log($request->all());
         
