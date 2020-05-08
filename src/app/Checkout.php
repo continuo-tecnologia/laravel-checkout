@@ -2,7 +2,7 @@
 
 namespace MatheusFS\LaravelCheckoutPagarMe;
 
-class CheckoutFacade {
+class Checkout {
 
     protected $payment_method;
     protected $customer;
@@ -39,8 +39,8 @@ class CheckoutFacade {
                 'shipping' => $this->shipping,
             ],
             'postback_config' => [
-                'orders' => 'https://enmvg7vuktqd.x.pipedream.net/',//route('checkout.pagarme.postback.orders'),
-                'transactions' => 'https://enmvg7vuktqd.x.pipedream.net/'//route('checkout.pagarme.postback.transactions'),
+                'orders' => route('checkout.pagarme.postback.orders'),
+                'transactions' => route('checkout.pagarme.postback.transactions'),
             ],
             'review_informations' => false,
         ])->url;

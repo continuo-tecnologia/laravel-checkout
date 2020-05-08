@@ -28,7 +28,7 @@ public function buy(Request $request, $id) {
     $Shipping = new Shipping($shipping->name, $address, (float) $shipping->fee*100, new DateTime());
 
     # Initiate facade 
-    $pagarme = new CheckoutFacade();
+    $pagarme = new Checkout();
 
     # Normalize customer and billing w/ Pagar.me v4 API
     $pagarme->setCustomer($customer->name, $customer->cpf, $customer->phone_number, $customer->email);

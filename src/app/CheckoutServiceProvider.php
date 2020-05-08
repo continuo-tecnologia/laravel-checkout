@@ -8,7 +8,7 @@ class CheckoutServiceProvider extends ServiceProvider {
 
     public function register() {
 
-        $this->app->make('MatheusFS\LaravelCheckoutPagarMe\CheckoutFacade');
+        $this->app->make('MatheusFS\LaravelCheckoutPagarMe\Checkout');
     }
     
     public function boot() {
