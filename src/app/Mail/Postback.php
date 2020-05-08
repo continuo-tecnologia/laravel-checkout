@@ -24,7 +24,7 @@ class Postback extends Mailable {
     public function build() {
         
         return $this->subject($this->transaction::getPropertyFrom('subject', $this->data->current_status))
-        ->from(Postback::FROM)
+        ->from(Postback::FROM, 'REFRESHER Marketplace')
         ->markdown('checkout::mail.postback');
     }
 }
