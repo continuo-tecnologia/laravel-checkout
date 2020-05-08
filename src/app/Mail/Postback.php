@@ -22,7 +22,7 @@ class Postback extends Mailable {
     public function __construct($data) {
         
         $name = $data['transaction']['customer']['name'];
-
+        
         $this->data = (object) $data;
         $this->transaction = (object) $data['transaction'];
         
