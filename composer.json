@@ -1,8 +1,9 @@
 {
-    "name": "matheusfs/laravel-checkout-pagarme",
-    "description": "Laravel checkout facade to pagar.me v4 api",
+    "name": "matheusfs/laravel-checkout",
+    "description": "Laravel checkout facade. Supports: Pagar.me v4",
     "type": "library",
     "require": {
+        "phpunit/phpunit": "^7.5",
         "pagarme/pagarme-php": "^4.0.4"
     },
     "license": "MIT",
