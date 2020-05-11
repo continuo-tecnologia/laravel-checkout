@@ -21,8 +21,8 @@ class Postback {
 
     public function _validate($request) {
 
-        $body = $this->request->getContent();
-        $signature = $this->request->header('X-Hub-Signature');
+        $body = $request->getContent();
+        $signature = $request->header('X-Hub-Signature');
 
         $is_valid = Api::client()->postbacks()->validate($body, $signature);
         $caller_method = debug_backtrace()[1]['function'];
