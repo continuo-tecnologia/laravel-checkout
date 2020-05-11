@@ -19,6 +19,7 @@ class Postback {
         Mailer::sendMailsToInvolved($request);
 
         return response()->json([
+            'error' => null,
             'message' => 'Postback transaction received correctly!',
             'transaction_id' => $request->id
         ]);
