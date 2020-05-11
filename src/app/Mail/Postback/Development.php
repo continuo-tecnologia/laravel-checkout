@@ -1,14 +1,14 @@
 <?php
 
-namespace MatheusFS\LaravelCheckoutPagarMe\Mail;
+namespace MatheusFS\LaravelCheckout\Mail\Postback;
 
 use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use MatheusFS\LaravelCheckoutPagarMe\Transaction;
+use MatheusFS\LaravelCheckout\Transaction;
 
-class Postback extends Mailable {
+class Development extends Mailable {
 
     use Queueable, SerializesModels;
 

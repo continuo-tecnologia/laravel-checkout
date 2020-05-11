@@ -1,10 +1,10 @@
 <?php
 
-namespace MatheusFS\LaravelCheckoutPagarMe;
+namespace MatheusFS\LaravelCheckout\PagarMe;
 
-class Transaction {
+class Status {
 
-    const STATUS = [
+    const MAP = [
         'processing' => [
             'as' => 'Pagamento processando',
             'subject' => 'Quase lá! Seu pagamento está sendo processado',
@@ -61,7 +61,7 @@ class Transaction {
             'as' => 'Chargeback',
             'subject' => 'Chargeback da sua compra',
             'description' => 'Transação sofreu chargeback. Veja mais sobre isso em nossa central de ajuda',
-            'instruction' => 'Olá. Sua transação sofreu chargeback. Ou seja, provavelmente houve uma contestação da sua compra  diretamente com a administradora do cartão, 
+            'instruction' => 'Olá. Sua transação sofreu chargeback. Ou seja, provavelmente houve uma contestação da sua compra  diretamente com a administradora do cartão,
             e o pagamento foi cancelado.<br><br>
             Você teve algum problema com a sua entrega? Alguma insatisfação?<br><br>
             Caso você não tenha requisitado o cancelamento, nos avise por aqui, por favor, para que possamos verificar o que aconteceu.',
@@ -83,13 +83,13 @@ class Transaction {
         ],
     ];
 
-    public static function as ($current_status) {return Transaction::getPropertyFrom('as', $current_status);}
-    public static function subject($current_status) {return Transaction::getPropertyFrom('subject', $current_status);}
-    public static function description($current_status) {return Transaction::getPropertyFrom('description', $current_status);}
-    public static function instruction($current_status) {return Transaction::getPropertyFrom('instruction', $current_status);}
+    public static function as ($current_status) {return Status::getPropertyFrom('as', $current_status);}
+    public static function subject($current_status) {return Status::getPropertyFrom('subject', $current_status);}
+    public static function description($current_status) {return Status::getPropertyFrom('description', $current_status);}
+    public static function instruction($current_status) {return Status::getPropertyFrom('instruction', $current_status);}
 
     public static function getPropertyFrom(string $property, string $current_status) {
 
-        return Transaction::STATUS[$current_status][$property];
+        return Status::MAP[$current_status][$property];
     }
 }
