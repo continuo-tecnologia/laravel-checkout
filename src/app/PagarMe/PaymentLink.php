@@ -36,6 +36,8 @@ class PaymentLink {
 
     public static function redirect() {
 
+        $payment_link = $this->_create();
+        return redirect($payment_link->url);
     }
 
     public function _create() {
