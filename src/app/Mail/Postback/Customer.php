@@ -39,6 +39,6 @@ class Customer extends Mailable {
         date_default_timezone_set('America/Sao_Paulo');
         return $this->subject(Status::subject($this->data->current_status))
         ->from(Customer::FROM, 'REFRESHER Marketplace')
-        ->markdown('checkout::mail.postback');
+        ->markdown('checkout::mail.postback.customer');
     }
 }

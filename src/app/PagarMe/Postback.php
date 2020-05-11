@@ -25,12 +25,15 @@ class Postback {
         $signature = $request->header('X-Hub-Signature');
 
         $is_valid = Api::client()->postbacks()->validate($body, $signature);
+        $message = $is_valid ? "Validated id: $request->id" : "Fail validation for id: $request->id";
         $caller_method = debug_backtrace()[1]['function'];
 
         Logger::log(
-            $caller_method, 
             $is_valid ? 'valid' : 'invalid', 
-            $is_valid ? "Validated id: $request->id" : "Fail validation for id: $request->id"
+            $message,
+            $caller_method
         );
+
+        return $message;
     }
 }

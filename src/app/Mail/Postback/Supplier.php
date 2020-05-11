@@ -20,12 +20,12 @@ class Supplier extends Mailable {
     public $delivery_days;
 
     public function __construct($data) {
-        
+
         $name = $data['transaction']['customer']['name'];
-        
+
         $this->data = (object) $data;
         $this->transaction = (object) $data['transaction'];
-        
+
         $this->name = explode(' ', $name)[0];
 
         $now = new DateTime();
@@ -39,6 +39,6 @@ class Supplier extends Mailable {
         date_default_timezone_set('America/Sao_Paulo');
         return $this->subject(Status::subject($this->data->current_status))
         ->from(Supplier::FROM, 'REFRESHER Marketplace')
-        ->markdown('checkout::mail.postback');
+        ->markdown('checkout::mail.postback.supplier');
     }
 }

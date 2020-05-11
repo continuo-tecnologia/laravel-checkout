@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\Storage;
 
 class Logger {
 
-    public static function log($model, $type, $message) {
+    public static function log($type, $message, $model = null) {
 
+        $model = $model ?? debug_backtrace()[1]['function'];
         Logger::_logInEmail("$model." . strtoupper($type) . ": $message");
         Logger::_logInFile("$model." . strtoupper($type) . ": $message");
     }
