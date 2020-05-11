@@ -10,16 +10,16 @@ class Postback {
 
     public function orders(Request $request) {
 
-        $this->_validate($request);
+        Postback::validate($request);
     }
 
     public function transactions(Request $request) {
 
-        $this->_validate($request);
+        Postback::validate($request);
         Mailer::sendMailsToInvolved($request);
     }
 
-    public function _validate($request) {
+    public static function validate($request) {
 
         $body = $request->getContent();
         $signature = $request->header('X-Hub-Signature');
