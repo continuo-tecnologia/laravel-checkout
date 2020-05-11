@@ -17,6 +17,11 @@ class Postback {
 
         Postback::validate($request);
         Mailer::sendMailsToInvolved($request);
+
+        return response()->json([
+            'message' => 'Postback transaction received correctly!',
+            'transaction_id' => $request->id
+        ]);
     }
 
     public static function validate($request) {
@@ -25,15 +30,17 @@ class Postback {
         $signature = $request->header('X-Hub-Signature');
 
         $is_valid = Api::client()->postbacks()->validate($body, $signature);
-        $message = $is_valid ? "Validated id: $request->id" : "Fail validation for id: $request->id";
+        
+        $type = $is_valid ? 'valid' : 'invalid';
+
+        $message = $is_valid 
+        ? "Validated id: $request->id" 
+        : "Fail validation for id: $request->id";
+
         $caller_method = debug_backtrace()[1]['function'];
 
-        Logger::log(
-            $is_valid ? 'valid' : 'invalid', 
-            $message,
-            $caller_method
-        );
+        Logger::log($type, $message, $caller_method);
 
-        return $message;
+        return $is_valid ? true : abort(403, $message);
     }
 }
