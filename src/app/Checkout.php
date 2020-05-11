@@ -18,12 +18,12 @@ class Checkout {
 
     protected $client;
     protected $payment_method;
-    protected $customer;
-    protected $billing;
-    protected $shipping;
-    protected $items = array();
+    public $customer;
+    public $billing;
+    public $shipping;
+    public $items = array();
     protected $transaction;
-    protected $amount = 0;
+    public $amount = 0;
 
     /**
     * Initiate facade
