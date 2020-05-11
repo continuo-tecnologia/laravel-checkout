@@ -2,6 +2,7 @@
 
 namespace MatheusFS\LaravelCheckout\Facades;
 
+use Illuminate\Support\Facades\Mail;
 use MatheusFS\LaravelCheckout\Mail\Postback\Customer as PostbackToCustomer;
 use MatheusFS\LaravelCheckout\Mail\Postback\Development as PostbackToDevelopment;
 use MatheusFS\LaravelCheckout\Mail\Postback\Supplier as PostbackToSupplier;
