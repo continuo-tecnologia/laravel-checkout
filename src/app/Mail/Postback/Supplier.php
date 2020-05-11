@@ -6,7 +6,7 @@ use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use MatheusFS\LaravelCheckout\Transaction;
+use MatheusFS\LaravelCheckout\PagarMe\Status;
 
 class Supplier extends Mailable {
 
@@ -14,7 +14,7 @@ class Supplier extends Mailable {
 
     const FROM = 'contato@refreshertrends.com.br';
     public $data;
-    public $Transaction = Transaction::class;
+    public $status = Status::class;
     public $transaction;
     public $name;
     public $delivery_days;
@@ -37,8 +37,8 @@ class Supplier extends Mailable {
 
         setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
         date_default_timezone_set('America/Sao_Paulo');
-        return $this->subject(Transaction::subject($this->data->current_status))
-        ->from(Postback::FROM, 'REFRESHER Marketplace')
+        return $this->subject(Status::subject($this->data->current_status))
+        ->from(Supplier::FROM, 'REFRESHER Marketplace')
         ->markdown('checkout::mail.postback');
     }
 }

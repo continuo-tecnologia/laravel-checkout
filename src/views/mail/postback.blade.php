@@ -1,7 +1,7 @@
 @component('mail::message')
 
-# Olá {{$name}}, {{strtolower($Transaction::as($data->current_status))}}
-{!!$Transaction::instruction($data->current_status)!!}
+# Olá {{$name}}, {{strtolower($status::as($data->current_status))}}
+{!!$status::instruction($data->current_status)!!}
 
 <br>
 
