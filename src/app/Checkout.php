@@ -75,7 +75,11 @@ class Checkout {
     }
 
     public function setBilling(PagarMe\Billing $billing) {$this->billing = $billing->toArray();}
-    public function setShipping(PagarMe\Shipping $shipping) {$this->shipping = $shipping->toArray();}
+    public function setShipping(PagarMe\Shipping $shipping) {
+
+        $this->shipping = $shipping->toArray();
+        $this->amount += $shipping->fee;
+    }
 
     public function useCreditCard(string $name, string $number, string $exp, string $cvv): void {
 
