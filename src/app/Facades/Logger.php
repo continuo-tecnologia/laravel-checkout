@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\Storage;
 
 class Logger {
 
-    public function log($model, $type, $message) {
+    public static function log($model, $type, $message) {
 
-        $this->_logInEmail("$model." . strtoupper($type) . ": $message");
-        $this->_logInFile("$model." . strtoupper($type) . ": $message");
+        Logger::_logInEmail("$model." . strtoupper($type) . ": $message");
+        Logger::_logInFile("$model." . strtoupper($type) . ": $message");
     }
 
-    protected function _logInEmail($message) {
+    protected static function _logInEmail($message) {
 
         Mail::raw($message, function ($message) {
             $message->to('matheus@refresher.com.br');
@@ -21,7 +21,7 @@ class Logger {
         });
     }
 
-    protected function _logInFile($message) {
+    protected static function _logInFile($message) {
 
         $file_path = '/matheusfs/laravel-checkout-pagarme/postback.log';
         $disk = Storage::disk('storage_logs');
