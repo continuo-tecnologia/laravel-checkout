@@ -34,7 +34,7 @@ class PaymentLink {
         $this->review_informations = $config['review_informations'];
     }
 
-    public static function redirect() {
+    public function redirect() {
 
         $payment_link = $this->_create();
         return redirect($payment_link->url);
