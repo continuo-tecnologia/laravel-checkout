@@ -84,7 +84,7 @@ class PaymentLink {
 
         return [
             'orders' => 'https://enmvg7vuktqd.x.pipedream.net/orders', //route('checkout.pagarme.postback.orders'),
-            'transactions' => 'https://enmvg7vuktqd.x.pipedream.net/transactions', //route('checkout.pagarme.postback.transactions')
+            'transactions' => route('checkout.pagarme.postback.transactions')
         ];
     }
 }
