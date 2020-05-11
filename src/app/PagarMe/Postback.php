@@ -15,9 +15,17 @@ class Postback {
 
     public function transactions(Request $request) {
 
+        $user_agent = $request->header('User-Agent');
+        Logger::log('received', "From agent: $user_agent", __FUNCTION__);
+
         Postback::validate($request);
         Mailer::sendMailsToInvolved($request);
 
+        Logger::log(
+            'success', 
+            "Succesfully processed transaction id: $request->id (Agent: $user_agent)", 
+            __FUNCTION__
+        );
         return response()->json([
             'error' => null,
             'message' => 'Postback transaction received correctly!',
@@ -27,20 +35,21 @@ class Postback {
 
     public static function validate($request) {
 
+        $caller_method = debug_backtrace()[1]['function'];
+
         $body = $request->getContent();
         $signature = $request->header('X-Hub-Signature');
+        $user_agent = $request->header('User-Agent');
 
         $is_valid = Api::client()->postbacks()->validate($body, $signature);
         
         $type = $is_valid ? 'valid' : 'invalid';
 
         $message = $is_valid 
-        ? "Validated id: $request->id" 
-        : "Fail validation for id: $request->id";
+        ? "Validated request for $caller_method id: $request->id" 
+        : "Invalid request for $caller_method id: $request->id";
 
-        $caller_method = debug_backtrace()[1]['function'];
-
-        Logger::log($type, $message, $caller_method);
+        Logger::log($type, "$message (Agent: $user_agent)", $caller_method);
 
         return $is_valid ? true : abort(403, $message);
     }
