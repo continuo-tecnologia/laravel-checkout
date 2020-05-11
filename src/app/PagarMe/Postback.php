@@ -16,7 +16,7 @@ class Postback {
     public function transactions(Request $request) {
 
         $this->_validate($request);
-        Mailer::sendMailsToInvolved();
+        Mailer::sendMailsToInvolved($request);
     }
 
     public function _validate($request) {
