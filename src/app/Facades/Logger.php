@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Logger {
 
-    protected function log($model, $type, $message) {
+    public function log($model, $type, $message) {
 
         $this->_logInEmail("$model." . strtoupper($type) . ": $message");
         $this->_logInFile("$model." . strtoupper($type) . ": $message");
