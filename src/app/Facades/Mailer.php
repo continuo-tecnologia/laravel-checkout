@@ -17,7 +17,7 @@ class Mailer {
 
         Mail::to(Mailer::DEVELOPMENT)
         ->send(new PostbackToDevelopment($request->all()));
-        Logger::log('sent', "Sent mail to {Mailer::development_mail}");
+        Logger::log('sent', 'Sent mail to '.Mailer::DEVELOPMENT);
 
         Mail::to($request->transaction['customer']['email'])
         ->send(new PostbackToCustomer($request->all()));
