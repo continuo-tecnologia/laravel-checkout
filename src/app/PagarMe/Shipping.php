@@ -13,7 +13,7 @@ class Shipping {
     protected $expedited;
 
 
-    public function __construct(Address $address, string $fee, DateTime $delivery_date, ?string $name = 'Entrega', ?bool $expedited = false){
+    public function __construct(Address $address, $fee, DateTime $delivery_date, ?string $name = 'Entrega', ?bool $expedited = false){
 
         $this->name = $name;
         $this->address = $address->toArray();
