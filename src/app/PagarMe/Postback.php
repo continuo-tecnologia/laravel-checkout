@@ -118,13 +118,13 @@ class Postback {
         $billing = $request->transaction['billing'];
         $shipping = $request->transaction['shipping'];
         
-        // $order = Api::client()->orders()->getList(['order_id' => $request->order['id']])[0];
+        // $order = Api::client()->postabacks()->getList(['model' => 'orders', 'model_id' => $request->transaction['order_id']])[0];
         // $items = $order['items'];
 
         return [
             'status' => $status ?? 'undefined',
             'amount' => $amount,
-            'items' => $items ?? [],
+            'items' => $items ?? [['title' => 'Produto', 'quantity' => 1, 'unit_price' => 0]],
             'boleto' => $boleto,
             'payment_method' => $payment_method,
             'customer' => $customer,
