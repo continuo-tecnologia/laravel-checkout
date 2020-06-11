@@ -39,7 +39,8 @@ class Customer {
 
     public function setPhone($country_code, $number){
         
-        return $this->phone_numbers = [ "$country_code$number" ];
+        $number = preg_replace('/\D/', '', $number);
+        return $this->phone_numbers = [ "+$country_code$number" ];
     }
 
     public function setExternalId(){
