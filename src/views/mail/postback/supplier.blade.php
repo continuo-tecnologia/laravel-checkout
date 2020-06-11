@@ -13,6 +13,6 @@ Seu produto será entregue por {{$transaction->shipping['name']}} em
 
 <br><hr><br>
 
-@include('mail.postback.components.signature')
+@include('checkout::mail.postback.components.signature')
 
 @endcomponent
