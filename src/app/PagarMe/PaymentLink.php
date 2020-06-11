@@ -19,6 +19,7 @@ class PaymentLink {
 
     protected $customer_config;
     protected $postback_config;
+
     /**
      * Construct a payment link model
      * @param Checkout $checkout Checkout for which the link will be generated
@@ -32,6 +33,7 @@ class PaymentLink {
         $this->max_orders = $config['max_orders'];
         $this->expires_in = $config['expires_in'];
         $this->review_informations = $config['review_informations'];
+        $this->name = "pl_" . $checkout->customer['email'] . "_" . intval(microtime(true) * 1000);
     }
 
     public function redirect() {
@@ -43,6 +45,7 @@ class PaymentLink {
     public function _create() {
 
         return Api::client()->paymentLinks()->create([
+            'name' => $this->name,
             'amount' => intval($this->checkout->amount * 100),
             'items' => $this->checkout->items,
             'payment_config' => $this->_formatPaymentConfig(),

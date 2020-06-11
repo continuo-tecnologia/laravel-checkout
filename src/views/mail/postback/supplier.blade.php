@@ -5,8 +5,6 @@
 
 <br>
 
-@component('checkout::mail.postback.components.boleto')
-
 @component('checkout::mail.postback.components.shipping')
 Seu produto será entregue por {{$transaction->shipping['name']}} em
 @endcomponent
