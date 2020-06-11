@@ -5,7 +5,7 @@
 
 <br>
 
-@if($transaction->payment_method=='boleto')
+@if($data['payment_method']=='boleto')
 
 @component('mail::panel')
 <small><i>Linha digitável</i></small><br>
