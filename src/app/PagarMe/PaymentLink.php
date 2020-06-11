@@ -86,7 +86,7 @@ class PaymentLink {
     public function _formatPostbackConfig() {
 
         return [
-            'orders' => 'https://enmvg7vuktqd.x.pipedream.net/orders', //route('checkout.pagarme.postback.orders'),
+            'orders' => route('checkout.pagarme.postback.orders'),
             'transactions' => route('checkout.pagarme.postback.transactions')
         ];
     }
