@@ -15,7 +15,7 @@ class Postback {
 
         Postback::validate($request);
         
-        $normalized = Postback::normalizeData($request);
+        $normalized = Postback::normalizeOrderData($request);
         Mailer::sendMailsToInvolved($normalized);
 
         Logger::log(
@@ -36,7 +36,9 @@ class Postback {
         Logger::log('received', "From agent: $user_agent", __FUNCTION__);
 
         Postback::validate($request);
-        // Mailer::sendMailsToInvolved($request);
+
+        $normalized = Postback::normalizeTransactionData($request);
+        Mailer::sendMailsToInvolved($normalized);
 
         Logger::log(
             'success', 
@@ -71,7 +73,7 @@ class Postback {
         return $is_valid ? true : abort(403, $message);
     }
 
-    public static function normalizeData($request){
+    public static function normalizeOrderData($request){
         
         $status = $request->order['status'];
         $amount = $request->order['amount'];
@@ -94,6 +96,35 @@ class Postback {
             'status' => $status ?? 'undefined',
             'amount' => $amount,
             'items' => $items,
+            'boleto' => $boleto,
+            'payment_method' => $payment_method,
+            'customer' => $customer,
+            'billing' => $billing,
+            'shipping' => $shipping
+        ];
+    }
+
+    public static function normalizeTransactionData($request){
+
+        $payment_method = $request->transaction['payment_method'];
+        $boleto = [
+            'url' => $request->transaction['boleto_url'],
+            'barcode' => $request->transaction['boleto_barcode'],
+            'expiration_date' => $request->transaction['boleto_expiration_date']
+        ];
+        $status = $request->transaction['status'];
+        $amount = $request->transaction['amount'];
+        $customer = $request->transaction['customer'];
+        $billing = $request->transaction['billing'];
+        $shipping = $request->transaction['shipping'];
+        
+        // $order = Api::client()->orders()->getList(['order_id' => $request->order['id']])[0];
+        // $items = $order['items'];
+
+        return [
+            'status' => $status ?? 'undefined',
+            'amount' => $amount,
+            'items' => $items ?? [],
             'boleto' => $boleto,
             'payment_method' => $payment_method,
             'customer' => $customer,
