@@ -124,7 +124,7 @@ class Postback {
         return [
             'status' => $status ?? 'undefined',
             'amount' => $amount,
-            'items' => $items ?? [['title' => 'Produto', 'quantity' => 1, 'unit_price' => 0]],
+            'items' => $items ?? [['id' => 64, 'title' => 'Produto', 'quantity' => 1, 'unit_price' => 0]],
             'boleto' => $boleto,
             'payment_method' => $payment_method,
             'customer' => $customer,

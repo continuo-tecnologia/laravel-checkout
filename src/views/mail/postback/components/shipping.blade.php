@@ -1,4 +1,4 @@
-@if(!empty($data['shipping']))
+@isset($data['shipping'])
 
 <br><hr><br>
 <h1>{{$slot}}</h1>
@@ -16,4 +16,4 @@
     <b>{{$delivery_days}} dia(s) úteis</b>
 </p>
 
-@endif
+@endisset

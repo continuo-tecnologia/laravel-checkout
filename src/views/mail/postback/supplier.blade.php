@@ -1,7 +1,9 @@
+<?php
+$product = App\Models\Marketplace\Product::find($data['items'][0]['id']);
+$supplier = $product->supplier;
+?>
 @component('mail::message')
-
-# Olá {{$name}}, {{strtolower($status::as($data['status']))}}
-{!!$status::instruction($data['status'])!!}
+# Olá {{$supplier->nome_empresa}}, {{strtolower($status::as($data['status']))}}
 
 <br>
 
@@ -10,7 +12,7 @@
 <br>
 
 @component('checkout::mail.postback.components.shipping')
-Seu produto será entregue por {{$data['shipping']['name']}} em
+Seu(s) produto(s) será entregue por {{$data['shipping']['name']}} em
 @endcomponent
 
 <br><hr><br>
