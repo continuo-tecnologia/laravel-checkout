@@ -32,7 +32,7 @@ class Supplier extends Mailable {
         setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
         date_default_timezone_set('America/Sao_Paulo');
         
-        return $this->subject("Venda realizada: " . $this->data['items'][0]['title'])
+        return $this->subject("Venda realizada!"); //: " . $this->data['items'][0]['title']
         ->from(Supplier::FROM, 'REFRESHER Marketplace')
         ->markdown('checkout::mail.postback.supplier');
     }
