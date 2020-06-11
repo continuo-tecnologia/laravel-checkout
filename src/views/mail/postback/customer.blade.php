@@ -1,11 +1,15 @@
 @component('mail::message')
 
-# Olá {{$name}}, {{strtolower($status::as($data->current_status))}}
-{!!$status::instruction($data->current_status)!!}
+# Olá {{$name}}, {{strtolower($status::as($data['status']))}}
+{!!$status::instruction($data['status'])!!}
 
 <br>
 
 @include('checkout::mail.postback.components.boleto')
+
+<br>
+
+@include('checkout::mail.postback.components.items')
 
 @component('checkout::mail.postback.components.shipping')
 Seu pedido será entregue por {{$transaction->shipping['name']}} em

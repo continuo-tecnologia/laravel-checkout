@@ -13,20 +13,21 @@ class Mailer {
     const DEVELOPMENT = ['matheus@refresher.com.br', 'marketplace@refresher.com.br'];
     const SUPPLIER = 'falkk@studiomenin.com';
 
-    public static function sendMailsToInvolved(Request $request) {
+    public static function sendMailsToInvolved($data) {
 
-        Mail::to(Mailer::DEVELOPMENT)->send(new PostbackToDevelopment($request->all()));
-        Logger::log('sent', 'Sent mail to '.Mailer::DEVELOPMENT);
+        Mail::to(Mailer::DEVELOPMENT)->send(new PostbackToCustomer($data));
+        Mail::to(Mailer::DEVELOPMENT)->send(new PostbackToSupplier($data));
+        Logger::log('sent', 'Sent mail to ' . Mailer::DEVELOPMENT);
 
-        Mail::to($request->transaction['customer']['email'])->send(new PostbackToCustomer($request->all()));
-        Logger::log('sent', 'Sent mail to '.$request->transaction['customer']['email']);
+        Mail::to($data['customer']['email'])->send(new PostbackToCustomer($data));
+        Logger::log('sent', 'Sent mail to ' . $data['customer']['email']);
 
-        if(in_array($request->current_status, [
+        if(in_array($data['status'], [
             'authorized', 'paid'
         ])){
             
-            Mail::to(Mailer::SUPPLIER)->send(new PostbackToSupplier($request->all()));
-            Logger::log('sent', 'Sent mail to '.Mailer::SUPPLIER);
+            Mail::to(Mailer::SUPPLIER)->send(new PostbackToSupplier($data));
+            Logger::log('sent', 'Sent mail to ' . Mailer::SUPPLIER);
         }
     }
 }

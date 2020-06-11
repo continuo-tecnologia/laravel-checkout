@@ -15,29 +15,23 @@ class Customer extends Mailable {
     const FROM = 'contato@refreshertrends.com.br';
     public $data;
     public $status = Status::class;
-    public $transaction;
     public $name;
     public $delivery_days;
 
     public function __construct($data) {
         
-        $name = $data['transaction']['customer']['name'];
-        
-        $this->data = (object) $data;
-        $this->transaction = (object) $data['transaction'];
-        
-        $this->name = explode(' ', $name)[0];
+        $this->data = $data;
+        $this->name = explode(' ', $data['customer']['name'])[0];
 
-        $now = new DateTime();
         $delivery_date = new DateTime($this->transaction->shipping['delivery_date']);
-        $this->delivery_days = $now->diff($delivery_date)->d;
+        $this->delivery_days = (new DateTime())->diff($delivery_date)->d;
     }
 
     public function build() {
 
         setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
         date_default_timezone_set('America/Sao_Paulo');
-        return $this->subject(Status::subject($this->data->current_status))
+        return $this->subject(Status::subject($this->data['status']))
         ->from(Customer::FROM, 'REFRESHER Marketplace')
         ->markdown('checkout::mail.postback.customer');
     }

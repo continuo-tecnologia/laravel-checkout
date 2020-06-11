@@ -1,14 +1,14 @@
-@if(!empty($transaction->shipping))
+@if(!empty($data['shipping']))
 
 <br><hr><br>
 <h1>{{$slot}}</h1>
 @component('mail::panel')
-<p style="text-align: center">{{$transaction->shipping['address']['street']}},
-{{$transaction->shipping['address']['street_number']}} - 
-{{$transaction->shipping['address']['neighborhood']}}<br>
-{{$transaction->shipping['address']['city']}} -
-{{$transaction->shipping['address']['state']}}<br>
-<i><small>({{$transaction->shipping['address']['zipcode']}})</small></i><br></p>
+<p style="text-align: center">{{$data['shipping']['address']['street']}},
+{{$data['shipping']['address']['street_number']}} - 
+{{$data['shipping']['address']['neighborhood']}}<br>
+{{$data['shipping']['address']['city']}} -
+{{$data['shipping']['address']['state']}}<br>
+<i><small>({{$data['shipping']['address']['zipcode']}})</small></i><br></p>
 @endcomponent
 
 <p style="text-align: center">
