@@ -12,7 +12,7 @@
 @include('checkout::mail.postback.components.items')
 
 @component('checkout::mail.postback.components.shipping')
-Seu pedido será entregue por {{$transaction->shipping['name']}} em
+Seu pedido será entregue por {{$data['shipping']['name']}} em
 @endcomponent
 
 <br><hr><br>

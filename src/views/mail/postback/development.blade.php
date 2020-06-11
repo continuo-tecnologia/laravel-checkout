@@ -9,22 +9,22 @@
 
 @component('mail::panel')
 <small><i>Linha digitável</i></small><br>
-{{$transaction->boleto_barcode}}
+{{$data['boleto']['barcode']}}
 @endcomponent
 
-@component('mail::button', ['url' => $transaction->boleto_url])
+@component('mail::button', ['url' => $data['boleto']['url']])
 Boleto completo
 @endcomponent
 
 <p style="text-align: center">
     Vencimento: 
-    <b>{{strftime('%d de %B (%A)', strtotime($transaction->boleto_expiration_date))}}</b>
+    <b>{{strftime('%d de %B (%A)', strtotime($data['boleto']['expiration_date']))}}</b>
 </p>
 
 @endif
 
 @component('checkout::mail.postback.components.shipping')
-Seu pedido será entregue por {{$transaction->shipping['name']}} em
+Seu pedido será entregue por {{$data['shipping']['name']}} em
 @endcomponent
 
 <br><hr><br>
