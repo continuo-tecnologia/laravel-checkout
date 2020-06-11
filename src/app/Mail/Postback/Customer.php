@@ -23,7 +23,7 @@ class Customer extends Mailable {
         $this->data = $data;
         $this->name = explode(' ', $data['customer']['name'])[0];
 
-        $delivery_date = new DateTime($this->transaction->shipping['delivery_date']);
+        $delivery_date = new DateTime($this->data['shipping']['delivery_date']);
         $this->delivery_days = (new DateTime())->diff($delivery_date)->d;
     }
 
