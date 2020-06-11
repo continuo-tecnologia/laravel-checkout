@@ -45,7 +45,7 @@ class PaymentLink {
     public function _create() {
 
         return Api::client()->paymentLinks()->create([
-            'name' => $this->name,
+            // 'name' => $this->name,
             'amount' => intval($this->checkout->amount * 100),
             'items' => $this->checkout->items,
             'payment_config' => $this->_formatPaymentConfig(),
