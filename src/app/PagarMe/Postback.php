@@ -2,6 +2,7 @@
 
 namespace MatheusFS\LaravelCheckout\PagarMe;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use MatheusFS\LaravelCheckout\Facades\Logger;
 use MatheusFS\LaravelCheckout\Facades\Mailer;
@@ -117,14 +118,14 @@ class Postback {
         $customer = $request->transaction['customer'];
         $billing = $request->transaction['billing'];
         $shipping = $request->transaction['shipping'];
-        
-        // $order = Api::client()->postabacks()->getList(['model' => 'orders', 'model_id' => $request->transaction['order_id']])[0];
-        // $items = $order['items'];
+
+        $order = Api::order($request->transaction['order_id']);
+        $items = $order->items;
 
         return [
             'status' => $status ?? 'undefined',
             'amount' => $amount,
-            'items' => $items ?? [['id' => 64, 'title' => 'Produto', 'quantity' => 1, 'unit_price' => 0]],
+            'items' => $items,
             'boleto' => $boleto,
             'payment_method' => $payment_method,
             'customer' => $customer,
