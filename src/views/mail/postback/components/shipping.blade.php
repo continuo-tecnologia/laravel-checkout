@@ -13,7 +13,7 @@
 
 <p style="text-align: center">
     Data estimada (após confirmação do pagamento): 
-    <b>{{$delivery_days}} dia(s) úteis</b>
+    <b>{{$delivery_days ?? 14}} dia(s) úteis</b>
 </p>
 
 @endisset

@@ -8,17 +8,15 @@
 @include('checkout::mail.postback.components.boleto')
 
 <br>
-
+## Itens comprados
 @include('checkout::mail.postback.components.items')
 
+## Informações de entrega
 @component('checkout::mail.postback.components.shipping')
 Seu pedido será entregue por {{$data['shipping']['name']}} em
 @endcomponent
 
 <br><hr><br>
-<p>Continuamos à sua disposição por aqui, caso necessite.
-<br><br>
-Cordialmente,<br>
-Equipe de Atendimento<br>
-{{ strtoupper(config('app.name')) }} Marketplace</p>
+@include('checkout::mail.postback.components.signature')
+
 @endcomponent

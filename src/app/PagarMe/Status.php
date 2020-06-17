@@ -83,7 +83,7 @@ class Status {
         ],
     ];
 
-    public static function as ($current_status) {return Status::getPropertyFrom('as', $current_status);}
+    public static function as($current_status) {return Status::getPropertyFrom('as', $current_status);}
     public static function subject($current_status) {return Status::getPropertyFrom('subject', $current_status);}
     public static function description($current_status) {return Status::getPropertyFrom('description', $current_status);}
     public static function instruction($current_status) {return Status::getPropertyFrom('instruction', $current_status);}
