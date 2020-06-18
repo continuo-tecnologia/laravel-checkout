@@ -1,30 +1,19 @@
-<?php
-$product = App\Models\Marketplace\Product::find($data['items'][0]['id']);
-$supplier = $product->supplier;
-?>
 @component('mail::message')
-<img src="{{$supplier->image_logo}}" alt="{{$supplier->nome_empresa}}" width="200" height="200">
+
+<img src="{{$supplier->imagem_logo}}" alt="{{$supplier->nome_empresa}}" width="80">
+<b style="font-size: 50px">+</b>
+<img src="{{asset('/images/loja/logo1.png')}}" width="80">
+<br>
 # Parabéns! Você acabou de vender no REFERSHER Marketplace!
 <br>
-
 ## Itens vendidos
 @include('checkout::mail.postback.components.items')
 <br>
-
 ## Informações do comprador
-**Nome:** {{$data['customer']['name']}}
-**E-mail:** {{$data['customer']['email']}}
-**Documento ({{$data['customer']['documents'][0]['type']}}):** {{$data['customer']['documents'][0]['number']}}
-**Telefone:** {{$data['customer']['phone_numbers'][0]}}
+@include('checkout::mail.postback.components.customer')
 <br>
-
-## Informações de entrega
-@component('checkout::mail.postback.components.shipping')
-Seu(s) produto(s) será entregue por {{$data['shipping']['name']}} em
-@endcomponent
-
+@include('checkout::mail.postback.components.shipping')
 <br><hr><br>
-
 @include('checkout::mail.postback.components.signature')
 
 @endcomponent

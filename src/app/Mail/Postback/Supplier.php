@@ -2,6 +2,7 @@
 
 namespace MatheusFS\LaravelCheckout\Mail\Postback;
 
+use App\Models\Marketplace\Product;
 use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -17,6 +18,7 @@ class Supplier extends Mailable {
     public $status = Status::class;
     public $name;
     public $delivery_days;
+    public $supplier;
 
     public function __construct($data) {
 
@@ -25,6 +27,8 @@ class Supplier extends Mailable {
 
         $delivery_date = new DateTime($data['shipping']['delivery_date']);
         $this->delivery_days = (new DateTime())->diff($delivery_date)->d;
+
+        $this->supplier = Product::find($data['items'][0]['id'])->supplier;
     }
 
     public function build() {
