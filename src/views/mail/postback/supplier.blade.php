@@ -6,7 +6,7 @@
     <img src="{{asset('/images/loja/logo1.png')}}" width="90">
 </div>
 <br>
-# Parabéns! Você acabou de vender no REFERSHER Marketplace!
+# Parabéns! Você acabou de vender no REFRESHER Marketplace!
 <br><hr><br>
 
 # Itens vendidos
@@ -17,7 +17,7 @@
 @include('checkout::mail.postback.components.customer')
 <br><hr><br>
 
-# Seu pedido será entregue por {{$data['shipping']['name']}} em
+# O pedido será entregue por {{$data['shipping']['name']}} em
 @include('checkout::mail.postback.components.shipping')
 <br><hr><br>
 
