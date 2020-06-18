@@ -1,7 +1,5 @@
-**Nome:** {{$data['customer']['name']}}
-
-**E-mail:** {{$data['customer']['email']}}
-
-**Documento ({{$data['customer']['documents'][0]['type']}}):** {{$data['customer']['documents'][0]['number']}}
-
-**Telefone:** {{$data['customer']['phone_numbers'][0]}}
+<b>Nome:</b> {{$data['customer']['name']}}<br>
+<b>E-mail:</b> {{$data['customer']['email']}}<br>
+<b>Documento ({{$data['customer']['documents'][0]['type']}}):</b> 
+    {{$data['customer']['documents'][0]['number']}}<br>
+<b>Telefone:</b> {{$data['customer']['phone_numbers'][0]}}

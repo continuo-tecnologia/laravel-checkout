@@ -5,12 +5,12 @@
 <br>
 @include('checkout::mail.postback.components.boleto')
 <br>
-## Itens comprados
+# Itens comprados
 @include('checkout::mail.postback.components.items')
 <br>
 @include('checkout::mail.postback.components.shipping')
 <br>
-## Suas informações
+# Suas informações
 @include('checkout::mail.postback.components.customer')
 <br><hr><br>
 @include('checkout::mail.postback.components.signature')
