@@ -1,8 +1,5 @@
 @isset($data['shipping'])
 
-## Informações de entrega
-<br><hr><br>
-<h1>Seu pedido será entregue por {{$data['shipping']['name']}} em</h1>
 @component('mail::panel')
 <p style="text-align: center">{{$data['shipping']['address']['street']}},
 {{$data['shipping']['address']['street_number']}} - 
