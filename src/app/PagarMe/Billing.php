@@ -2,16 +2,18 @@
 
 namespace MatheusFS\LaravelCheckout\PagarMe;
 
+use MatheusFS\LaravelCheckout\Traits\Requestable;
+
 class Billing {
+
+    use Requestable;
     
-    protected $address;
-    protected $name;
+    public $address;
+    public $name;
 
     public function __construct(Address $address, string $name = 'Cobrança'){
 
         $this->name = $name;
-        $this->address = $address->toArray();
+        $this->address = $address;
     }
-
-    public function toArray(){return get_object_vars($this);}
 }

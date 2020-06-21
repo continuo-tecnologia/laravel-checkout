@@ -71,13 +71,13 @@ class Checkout {
     public function setCustomer(PagarMe\Customer $customer, bool $save = true) {
 
         $customer->save();
-        $this->customer = $customer->toArray();
+        $this->customer = $customer;
     }
 
-    public function setBilling(PagarMe\Billing $billing) {$this->billing = $billing->toArray();}
+    public function setBilling(PagarMe\Billing $billing) {$this->billing = $billing;}
     public function setShipping(PagarMe\Shipping $shipping) {
 
-        $this->shipping = $shipping->toArray();
+        $this->shipping = $shipping->payload();
         $this->amount += $shipping->fee / 100;
     }
 

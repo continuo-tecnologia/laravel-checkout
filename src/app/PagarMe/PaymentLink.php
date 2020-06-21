@@ -33,7 +33,7 @@ class PaymentLink {
         $this->max_orders = $config['max_orders'];
         $this->expires_in = $config['expires_in'];
         $this->review_informations = $config['review_informations'];
-        $this->name = "pl_" . $checkout->customer['email'] . "_" . intval(microtime(true) * 1000);
+        $this->name = "pl_" . $checkout->customer->email . "_" . intval(microtime(true) * 1000);
     }
 
     public function redirect() {

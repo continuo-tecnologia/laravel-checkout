@@ -12,7 +12,7 @@ class Api {
 
     public static function client(bool $sandbox = false): Client {
 
-        return new Client($sandbox ? Api::SANDBOX_KEY : Api::KEY);
+        return new Client(env('APP_ENV') == 'production' ? Api::KEY : Api::SANDBOX_KEY);
     }
 
     public static function order($id){

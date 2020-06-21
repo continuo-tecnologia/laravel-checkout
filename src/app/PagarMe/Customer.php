@@ -2,15 +2,19 @@
 
 namespace MatheusFS\LaravelCheckout\PagarMe;
 
+use MatheusFS\LaravelCheckout\Traits\Requestable;
+
 class Customer {
 
-    protected $external_id;
-    protected $name;
-    protected $type = 'individual';
-    protected $country = 'br';
-    protected $documents;
-    protected $phone_numbers;
-    protected $email;
+    use Requestable;
+
+    public $external_id;
+    public $name;
+    public $type = 'individual';
+    public $country = 'br';
+    public $documents;
+    public $phone_numbers;
+    public $email;
 
     public function __construct(string $name, string $cpf, string $phone, string $email){
 
@@ -59,11 +63,9 @@ class Customer {
     public function save(){
 
         return !$this->contains('external_id', $this->external_id)
-        ? Api::client()->customers()->create($this->toArray())
+        ? Api::client()->customers()->create($this->payload())
         : 'Customer with external_id already exists!';
     }
-
-    public function toArray(){return get_object_vars($this);}
 
     public function collect(){return collect(Api::client()->customers()->getList());}
     public function where($key, $value){return $this->collect()->where($key, $value);}
