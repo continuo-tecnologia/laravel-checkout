@@ -6,7 +6,7 @@ use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use MatheusFS\LaravelCheckout\PagarMe\Status;
+use MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Status;
 
 class Customer extends Mailable {
 

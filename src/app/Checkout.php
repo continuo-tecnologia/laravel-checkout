@@ -14,6 +14,12 @@
 
 namespace MatheusFS\LaravelCheckout;
 
+use MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Api;
+use MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Billing;
+use MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Customer;
+use MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\PaymentLink;
+use MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Shipping;
+
 class Checkout {
 
     protected $client;
@@ -29,24 +35,15 @@ class Checkout {
      * Initiate facade
      *
      * @param bool $sandbox Checkout in sandbox mode?
-     * @param PagarMe\Customer $customer Customer object
-     * @param PagarMe\Billing $billing Billing object
-     * @param PagarMe\Shipping $shipping Shipping object
-     * @return Checkout
      */
-    public function __construct(
-        bool $sandbox = false,
-        ?PagarMe\Customer $customer = null,
-        ?PagarMe\Billing $billing = null,
-        ?PagarMe\Shipping $shipping = null
-    ) {
+    public function __construct($sandbox = false) {
 
-        $this->client = PagarMe\Api::client($sandbox);
+        $this->client = Api::client($sandbox);
     }
 
     public function redirectToPaymentLink() {
 
-        $payment_link = new PagarMe\PaymentLink($this, [
+        $payment_link = new PaymentLink($this, [
             'max_orders' => 1,
             'expires_in' => 60,
             'review_informations' => false,
@@ -55,10 +52,19 @@ class Checkout {
         return $payment_link->redirect();
     }
 
-    public function addItem(string $id, string $title, float $unit_price, int $quantity = 1, bool $tangible = true): void {
+    /**
+     * Add item to checkout
+     * 
+     * @param string $id
+     * @param string $title
+     * @param float $unit_price
+     * @param integer $quantity
+     * @param boolean $tangible
+     */
+    public function addItem($id, $title, $unit_price, $quantity = 1, $tangible = true) {
 
         array_push($this->items, [
-            'id' => $id,
+            'id' => "$id",
             'title' => $title,
             'unit_price' => $unit_price * 100,
             'quantity' => $quantity,
@@ -68,14 +74,31 @@ class Checkout {
         $this->amount += $unit_price;
     }
 
-    public function setCustomer(PagarMe\Customer $customer, bool $save = true) {
+    /**
+     * Set customer for checkout
+     * 
+     * @param \MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Customer $customer
+     * @param boolean $save Save in Pagar.me
+     */
+    public function setCustomer($customer, $save = true) {
 
         $customer->save();
         $this->customer = $customer;
     }
 
-    public function setBilling(PagarMe\Billing $billing) {$this->billing = $billing;}
-    public function setShipping(PagarMe\Shipping $shipping) {
+    /**
+     * Set billing for checkout
+     * 
+     * @param \MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Billing $billing
+     */
+    public function setBilling($billing) {$this->billing = $billing;}
+    
+        /**
+         * Set shipping for checkout
+         * 
+         * @param \MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Shipping $shipping
+         */
+    public function setShipping($shipping) {
 
         $this->shipping = $shipping->payload();
         $this->amount += $shipping->fee / 100;

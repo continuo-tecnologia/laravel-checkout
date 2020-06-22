@@ -1,7 +1,8 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\PagarMe;
+namespace MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe;
 
+use MatheusFS\LaravelCheckout\Entities\Person;
 use MatheusFS\LaravelCheckout\Traits\Requestable;
 
 class Customer {
@@ -16,12 +17,12 @@ class Customer {
     public $phone_numbers;
     public $email;
 
-    public function __construct(string $name, string $cpf, string $phone, string $email){
+    public function __construct(Person $person){
 
-        $this->setName($name);
-        $this->setDocument('cpf', $cpf);
-        $this->setPhone('55', $phone);
-        $this->setEmail($email);
+        $this->setName("$person->firstname $person->lastname");
+        $this->setDocument('cpf', $person->document);
+        $this->setPhone('55', $person->phone);
+        $this->setEmail($person->email);
         $this->setExternalId();
     }
 
@@ -36,14 +37,13 @@ class Customer {
         return $this->documents = [
             [
                 'type' => $type,
-                'number' => $number
+                'number' => "$number"
             ]
         ];
     }
 
     public function setPhone($country_code, $number){
         
-        $number = preg_replace('/\D/', '', $number);
         return $this->phone_numbers = [ "+$country_code$number" ];
     }
 

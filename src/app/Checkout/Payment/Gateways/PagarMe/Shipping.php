@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\PagarMe;
+namespace MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe;
 
 use DateTime;
 use MatheusFS\LaravelCheckout\Traits\Requestable;

@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\PagarMe;
+namespace MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe;
 
 use GuzzleHttp\Client as GuzzleHttpClient;
 use PagarMe\Client;

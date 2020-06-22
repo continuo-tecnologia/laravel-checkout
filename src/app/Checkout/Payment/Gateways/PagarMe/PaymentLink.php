@@ -1,8 +1,9 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\PagarMe;
+namespace MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe;
 
 use MatheusFS\LaravelCheckout\Checkout;
+use MatheusFS\LaravelCheckout\Exceptions\FormExeption;
 
 class PaymentLink {
 
@@ -44,17 +45,24 @@ class PaymentLink {
 
     public function _create() {
 
-        return Api::client()->paymentLinks()->create([
-            // 'name' => $this->name,
-            'amount' => intval($this->checkout->amount * 100),
-            'items' => $this->checkout->items,
-            'payment_config' => $this->_formatPaymentConfig(),
-            'max_orders' => 1,
-            'expires_in' => 60,
-            'customer_config' => $this->_formatCustomerConfig(),
-            'postback_config' => $this->_formatPostbackConfig(),
-            'review_informations' => false,
-        ]);
+        try {
+            
+            return Api::client()->paymentLinks()->create([
+                // 'name' => $this->name,
+                'amount' => intval($this->checkout->amount * 100),
+                'items' => $this->checkout->items,
+                'payment_config' => $this->_formatPaymentConfig(),
+                'max_orders' => 1,
+                'expires_in' => 60,
+                'customer_config' => $this->_formatCustomerConfig(),
+                'postback_config' => $this->_formatPostbackConfig(),
+                'review_informations' => false,
+            ]);
+        } catch (\PagarMe\Exceptions\PagarMeException $th) {
+
+            report($th);
+            throw new FormExeption('Ocorreu um erro ao criar o link de pagamento');
+        }
     }
 
     public function _formatPaymentConfig() {

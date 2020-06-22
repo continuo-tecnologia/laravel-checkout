@@ -41,11 +41,11 @@ class Address {
         $state = null,
         $country = null
     ) {
-        $this->zipcode = (new Zipcode($zipcode))->number;
+        $this->zipcode = new Zipcode($zipcode);
         $this->street_number = $street_number;
         $this->street_complementary = $street_complementary;
 
-        $address = Viacep::fetch($zipcode);
+        $address = Viacep::fetch($this->zipcode);
 
         $this->street_name = $street_name ?? $address['logradouro'];
         $this->neighborhood = $neighborhood ?? $address['bairro'];

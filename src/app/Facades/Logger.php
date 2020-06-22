@@ -31,6 +31,6 @@ class Logger {
 
         return !$disk->exists($file_path)
         ? $disk->put($file_path, $content)
-        : $disk->prepend($file_path, $content);
+        : $disk->append($file_path, $content);
     }
 }

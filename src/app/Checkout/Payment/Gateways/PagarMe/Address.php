@@ -1,8 +1,7 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\PagarMe;
+namespace MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe;
 
-use MatheusFS\LaravelCheckout\Address as LaravelCheckoutAddress;
 use MatheusFS\LaravelCheckout\Traits\Requestable;
 
 class Address {
@@ -19,13 +18,13 @@ class Address {
     public $country;
 
     /**
-     * New Pagar.me API Address
+     * New Pagar.me API Address adapter
      * 
      * @param \MatheusFS\LaravelCheckout\Address $address
      */
-    public function __construct(LaravelCheckoutAddress $address) {
-
-        $this->zipcode = $address->zipcode;
+    public function __construct($address) {
+        
+        $this->zipcode = "$address->zipcode";
         $this->street_number = $address->street_number;
         $this->street = $address->street_name;
         $this->complementary = $address->street_complementary;
