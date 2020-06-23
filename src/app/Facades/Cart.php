@@ -81,7 +81,7 @@ class Cart {
 
     public static function getId(){
         
-        $id = Cache::remember('cart_id', 60, function(){
+        $id = Cache::remember('cart_id', 3600, function(){
             
             $id = Auth::check() ? Auth::id() : uniqid();
             return $id;
