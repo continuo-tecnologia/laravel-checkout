@@ -4,10 +4,11 @@ namespace MatheusFS\LaravelCheckout\Contact;
 
 use MatheusFS\LaravelCheckout\Exceptions\FormExeption;
 use MatheusFS\LaravelCheckout\Traits\NumericStringable;
+use MatheusFS\LaravelCheckout\Traits\FormValidable;
 
 class Phone {
 
-    use NumericStringable;
+    use FormValidable, NumericStringable;
 
     /** 
      * @var integer 
@@ -16,15 +17,7 @@ class Phone {
 
     public function __construct(string $string) {
 
-        $number = preg_replace('/\D/', '', $string);
-        if(preg_match('/\d{10,11}/', $number)){
-            
-            $this->ddd = substr($number, 0, 2);
-            $this->number = $number;
-        }else{
-
-            throw new FormExeption('Telefone Inválido');
-        }
+        $this->validateNumeric($string, '/\d{10,11}/', 'Telefone inválido');
     }
 
     public function formated(){

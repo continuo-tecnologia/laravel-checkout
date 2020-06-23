@@ -28,8 +28,8 @@ class Person {
 
         $this->firstname = explode(' ', $name)[0];
         $this->lastname = explode(' ', $name)[1] ?? '';
-        $this->document = new CPF($document);
         $this->setEmail($email);
+        $this->document = new CPF($document);
         $this->setPhone($phone);
     }
 }

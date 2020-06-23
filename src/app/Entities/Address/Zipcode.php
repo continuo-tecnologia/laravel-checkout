@@ -4,21 +4,15 @@ namespace MatheusFS\LaravelCheckout\Address;
 
 use MatheusFS\LaravelCheckout\Exceptions\FormExeption;
 use MatheusFS\LaravelCheckout\Traits\NumericStringable;
+use MatheusFS\LaravelCheckout\Traits\FormValidable;
 
 class Zipcode {
 
-    use NumericStringable;
+    use FormValidable, NumericStringable;
 
     public function __construct(string $string) {
 
-        $number = preg_replace('/\D/', '', $string);
-        if(preg_match('/\d{8}/', $number)){
-
-            $this->number = $number;
-        }else{
-
-            throw new FormExeption('CEP Inválido');
-        }
+        $this->validateNumeric($string, '/\d{8}/', 'CEP Inválido');
     }
 
     public function formated(){

@@ -3,6 +3,7 @@
 namespace MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe;
 
 use MatheusFS\LaravelCheckout\Entities\Person;
+use MatheusFS\LaravelCheckout\Exceptions\FormExeption;
 use MatheusFS\LaravelCheckout\Traits\Requestable;
 
 class Customer {
@@ -62,9 +63,17 @@ class Customer {
 
     public function save(){
 
-        return !$this->contains('external_id', $this->external_id)
-        ? Api::client()->customers()->create($this->payload())
-        : 'Customer with external_id already exists!';
+        try{
+
+            return !$this->contains('external_id', $this->external_id)
+            ? Api::client()->customers()->create($this->payload())
+            : 'Customer with external_id already exists!';
+        }catch(\PagarMe\Exceptions\PagarMeException $th){
+
+            report($th);
+            $message = preg_filter('/^.*MESSAGE: (.*)/', '$1', $th->getMessage());
+            throw new FormExeption($message);
+        }
     }
 
     public function collect(){return collect(Api::client()->customers()->getList());}

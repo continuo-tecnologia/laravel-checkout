@@ -14,6 +14,7 @@
 
 namespace MatheusFS\LaravelCheckout;
 
+use MatheusFS\LaravelCheckout\Entities\Item;
 use MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Api;
 use MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Billing;
 use MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Customer;
@@ -55,23 +56,11 @@ class Checkout {
     /**
      * Add item to checkout
      * 
-     * @param string $id
-     * @param string $title
-     * @param float $unit_price
-     * @param integer $quantity
-     * @param boolean $tangible
+     * @param Item $item
      */
-    public function addItem($id, $title, $unit_price, $quantity = 1, $tangible = true) {
+    public function addItem(Item $item) {
 
-        array_push($this->items, [
-            'id' => "$id",
-            'title' => $title,
-            'unit_price' => $unit_price * 100,
-            'quantity' => $quantity,
-            'tangible' => $tangible,
-        ]);
-
-        $this->amount += $unit_price;
+        array_push($this->items, $item);
     }
 
     /**

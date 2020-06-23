@@ -2,23 +2,16 @@
 
 namespace MatheusFS\LaravelCheckout\Entities\Documents;
 
-use MatheusFS\LaravelCheckout\Exceptions\FormExeption;
 use MatheusFS\LaravelCheckout\Traits\NumericStringable;
+use MatheusFS\LaravelCheckout\Traits\FormValidable;
 
 class CPF {
 
-    use NumericStringable;
+    use FormValidable, NumericStringable;
 
     public function __construct(string $string) {
 
-        $number = preg_replace('/\D/', '', $string);
-        if(preg_match('/\d{11}/', $number)){
-
-            $this->number = $number;
-        }else{
-
-            throw new FormExeption('CPF Inválido');
-        }
+        $this->validateNumeric($string, '/\d{11}/');
     }
 
     public function formated(){

@@ -4,6 +4,7 @@ namespace MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe;
 
 use MatheusFS\LaravelCheckout\Checkout;
 use MatheusFS\LaravelCheckout\Exceptions\FormExeption;
+use MatheusFS\LaravelCheckout\Facades\Cart;
 
 class PaymentLink {
 
@@ -49,8 +50,8 @@ class PaymentLink {
             
             return Api::client()->paymentLinks()->create([
                 // 'name' => $this->name,
-                'amount' => intval($this->checkout->amount * 100),
-                'items' => $this->checkout->items,
+                'amount' => Cart::total() * 100,
+                'items' => $this->items(),
                 'payment_config' => $this->_formatPaymentConfig(),
                 'max_orders' => 1,
                 'expires_in' => 60,
@@ -70,15 +71,15 @@ class PaymentLink {
         return [
             'boleto' => [
                 'enabled' => $this->has_boleto,
-                'expires_in' => 20,
+                'expires_in' => 20
             ],
             'credit_card' => [
                 'enabled' => $this->has_credit_card,
                 'free_installments' => 4,
                 'interest_rate' => 25,
-                'max_installments' => $this->checkout->items[0]['max_installments'] ?? 12, # Don't support multiple items
+                'max_installments' =>  12
             ],
-            'default_payment_method' => 'boleto',
+            'default_payment_method' => 'boleto'
         ];
     }
 
@@ -87,7 +88,7 @@ class PaymentLink {
         return [
             'customer' => $this->checkout->customer,
             'billing' => $this->checkout->billing,
-            'shipping' => $this->checkout->shipping,
+            'shipping' => $this->checkout->shipping
         ];
     }
 
@@ -97,5 +98,13 @@ class PaymentLink {
             'orders' => route('checkout.pagarme.postback.orders'),
             'transactions' => route('checkout.pagarme.postback.transactions')
         ];
+    }
+
+    public function items(){
+        
+        return collect($this->checkout->items)->map(function($item){
+
+            return new Item($item);
+        });
     }
 }

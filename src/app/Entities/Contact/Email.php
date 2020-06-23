@@ -3,8 +3,11 @@
 namespace MatheusFS\LaravelCheckout\Contact;
 
 use MatheusFS\LaravelCheckout\Exceptions\FormExeption;
+use MatheusFS\LaravelCheckout\Traits\FormValidable;
 
 class Email {
+
+    use FormValidable;
 
     /** 
      * @var string
@@ -13,13 +16,8 @@ class Email {
 
     public function __construct(string $string) {
 
-        if(preg_match('/[A-z0-9]{3,}@[A-z0-9]{3,}.[A-z]{2,5}/', $string)){
-            
-            $this->email = $string;
-        }else{
-
-            throw new FormExeption('E-mail Inválido');
-        }
+        $this->validate($string, '/[A-z0-9]{3,}@[A-z0-9]{3,}.[A-z]{2,5}/');
+        $this->email = $string;
     }
 
     public function formated(){

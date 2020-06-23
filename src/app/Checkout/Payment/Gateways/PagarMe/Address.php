@@ -2,16 +2,12 @@
 
 namespace MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe;
 
-use MatheusFS\LaravelCheckout\Traits\Requestable;
-
 class Address {
-
-    use Requestable;
 
     public $zipcode;
     public $street;
     public $street_number;
-    public $complementary;
+    // public $complementary;
     public $neighborhood;
     public $city;
     public $state;
@@ -27,7 +23,7 @@ class Address {
         $this->zipcode = "$address->zipcode";
         $this->street_number = $address->street_number;
         $this->street = $address->street_name;
-        $this->complementary = $address->street_complementary;
+        if(!empty($address->street_complementary)) $this->complementary = $address->street_complementary;
         $this->neighborhood = $address->neighborhood;
         $this->state = $address->state;
         $this->city = $address->city;
