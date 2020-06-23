@@ -81,7 +81,7 @@ class Postback {
         $items = $request->order['items'];
 
         $transaction = Api::client()->transactions()->getList(['order_id' => $request->order['id']])[0];
-        $payment_method = $transaction['payment_method'];
+        $payment_method = $transaction->payment_method;
         $boleto = [
             'url' => $transaction['boleto_url'],
             'barcode' => $transaction['boleto_barcode'],

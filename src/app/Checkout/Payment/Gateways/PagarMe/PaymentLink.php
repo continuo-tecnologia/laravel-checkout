@@ -62,7 +62,7 @@ class PaymentLink {
         } catch (\PagarMe\Exceptions\PagarMeException $th) {
 
             report($th);
-            throw new FormExeption('Ocorreu um erro ao criar o link de pagamento');
+            throw new FormExeption("Ocorreu um erro ao criar o link de pagamento ({$th->getMessage()})");
         }
     }
 
