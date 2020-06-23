@@ -83,9 +83,9 @@ class Postback {
         $transaction = Api::client()->transactions()->getList(['order_id' => $request->order['id']])[0];
         $payment_method = $transaction->payment_method;
         $boleto = [
-            'url' => $transaction['boleto_url'],
-            'barcode' => $transaction['boleto_barcode'],
-            'expiration_date' => $transaction['boleto_expiration_date']
+            'url' => $transaction->boleto_url,
+            'barcode' => $transaction->boleto_barcode,
+            'expiration_date' => $transaction->boleto_expiration_date
         ];
 
         $payment_link = Api::client()->paymentLinks()->get(['id' => $request->order['payment_link_id']]);
