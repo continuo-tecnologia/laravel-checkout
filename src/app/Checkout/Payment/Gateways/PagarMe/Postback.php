@@ -89,9 +89,9 @@ class Postback {
         ];
 
         $payment_link = Api::client()->paymentLinks()->get(['id' => $request->order['payment_link_id']]);
-        $customer = $payment_link['customer_config']['customer'];
-        $billing = $payment_link['customer_config']['billing'];
-        $shipping = $payment_link['customer_config']['shipping'];
+        $customer = $payment_link->customer_config->customer;
+        $billing = $payment_link->customer_config->billing;
+        $shipping = $payment_link->customer_config->shipping;
 
         return [
             'status' => $status ?? 'undefined',
