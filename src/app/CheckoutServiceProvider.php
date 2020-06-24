@@ -13,7 +13,7 @@ class CheckoutServiceProvider extends ServiceProvider {
     
     public function boot() {
         
-        $this->loadViewsFrom(__DIR__.'/src/views', 'checkout');
-        $this->loadRoutesFrom(__DIR__.'/src/app/routes.php');
+        $this->loadViewsFrom(dirname(__DIR__).'/views', 'checkout');
+        $this->loadRoutesFrom(__DIR__.'/routes.php');
     }
 }
