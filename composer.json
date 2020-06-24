@@ -13,5 +13,8 @@
             "email": "matheusfs97@gmail.com"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {"MatheusFS\\LaravelCheckout\\": "src/"}
+    }
 }
