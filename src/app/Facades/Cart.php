@@ -2,7 +2,6 @@
 
 namespace MatheusFS\LaravelCheckout\Facades;
 
-use App\Jobs\CacheInvalidation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
@@ -36,8 +35,6 @@ class Cart {
     }
 
     public static function increment(Item $item){
-
-        CacheInvalidation::dispatch();
 
         $cart = Cart::collect();
 
