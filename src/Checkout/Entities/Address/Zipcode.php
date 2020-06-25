@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\Laravel\Checkout\Address;
+namespace MatheusFS\Laravel\Checkout\Entities\Address;
 
 use MatheusFS\Laravel\Checkout\Exceptions\FormExeption;
 use MatheusFS\Laravel\Checkout\Traits\NumericStringable;

@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\Laravel\Checkout\Contact;
+namespace MatheusFS\Laravel\Checkout\Entities\Contact;
 
 use MatheusFS\Laravel\Checkout\Exceptions\FormExeption;
 use MatheusFS\Laravel\Checkout\Traits\FormValidable;
