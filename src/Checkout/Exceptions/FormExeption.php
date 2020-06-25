@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Exceptions;
+namespace MatheusFS\Laravel\Checkout\Exceptions;
 
 use Exception;
 use Illuminate\Support\Facades\Input;

@@ -16,7 +16,7 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "MatheusFS\\LaravelCheckout\\": "src/"
+            "MatheusFS\\Laravel\\Checkout\\": "src/Checkout"
         }
     }
 }

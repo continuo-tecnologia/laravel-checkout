@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Facades;
+namespace MatheusFS\Laravel\Checkout\Facades;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -41,7 +41,7 @@ class Cart {
         Cart::hasItem($item->id)
         ? $cart->firstWhere('id', $item->id)->quantity++
         : $cart->push($item);
-
+        
         Cache::put(self::getId(), $cart);
 
         return json_encode($cart);
