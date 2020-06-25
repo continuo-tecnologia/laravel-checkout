@@ -79,7 +79,7 @@ class Cart {
 
     public static function items(){
 
-        return Cache::get('user:' . Session::getId() . ':cart') ?? [];
+        return Cache::get(self::getId()) ?? [];
     }
 
     public static function getId(){
