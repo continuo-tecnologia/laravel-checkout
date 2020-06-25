@@ -2,7 +2,6 @@
 
 namespace MatheusFS\LaravelCheckout\Facades;
 
-use App\Events\Markeplace\Cart\Updated;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
@@ -44,7 +43,6 @@ class Cart {
         : $cart->push($item);
 
         Cache::put(self::getId(), $cart);
-        broadcast(new Updated($cart));
 
         return json_encode($cart);
     }
@@ -85,14 +83,6 @@ class Cart {
 
     public static function getId(){
 
-        return 'user:'. Auth::check() ? Auth::id() : Session::getId() .':cart';
-    }
-
-    public static function subscribe(){
-        
-        return Redis::subscribe(['user:' . self::getId() . ':cart'], function($message){
-            
-            echo $message;
-        });
+        return 'user::'. Auth::check() ? Auth::id() : Session::getId() .'::cart';
     }
 }
