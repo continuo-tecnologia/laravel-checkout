@@ -1,10 +1,10 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe;
+namespace MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe;
 
-use MatheusFS\LaravelCheckout\Entities\Person;
-use MatheusFS\LaravelCheckout\Exceptions\FormExeption;
-use MatheusFS\LaravelCheckout\Traits\Requestable;
+use MatheusFS\Laravel\Checkout\Entities\Person;
+use MatheusFS\Laravel\Checkout\Exceptions\FormExeption;
+use MatheusFS\Laravel\Checkout\Traits\Requestable;
 
 class Customer {
 

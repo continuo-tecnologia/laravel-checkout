@@ -1,10 +1,10 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Entities\Documents;
+namespace MatheusFS\Laravel\Checkout\Entities\Documents;
 
-use MatheusFS\LaravelCheckout\Exceptions\FormExeption;
-use MatheusFS\LaravelCheckout\Traits\NumericStringable;
-use MatheusFS\LaravelCheckout\Traits\FormValidable;
+use MatheusFS\Laravel\Checkout\Exceptions\FormExeption;
+use MatheusFS\Laravel\Checkout\Traits\NumericStringable;
+use MatheusFS\Laravel\Checkout\Traits\FormValidable;
 
 class CNPJ {
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Contact;
+namespace MatheusFS\Laravel\Checkout\Contact;
 
-use MatheusFS\LaravelCheckout\Exceptions\FormExeption;
-use MatheusFS\LaravelCheckout\Traits\NumericStringable;
-use MatheusFS\LaravelCheckout\Traits\FormValidable;
+use MatheusFS\Laravel\Checkout\Exceptions\FormExeption;
+use MatheusFS\Laravel\Checkout\Traits\NumericStringable;
+use MatheusFS\Laravel\Checkout\Traits\FormValidable;
 
 class Phone {
 

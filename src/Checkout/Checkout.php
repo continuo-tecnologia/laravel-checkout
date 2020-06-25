@@ -12,14 +12,14 @@
  * @since Class available since Release 0.1
  */
 
-namespace MatheusFS\LaravelCheckout;
+namespace MatheusFS\Laravel\Checkout;
 
-use MatheusFS\LaravelCheckout\Entities\Item;
-use MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Api;
-use MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Billing;
-use MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Customer;
-use MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\PaymentLink;
-use MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Shipping;
+use MatheusFS\Laravel\Checkout\Entities\Item;
+use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Api;
+use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Billing;
+use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Customer;
+use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\PaymentLink;
+use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Shipping;
 
 class Checkout {
 
@@ -66,7 +66,7 @@ class Checkout {
     /**
      * Set customer for checkout
      * 
-     * @param \MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Customer $customer
+     * @param \MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Customer $customer
      * @param boolean $save Save in Pagar.me
      */
     public function setCustomer($customer, $save = true) {
@@ -78,14 +78,14 @@ class Checkout {
     /**
      * Set billing for checkout
      * 
-     * @param \MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Billing $billing
+     * @param \MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Billing $billing
      */
     public function setBilling($billing) {$this->billing = $billing;}
     
         /**
          * Set shipping for checkout
          * 
-         * @param \MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Shipping $shipping
+         * @param \MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Shipping $shipping
          */
     public function setShipping($shipping) {
 

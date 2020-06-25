@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Entities;
+namespace MatheusFS\Laravel\Checkout\Entities;
 
 class Item {
 

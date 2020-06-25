@@ -4,7 +4,7 @@ namespace MatheusFS\Laravel\Checkout\Exceptions;
 
 use Exception;
 use Illuminate\Support\Facades\Input;
-use MatheusFS\LaravelCheckout\Facades\Logger;
+use MatheusFS\Laravel\Checkout\Facades\Logger;
 
 class FormExeption extends Exception {
 

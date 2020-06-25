@@ -1,9 +1,9 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Entities;
+namespace MatheusFS\Laravel\Checkout\Entities;
 
-use MatheusFS\LaravelCheckout\Entities\Documents\CPF;
-use MatheusFS\LaravelCheckout\Traits\Contactable;
+use MatheusFS\Laravel\Checkout\Entities\Documents\CPF;
+use MatheusFS\Laravel\Checkout\Traits\Contactable;
 
 class Person {
 
@@ -20,7 +20,7 @@ class Person {
     public $lastname;
 
     /**
-     * @var \MatheusFS\LaravelCheckout\Entities\Documents\CPF
+     * @var \MatheusFS\Laravel\Checkout\Entities\Documents\CPF
      */
     public $document;
 

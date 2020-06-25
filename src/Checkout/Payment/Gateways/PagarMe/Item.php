@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe;
+namespace MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe;
 
 class Item {
 
@@ -13,7 +13,7 @@ class Item {
     /**
      * New Pagar.me API Item adapter
      * 
-     * @param \MatheusFS\LaravelCheckout\Item $item
+     * @param \MatheusFS\Laravel\Checkout\Item $item
      */
     public function __construct($item) {
         

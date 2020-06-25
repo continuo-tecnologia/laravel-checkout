@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Support;
+namespace MatheusFS\Laravel\Checkout\Support;
 
 class Currency {
 

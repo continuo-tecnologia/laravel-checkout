@@ -1,10 +1,10 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe;
+namespace MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe;
 
-use MatheusFS\LaravelCheckout\Checkout;
-use MatheusFS\LaravelCheckout\Exceptions\FormExeption;
-use MatheusFS\LaravelCheckout\Facades\Cart;
+use MatheusFS\Laravel\Checkout\Checkout;
+use MatheusFS\Laravel\Checkout\Exceptions\FormExeption;
+use MatheusFS\Laravel\Checkout\Facades\Cart;
 
 class PaymentLink {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Shipping\Gateways\Jadlog;
+namespace MatheusFS\Laravel\Checkout\Shipping\Gateways\Jadlog;
 
 class Freight {
 
@@ -33,7 +33,7 @@ class Freight {
      * @param boolean $collect_amount Collect amount negociated w/ Jadlog
      * @param boolean $collect_from_destinatary Collect freight cost from destinatary
      * 
-     * @return MatheusFS\LaravelCheckout\Shipping\Gateways\Jadlog\Freight
+     * @return MatheusFS\Laravel\Checkout\Shipping\Gateways\Jadlog\Freight
      */
     public function __construct(
         $origin_zipcode, 

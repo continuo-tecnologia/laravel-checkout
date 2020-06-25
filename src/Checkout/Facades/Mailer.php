@@ -1,12 +1,12 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Facades;
+namespace MatheusFS\Laravel\Checkout\Facades;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use MatheusFS\LaravelCheckout\Mail\Postback\Customer as PostbackToCustomer;
-use MatheusFS\LaravelCheckout\Mail\Postback\Development as PostbackToDevelopment;
-use MatheusFS\LaravelCheckout\Mail\Postback\Supplier as PostbackToSupplier;
+use MatheusFS\Laravel\Checkout\Mail\Postback\Customer as PostbackToCustomer;
+use MatheusFS\Laravel\Checkout\Mail\Postback\Development as PostbackToDevelopment;
+use MatheusFS\Laravel\Checkout\Mail\Postback\Supplier as PostbackToSupplier;
 
 class Mailer {
 

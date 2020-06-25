@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Shipping\Gateways\Jadlog;
+namespace MatheusFS\Laravel\Checkout\Shipping\Gateways\Jadlog;
 
 use GuzzleHttp\Client;
 

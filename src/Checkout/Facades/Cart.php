@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
-use MatheusFS\LaravelCheckout\Entities\Item;
+use MatheusFS\Laravel\Checkout\Entities\Item;
 
 class Cart {
     

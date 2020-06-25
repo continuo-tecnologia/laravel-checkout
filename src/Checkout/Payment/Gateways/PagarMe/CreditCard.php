@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe;
+namespace MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe;
 
 class CreditCard {
 

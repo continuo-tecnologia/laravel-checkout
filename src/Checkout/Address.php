@@ -1,10 +1,10 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout;
+namespace MatheusFS\Laravel\Checkout;
 
-use MatheusFS\LaravelCheckout\Address\Zipcode;
-use MatheusFS\LaravelCheckout\Facades\Viacep;
-use MatheusFS\LaravelCheckout\Traits\Requestable;
+use MatheusFS\Laravel\Checkout\Address\Zipcode;
+use MatheusFS\Laravel\Checkout\Facades\Viacep;
+use MatheusFS\Laravel\Checkout\Traits\Requestable;
 
 class Address {
 

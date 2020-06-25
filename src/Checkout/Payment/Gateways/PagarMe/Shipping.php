@@ -1,9 +1,9 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe;
+namespace MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe;
 
 use DateTime;
-use MatheusFS\LaravelCheckout\Traits\Requestable;
+use MatheusFS\Laravel\Checkout\Traits\Requestable;
 
 class Shipping {
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Mail\Postback;
+namespace MatheusFS\Laravel\Checkout\Mail\Postback;
 
 use App\Models\Marketplace\Product;
 use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe\Status;
+use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Status;
 
 class Supplier extends Mailable {
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Shipping\Gateways\Jadlog;
+namespace MatheusFS\Laravel\Checkout\Shipping\Gateways\Jadlog;
 
-use MatheusFS\LaravelCheckout\Traits\Requestable;
+use MatheusFS\Laravel\Checkout\Traits\Requestable;
 
 class Order {
 
@@ -50,8 +50,8 @@ class Order {
      * @param string $servico .
      * @param string $shipmentId .
      * @param string $vlColeta .
-     * @param \MatheusFS\LaravelCheckout\Shipping\Gateways\Jadlog\Entity $rem .
-     * @param \MatheusFS\LaravelCheckout\Shipping\Gateways\Jadlog\Entity $des .
+     * @param \MatheusFS\Laravel\Checkout\Shipping\Gateways\Jadlog\Entity $rem .
+     * @param \MatheusFS\Laravel\Checkout\Shipping\Gateways\Jadlog\Entity $des .
      * @param string $dfe .
      * @param array $volume . 
      */

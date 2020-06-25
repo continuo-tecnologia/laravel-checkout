@@ -1,9 +1,9 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Shipping\Gateways\Jadlog;
+namespace MatheusFS\Laravel\Checkout\Shipping\Gateways\Jadlog;
 
-use MatheusFS\LaravelCheckout\Address;
-use MatheusFS\LaravelCheckout\Traits\Requestable;
+use MatheusFS\Laravel\Checkout\Address;
+use MatheusFS\Laravel\Checkout\Traits\Requestable;
 
 class Entity {
 

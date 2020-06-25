@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout;
+namespace MatheusFS\Laravel\Checkout;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -8,7 +8,7 @@ class CheckoutServiceProvider extends ServiceProvider {
 
     public function register() {
 
-        $this->app->make('MatheusFS\LaravelCheckout\Checkout');
+        $this->app->make('MatheusFS\Laravel\Checkout\Checkout');
     }
     
     public function boot() {

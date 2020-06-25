@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Traits;
+namespace MatheusFS\Laravel\Checkout\Traits;
 
 trait NumericStringable {
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Traits;
+namespace MatheusFS\Laravel\Checkout\Traits;
 
-use MatheusFS\LaravelCheckout\Exceptions\FormExeption;
+use MatheusFS\Laravel\Checkout\Exceptions\FormExeption;
 
 trait FormValidable {
 

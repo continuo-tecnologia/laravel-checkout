@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Facades;
+namespace MatheusFS\Laravel\Checkout\Facades;
 
 class Shipping {
 

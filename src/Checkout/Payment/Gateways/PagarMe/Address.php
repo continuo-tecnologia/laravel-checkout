@@ -1,6 +1,6 @@
 <?php
 
-namespace MatheusFS\LaravelCheckout\Payment\Gateways\PagarMe;
+namespace MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe;
 
 class Address {
 
@@ -16,7 +16,7 @@ class Address {
     /**
      * New Pagar.me API Address adapter
      * 
-     * @param \MatheusFS\LaravelCheckout\Address $address
+     * @param \MatheusFS\Laravel\Checkout\Address $address
      */
     public function __construct($address) {
         
