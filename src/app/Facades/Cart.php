@@ -55,8 +55,8 @@ class Cart {
         ? $cart = $cart->where('id', '!=', $item->id)
         : $cart->firstWhere('id', $item->id)->quantity--;
 
-        // Cache::put(Cart::getId(), $cart);
-        Redis::publish(Cart::getId(), json_encode($cart));
+        Cache::put(self::getId(), $cart);
+        // Redis::publish(Cart::getId(), json_encode($cart));
 
         return json_encode($cart);
     }
@@ -79,17 +79,12 @@ class Cart {
 
     public static function items(){
 
-        return Cache::get('user:' . self::getId() . ':cart') ?? [];
+        return Cache::get('user:' . Session::getId() . ':cart') ?? [];
     }
 
     public static function getId(){
 
-        if(!Session::exists('user:id')){
-
-            Session::put('user:id', Auth::check() ? Auth::id() : uniqid());
-        }
-
-        return Session::get('user:id');
+        return 'user:'. Auth::check() ? Auth::id() : Session::getId() .':cart';
     }
 
     public static function subscribe(){
