@@ -4,6 +4,7 @@ namespace MatheusFS\LaravelCheckout\Facades;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 use MatheusFS\LaravelCheckout\Entities\Item;
 
 class Cart {
@@ -23,7 +24,7 @@ class Cart {
         return Cart::collect()->reduce(function($total, $item){return $total += $item->unit_price * $item->quantity;});
     }
 
-    public static function renderModal(){
+    public static function renderMinicart(){
 
         $items = Cart::collect();
         $subtotal = Cart::subtotal();
@@ -54,6 +55,7 @@ class Cart {
         : $cart->firstWhere('id', $item->id)->quantity--;
 
         Cache::put(Cart::getId(), $cart);
+        Redis::publish(Cart::getId(), json_encode($cart));
 
         return json_encode($cart);
     }
@@ -81,11 +83,14 @@ class Cart {
 
     public static function getId(){
         
-        $id = Auth::check() ? Auth::id() : uniqid();
+        return Auth::check() ? Auth::id() : uniqid();
+    }
 
-        return Cache::remember("user:$id:cart", 3600, function(){
+    public static function subscribe(){
+        
+        return Redis::subscribe(['user:' . self::getId() . ':cart'], function($message){
             
-            return [];
+            echo $message;
         });
     }
 }
