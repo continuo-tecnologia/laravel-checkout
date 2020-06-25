@@ -2,6 +2,7 @@
 
 namespace MatheusFS\LaravelCheckout\Facades;
 
+use App\Jobs\CacheInvalidation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
@@ -36,13 +37,15 @@ class Cart {
 
     public static function increment(Item $item){
 
+        CacheInvalidation::dispatch();
+
         $cart = Cart::collect();
 
         Cart::hasItem($item->id)
         ? $cart->firstWhere('id', $item->id)->quantity++
         : $cart->push($item);
 
-        Cache::put(Cart::getId(), $cart);
+        Cache::put(self::getId(), $cart);
 
         return json_encode($cart);
     }
@@ -56,7 +59,6 @@ class Cart {
         : $cart->firstWhere('id', $item->id)->quantity--;
 
         Cache::put(self::getId(), $cart);
-        // Redis::publish(Cart::getId(), json_encode($cart));
 
         return json_encode($cart);
     }
