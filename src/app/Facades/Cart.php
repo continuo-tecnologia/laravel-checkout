@@ -81,12 +81,11 @@ class Cart {
 
     public static function getId(){
         
-        $id = Cache::remember('cart_id', 3600, function(){
-            
-            $id = Auth::check() ? Auth::id() : uniqid();
-            return $id;
-        });
+        $id = Auth::check() ? Auth::id() : uniqid();
 
-        return "cart$id";
+        return Cache::remember("user:$id:cart", 3600, function(){
+            
+            return [];
+        });
     }
 }
