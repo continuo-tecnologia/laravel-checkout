@@ -44,7 +44,7 @@ class Cart {
         
         Cache::put(self::getId(), $cart);
 
-        return json_encode($cart);
+        return $cart;
     }
 
     public static function decrement(Item $item){
@@ -57,7 +57,7 @@ class Cart {
 
         Cache::put(self::getId(), $cart);
 
-        return json_encode($cart);
+        return $cart;
     }
 
     public static function hasItem($item_id){
