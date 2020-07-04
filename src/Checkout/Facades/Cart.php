@@ -25,11 +25,6 @@ class Cart {
         return self::collect()->reduce(function($total, $item){return $total += $item->unit_price * $item->quantity;});
     }
 
-    public static function countItems(){
-        
-        self::collect()->count();
-    }
-
     public static function renderMinicart(){
 
         $items = self::collect();
