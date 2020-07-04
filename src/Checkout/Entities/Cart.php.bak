@@ -1,14 +1,10 @@
 <?php
 
-namespace MatheusFS\Laravel\Checkout\Facades;
-
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Session;
-use MatheusFS\Laravel\Checkout\Entities\Item;
+namespace MatheusFS\Laravel\Checkout\Entities;
 
 class Cart {
-    
+
+        
     public static function total(){
         
         return self::subtotal() + self::freight();
