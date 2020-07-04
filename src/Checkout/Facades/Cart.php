@@ -12,7 +12,7 @@ class Cart {
     
     public static function total(){
         
-        return Cart::subtotal() + Cart::freight();
+        return self::subtotal() + self::freight();
     }
 
     public static function freight(){
@@ -22,23 +22,28 @@ class Cart {
 
     public static function subtotal(){
         
-        return Cart::collect()->reduce(function($total, $item){return $total += $item->unit_price * $item->quantity;});
+        return self::collect()->reduce(function($total, $item){return $total += $item->unit_price * $item->quantity;});
+    }
+
+    public static function countItems(){
+        
+        self::collect()->count();
     }
 
     public static function renderMinicart(){
 
-        $items = Cart::collect();
-        $subtotal = Cart::subtotal();
-        $freight = Cart::freight();
-        $total = Cart::total();
-        return view('marketplace.cart', compact('items', 'subtotal', 'freight', 'total'));
+        $items = self::collect();
+        $subtotal = self::subtotal();
+        $freight = self::freight();
+        $total = self::total();
+        return view('marketplace.minicart', compact('items', 'subtotal', 'freight', 'total'));
     }
 
     public static function increment(Item $item){
 
-        $cart = Cart::collect();
+        $cart = self::collect();
 
-        Cart::hasItem($item->id)
+        self::hasItem($item->id)
         ? $cart->firstWhere('id', $item->id)->quantity++
         : $cart->push($item);
         
@@ -49,7 +54,7 @@ class Cart {
 
     public static function decrement(Item $item){
 
-        $cart = Cart::collect();
+        $cart = self::collect();
 
         $cart->firstWhere('id', $item->id)->quantity < 2
         ? $cart = $cart->where('id', '!=', $item->id)
@@ -62,18 +67,18 @@ class Cart {
 
     public static function hasItem($item_id){
 
-        $cart = Cart::collect();
+        $cart = self::collect();
         return $cart->contains('id', $item_id);
     }
 
     public static function forget(){
         
-        return Cache::forget(Cart::getId());
+        return Cache::forget(self::getId());
     }
 
     public static function collect(){
         
-        return collect(Cart::items());
+        return collect(self::items());
     }
 
     public static function items(){
