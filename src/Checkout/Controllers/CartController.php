@@ -51,7 +51,7 @@ class CartController extends Controller {
 
     public function count() {
 
-        return response(Cart::collect()->count());
+        return response(Cart::countItems());
     }
 
     public function broadcast($payload){
