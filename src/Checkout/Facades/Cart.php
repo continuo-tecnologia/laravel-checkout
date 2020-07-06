@@ -41,9 +41,9 @@ class Cart {
         return view('marketplace.minicart', compact('items', 'subtotal', 'freight', 'total'));
     }
 
-    public static function hasItem($item_id){
+    public static function hasItem($cart_id, $item_id){
 
-        $cart = self::collect();
+        $cart = self::collect($cart_id);
         return $cart->contains('id', $item_id);
     }
 
