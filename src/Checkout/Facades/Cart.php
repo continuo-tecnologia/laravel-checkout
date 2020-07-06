@@ -90,6 +90,7 @@ class Cart {
 
     public static function getId(){
 
-        return 'user:'. Auth::check() ? Auth::id() : Session::getId() .':cart';
+        $user_id = Auth::check() ? Auth::id() : Session::getId();
+        return "user:$user_id:cart";
     }
 }
