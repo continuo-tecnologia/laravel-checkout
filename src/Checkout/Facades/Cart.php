@@ -58,7 +58,7 @@ class Cart {
 
         $cart = self::collect();
 
-        $cart->firstWhere('id', $item->id)->quantity < 2
+        $cart->firstWhere('id', $item->id)->quantity == 1
         ? $cart = $cart->where('id', '!=', $item->id)
         : $cart->firstWhere('id', $item->id)->quantity--;
 
@@ -90,6 +90,6 @@ class Cart {
 
     public static function getId(){
 
-        return 'user::'. Auth::check() ? Auth::id() : Session::getId() .'::cart';
+        return 'user:'. Auth::check() ? Auth::id() : Session::getId() .':cart';
     }
 }

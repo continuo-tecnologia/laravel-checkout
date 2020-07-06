@@ -30,7 +30,7 @@ class CartController extends Controller {
         $cart_json = Cart::increment($item);
 
         $this->broadcast($cart_json);
-        return $cart_json;
+        return [Cart::getId() => $cart_json];
     }
 
     public function remove(Request $request) {
@@ -41,7 +41,7 @@ class CartController extends Controller {
         $cart_json = Cart::decrement($item);
         
         $this->broadcast($cart_json);
-        return $cart_json;
+        return [Cart::getId() => $cart_json];
     }
 
     public function html() {
