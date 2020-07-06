@@ -41,56 +41,19 @@ class Cart {
         return view('marketplace.minicart', compact('items', 'subtotal', 'freight', 'total'));
     }
 
-    public static function increment(Item $item){
-
-        $cart = self::collect();
-
-        self::hasItem($item->id)
-        ? $cart->firstWhere('id', $item->id)->quantity++
-        : $cart->push($item);
-        
-        Cache::put(self::getId(), $cart);
-
-        return $cart;
-    }
-
-    public static function decrement(Item $item){
-
-        $cart = self::collect();
-
-        $cart->firstWhere('id', $item->id)->quantity == 1
-        ? $cart = $cart->where('id', '!=', $item->id)
-        : $cart->firstWhere('id', $item->id)->quantity--;
-
-        Cache::put(self::getId(), $cart);
-
-        return $cart;
-    }
-
     public static function hasItem($item_id){
 
         $cart = self::collect();
         return $cart->contains('id', $item_id);
     }
 
-    public static function forget(){
+    public static function collect($cart_id){
         
-        return Cache::forget(self::getId());
+        return collect(self::items($cart_id));
     }
 
-    public static function collect(){
-        
-        return collect(self::items());
-    }
+    public static function items($cart_id){
 
-    public static function items(){
-
-        return Cache::get(self::getId()) ?? [];
-    }
-
-    public static function getId(){
-
-        $user_id = Auth::check() ? Auth::id() : Session::getId();
-        return "user:$user_id:cart";
+        return Cache::get($cart_id) ?? [];
     }
 }
