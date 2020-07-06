@@ -9,51 +9,51 @@ use MatheusFS\Laravel\Checkout\Entities\Item;
 
 class Cart {
     
-    public static function total(){
+    public static function total($cart_key){
         
-        return self::subtotal() + self::freight();
+        return self::subtotal($cart_key) + self::freight($cart_key);
     }
 
-    public static function freight(){
+    public static function freight($cart_key){
         
         return 0;
     }
 
-    public static function subtotal(){
+    public static function subtotal($cart_key){
         
-        return self::collect()->reduce(function($total, $item){return $total += $item->unit_price * $item->quantity;});
+        return self::collect($cart_key)->reduce(function($total, $item){return $total += $item->unit_price * $item->quantity;});
     }
 
-    public static function countItems(){
+    public static function countItems($cart_key){
         
-        return self::collect()->reduce(function($total, $item){
+        return self::collect($cart_key)->reduce(function($total, $item){
             
             return $total + $item->quantity;
         }, 0);
     }
 
-    public static function renderMinicart(){
+    public static function renderMinicart($cart_key){
 
-        $items = self::collect();
+        $items = self::collect($cart_key);
         $subtotal = self::subtotal();
         $freight = self::freight();
         $total = self::total();
         return view('marketplace.minicart', compact('items', 'subtotal', 'freight', 'total'));
     }
 
-    public static function hasItem($cart_id, $item_id){
+    public static function hasItem($cart_key, $item_id){
 
-        $cart = self::collect($cart_id);
+        $cart = self::collect($cart_key);
         return $cart->contains('id', $item_id);
     }
 
-    public static function collect($cart_id){
+    public static function collect($cart_key){
         
-        return collect(self::items($cart_id));
+        return collect(self::items($cart_key));
     }
 
-    public static function items($cart_id){
+    public static function items($cart_key){
 
-        return Cache::get($cart_id) ?? [];
+        return Cache::get($cart_key) ?? [];
     }
 }
