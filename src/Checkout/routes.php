@@ -4,7 +4,7 @@ Route::namespace('MatheusFS\Laravel\Checkout')->group(function(){
 
     Route::post('checkout/pagarme/postback/orders', 'Payment\Gateways\PagarMe\Postback@orders')->name('checkout.pagarme.postback.orders');
     Route::post('checkout/pagarme/postback/transactions', 'Payment\Gateways\PagarMe\Postback@transactions')->name('checkout.pagarme.postback.transactions');
-    Route::post('checkout', 'Controllers\CartController@checkout')->name('checkout');
+    Route::post('checkout/{cart_key}', 'Controllers\CartController@checkout')->name('checkout');
 
     Route::post('cart/count', 'Controllers\CartController@count')->name('cart.count');
     Route::post('cart/html', 'Controllers\CartController@html')->name('cart.html');
