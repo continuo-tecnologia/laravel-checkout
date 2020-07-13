@@ -1,8 +1,8 @@
 <?php
 
-namespace MatheusFS\Laravel\Checkout;
+namespace MatheusFS\Laravel\Checkout\Entities;
 
-use MatheusFS\Laravel\Checkout\Address\Zipcode;
+use MatheusFS\Laravel\Checkout\Entities\Address\Zipcode;
 use MatheusFS\Laravel\Checkout\Facades\Viacep;
 use MatheusFS\Laravel\Checkout\Traits\Requestable;
 
