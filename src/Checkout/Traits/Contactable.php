@@ -2,18 +2,18 @@
 
 namespace MatheusFS\Laravel\Checkout\Traits;
 
-use MatheusFS\Laravel\Checkout\Contact\Email;
-use MatheusFS\Laravel\Checkout\Contact\Phone;
+use MatheusFS\Laravel\Checkout\Entities\Contact\Email;
+use MatheusFS\Laravel\Checkout\Entities\Contact\Phone;
 
 trait Contactable {
 
     /** 
-     * @var \MatheusFS\Laravel\Checkout\Contact\Email
+     * @var \MatheusFS\Laravel\Checkout\Entities\Contact\Email
      */
     public $email;
 
     /** 
-     * @var \MatheusFS\Laravel\Checkout\Contact\Phone
+     * @var \MatheusFS\Laravel\Checkout\Entities\Contact\Phone
      */
     public $phone;
 
