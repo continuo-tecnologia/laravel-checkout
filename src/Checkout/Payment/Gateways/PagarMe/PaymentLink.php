@@ -2,6 +2,7 @@
 
 namespace MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe;
 
+use App\Facades\Cart as FacadesCart;
 use MatheusFS\Laravel\Checkout\Checkout;
 use MatheusFS\Laravel\Checkout\Exceptions\FormExeption;
 use MatheusFS\Laravel\Checkout\Facades\Cart;
@@ -50,7 +51,7 @@ class PaymentLink {
             
             return Api::client()->paymentLinks()->create([
                 // 'name' => $this->name,
-                'amount' => Cart::total() * 100,
+                'amount' => FacadesCart::total() * 100,
                 'items' => $this->items(),
                 'payment_config' => $this->_formatPaymentConfig(),
                 'max_orders' => 1,
