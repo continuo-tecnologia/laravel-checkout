@@ -3,7 +3,7 @@
     "description": "Laravel checkout facade. Supports: Pagar.me v4",
     "type": "library",
     "require": {
-        "phpunit/phpunit": "^7.5",
+        "phpunit/phpunit": "^8.0",
         "pagarme/pagarme-php": "^4.0.4"
     },
     "license": "MIT",
