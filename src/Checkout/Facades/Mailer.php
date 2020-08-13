@@ -17,7 +17,7 @@ class Mailer {
 
         Mail::to(Mailer::DEVELOPMENT)->send(new PostbackToCustomer($data));
         Mail::to(Mailer::DEVELOPMENT)->send(new PostbackToSupplier($data));
-        Logger::log('sent', 'Sent mail to ' . implode(';', Mailer::DEVELOPMENT));
+        Logger::log('sent', 'Sent mail to ' . implode('; ', Mailer::DEVELOPMENT));
 
         Mail::to($data['customer']['email'])->send(new PostbackToCustomer($data));
         Logger::log('sent', 'Sent mail to ' . $data['customer']['email']);
