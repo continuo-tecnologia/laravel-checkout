@@ -6,11 +6,13 @@
         "phpunit/phpunit": "^8.0",
         "pagarme/pagarme-php": "^4.0.4"
     },
+    "homepage": "https://github.com/matheusfs/laravel-checkout",
     "license": "MIT",
     "authors": [
         {
             "name": "Matheus Ferreira",
-            "email": "matheusfs97@gmail.com"
+            "email": "matheusfs97@gmail.com",
+            "homepage": "https://github.com/MatheusFS"
         }
     ],
     "minimum-stability": "dev",
