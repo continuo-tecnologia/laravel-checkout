@@ -37,7 +37,7 @@ class Supplier extends Mailable {
         date_default_timezone_set('America/Sao_Paulo');
         
         return $this->subject("Venda realizada: " . $this->data['items'][0]['title'])
-        ->from(Supplier::FROM, 'REFRESHER Marketplace')
+        ->from(Supplier::FROM, 'REFRESHER Shop')
         ->markdown('checkout::mail.postback.supplier');
     }
 }

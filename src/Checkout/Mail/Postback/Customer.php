@@ -32,7 +32,7 @@ class Customer extends Mailable {
         setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
         date_default_timezone_set('America/Sao_Paulo');
         return $this->subject(Status::subject($this->data['status']))
-        ->from(Customer::FROM, 'REFRESHER Marketplace')
+        ->from(Customer::FROM, 'REFRESHER Shop')
         ->markdown('checkout::mail.postback.customer');
     }
 }

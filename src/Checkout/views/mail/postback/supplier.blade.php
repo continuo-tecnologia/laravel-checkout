@@ -6,7 +6,7 @@
     <img src="{{asset('/images/loja/logo1.png')}}" width="90">
 </div>
 <br>
-# Parabéns! Você acabou de vender no REFRESHER Marketplace!
+# Parabéns! Você acabou de vender no REFRESHER Shop!
 <br><hr><br>
 
 # Itens vendidos

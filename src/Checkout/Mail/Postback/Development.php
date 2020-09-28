@@ -36,7 +36,7 @@ class Development extends Mailable {
         date_default_timezone_set('America/Sao_Paulo');
 
         return $this->subject(Status::subject($this->data['status']))
-        ->from(Development::FROM, 'REFRESHER Marketplace')
+        ->from(Development::FROM, 'REFRESHER Shop')
         ->markdown('checkout::mail.postback.development');
     }
 }
