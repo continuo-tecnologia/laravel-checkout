@@ -21,7 +21,7 @@ class Customer extends Mailable {
     public function __construct($data) {
         
         $this->data = (array) $data;
-        $this->name = explode(' ', $data['customer']['name'])[0];
+        $this->name = explode(' ', $this->data['customer']['name'])[0];
 
         $delivery_date = new DateTime($this->data['shipping']['delivery_date']);
         $this->delivery_days = (new DateTime())->diff($delivery_date)->d;
