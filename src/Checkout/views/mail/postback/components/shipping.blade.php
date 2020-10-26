@@ -1,5 +1,3 @@
-@isset($data['shipping'])
-
 @component('mail::panel')
 <p style="text-align: center">{{$data['shipping']['address']['street']}},
 {{$data['shipping']['address']['street_number']}} - 
@@ -13,5 +11,3 @@
     Data estimada (após confirmação do pagamento): 
     <b>{{$delivery_days ?? 14}} dia(s) úteis</b>
 </p>
-
-@endisset
