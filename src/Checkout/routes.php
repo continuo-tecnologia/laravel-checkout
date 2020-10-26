@@ -11,7 +11,7 @@ Route::namespace('MatheusFS\Laravel\Checkout')->group(function(){
     Route::post('checkout/pagarme/capture', function(Request $request){
         
         $captured_transaction = Api::client()->transactions()->capture([
-            'id' => $request->token,
+            'id' => $request->id,
             'amount' => $request->amount
         ]);
         
