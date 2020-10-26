@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Api;
 
 Route::namespace('MatheusFS\Laravel\Checkout')->group(function(){
 
@@ -8,10 +9,13 @@ Route::namespace('MatheusFS\Laravel\Checkout')->group(function(){
     Route::post('checkout/pagarme/postback/transactions', 'Payment\Gateways\PagarMe\Postback@transactions')->name('checkout.pagarme.postback.transactions');
     
     Route::post('checkout/pagarme/capture', function(Request $request){
-        $capturedTransaction = $pagarme->transactions()->capture([
+        
+        $captured_transaction = Api::client()->transactions()->capture([
             'id' => $request->token,
             'amount' => $request->amount
         ]);
+        
+        return response()->json($captured_transaction);
     })->name('checkout.pagarme.capture');
 
     // Route::post('cart/count', 'Controllers\CartController@count')->name('cart.count');
