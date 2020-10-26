@@ -21,7 +21,8 @@ Route::namespace('MatheusFS\Laravel\Checkout')->group(function(){
     
     Route::post('checkout/mail/postback/customer/render', function(Request $request){
         
-        return (new Customer($request->data))->render();
+        $transaction = Postback::normalizeTransactionData($request);
+        return (new Customer($transaction))->render();
     })->name('checkout.mail.postback.customer.render');
     
     // Route::post('cart/count', 'Controllers\CartController@count')->name('cart.count');
