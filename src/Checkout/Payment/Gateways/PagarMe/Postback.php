@@ -154,7 +154,7 @@ class Postback {
         $shipping = $request->transaction['shipping'];
 
         $order = Api::order($request->transaction['order_id']);
-        $items = $order['items'];
+        $items = $request->transaction['items'] ?? $order['items'];
 
         return [
             'status' => $status ?? 'undefined',
