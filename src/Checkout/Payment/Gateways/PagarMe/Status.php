@@ -18,7 +18,7 @@ class Status {
             reservado para futura captura, que deve acontecer em até 5 dias para transações criadas com api_key.
             Caso não seja capturada, a autorização é cancelada automaticamente pelo banco emissor, e o status
             dela permanece como authorized.',
-            'instruction' => 'Recebemos seu pagamento e sua compra está aprovada!<br><br>.
+            'instruction' => 'Recebemos seu pagamento e sua compra está aprovada!.<br><br>
             Em breve você receberá um novo e-mail com as instruções sobre a entrega do seu produto.',
         ],
         'paid' => [
