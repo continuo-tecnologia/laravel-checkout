@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use MatheusFS\Laravel\Checkout\Mail\Postback\Customer;
 use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Api;
+use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Postback;
 
 Route::namespace('MatheusFS\Laravel\Checkout')->group(function(){
 
