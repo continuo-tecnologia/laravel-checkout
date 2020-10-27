@@ -13,10 +13,7 @@ class Postback {
     public function orders(Request $request) {
 
         $user_agent = $request->header('User-Agent');
-        Log::debug(
-            "Received order postback from agent: $user_agent",
-            __FUNCTION__
-        );
+        Log::debug("Received order postback from agent: $user_agent");
 
         Postback::validate($request);
         
@@ -24,10 +21,7 @@ class Postback {
         
         Mailer::sendMailsToInvolved($normalized);
 
-        Log::info(
-            "Succesfully processed order id: $request->id (Agent: $user_agent)", 
-            __FUNCTION__
-        );
+        Log::info("Succesfully processed order id: $request->id (Agent: $user_agent)");
         
         return response()->json([
             'error' => null,
@@ -39,20 +33,14 @@ class Postback {
     public function transactions(Request $request) {
 
         $user_agent = $request->header('User-Agent');
-        Log::debug(
-            "Received transaction postback from agent: $user_agent",
-            __FUNCTION__
-        );
+        Log::debug("Received transaction postback from agent: $user_agent");
 
         Postback::validate($request);
 
         $normalized = Postback::normalizeTransactionData($request);
         Mailer::sendMailsToInvolved($normalized);
 
-        Log::info(
-            "Succesfully processed transaction id: $request->id (Agent: $user_agent)", 
-            __FUNCTION__
-        );
+        Log::info("Succesfully processed transaction id: $request->id (Agent: $user_agent)");
 
         if(in_array($normalized['status'], ['paid', 'authorized'])){
 
@@ -103,7 +91,7 @@ class Postback {
         ? "Validated request for $caller_method id: $request->id" 
         : "Invalid request for $caller_method id: $request->id";
 
-        Log::debug("$message (Agent: $user_agent)", $caller_method);
+        Log::debug("$message (Agent: $user_agent)", [$caller_method]);
 
         return $is_valid ? true : abort(403, $message);
     }
