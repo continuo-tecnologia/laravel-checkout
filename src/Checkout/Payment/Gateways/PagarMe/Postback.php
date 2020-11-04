@@ -42,7 +42,7 @@ class Postback {
 
         Log::info("Succesfully processed transaction id: $request->id (Agent: $user_agent)", $normalized);
 
-        if(in_array($normalized['status'], ['paid', 'authorized'])){
+        if($normalized['status'] == 'paid'){
 
             foreach($normalized['items'] as $item){
 
