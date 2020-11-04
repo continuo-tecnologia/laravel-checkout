@@ -21,7 +21,7 @@ class Postback {
         
         Mailer::sendMailsToInvolved($normalized);
 
-        Log::info("Succesfully processed order id: $request->id (Agent: $user_agent)");
+        Log::info("Succesfully processed order id: $request->id (Agent: $user_agent)", $normalized);
         
         return response()->json([
             'error' => null,
@@ -40,7 +40,7 @@ class Postback {
         $normalized = Postback::normalizeTransactionData($request);
         Mailer::sendMailsToInvolved($normalized);
 
-        Log::info("Succesfully processed transaction id: $request->id (Agent: $user_agent)");
+        Log::info("Succesfully processed transaction id: $request->id (Agent: $user_agent)", $normalized);
 
         if(in_array($normalized['status'], ['paid', 'authorized'])){
 
@@ -58,7 +58,7 @@ class Postback {
                     ]
                 ];
 
-                for($i = 0; $i < $item->quantity; $i++){
+                for($i = 0; $i < $item['quantity']; $i++){
 
                     (new Client)->post(
                         "https://graph.facebook.com/v8.0/562881037919202/events",
@@ -96,7 +96,7 @@ class Postback {
         return $is_valid ? true : abort(403, $message);
     }
 
-    public static function normalizeOrderData($request){
+    public static function normalizeOrderData($request): array{
         
         $status = $request->order['status'];
         $amount = $request->order['amount'];
@@ -127,7 +127,7 @@ class Postback {
         ];
     }
 
-    public static function normalizeTransactionData($request){
+    public static function normalizeTransactionData($request): array{
 
         $payment_method = $request->transaction['payment_method'];
         $boleto = [
