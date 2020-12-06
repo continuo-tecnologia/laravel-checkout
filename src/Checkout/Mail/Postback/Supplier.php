@@ -2,42 +2,50 @@
 
 namespace MatheusFS\Laravel\Checkout\Mail\Postback;
 
-use App\Models\Marketplace\Product;
-use DateTime;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Status;
 
 class Supplier extends Mailable {
 
     use Queueable, SerializesModels;
 
-    const FROM = 'contato@refreshertrends.com.br';
-    public $data;
-    public $status = Status::class;
-    public $name;
-    public $delivery_days;
-    public $supplier;
+    public $supplier_name;
+    public $supplier_logo;
+    public $customer;
+    public $shipping;
+    public $days_to_deliver;
+    public $items;
+    public $status;
+    public $payment_method;
 
-    public function __construct($data) {
-
-        $this->data = $data;
-        $this->name = explode(' ', $data['customer']['name'])[0] ?? 'Cliente';
-
-        $delivery_date = new DateTime($data['shipping']['delivery_date']);
-        $this->delivery_days = (new DateTime())->diff($delivery_date)->d;
-
-        $this->supplier = Product::find($data['items'][0]['id'])->supplier;
+    public function __construct(
+        $supplier_name,
+        $supplier_logo,
+        $customer,
+        $shipping,
+        $items,
+        $status,
+        $payment_method
+    ) {
+        $this->supplier_name = $supplier_name;
+        $this->supplier_logo = $supplier_logo;
+        $this->customer = $customer;
+        $this->shipping = $shipping;
+        $this->days_to_deliver = Carbon::now()->diffInDays(Carbon::parse($shipping['delivery_date']));
+        $this->items = $items;
+        $this->status = $status;
+        $this->payment_method = $payment_method;
     }
 
     public function build() {
 
         setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-        date_default_timezone_set('America/Sao_Paulo');
+        date_default_timezone_set(config('checkout.date_timezone'));
         
-        return $this->subject("Venda realizada: " . $this->data['items'][0]['title'])
-        ->from(Supplier::FROM, 'REFRESHER Shop')
+        return $this->subject('Venda realizada com ' . config('checkout.name') . '!')
+        ->from(config('checkout.mailling.from'), config('checkout.name'))
         ->markdown('checkout::mail.postback.supplier');
     }
 }

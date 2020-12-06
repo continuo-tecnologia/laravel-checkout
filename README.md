@@ -1,6 +1,10 @@
 # Checkout with Pagar.me
 Laravel checkout facade to Pagar.me v4 api
 
+```bash
+php artisan vendor:publish --provider="MatheusFS\Laravel\Checkout\CheckoutServiceProvider" --tag="config"
+```
+
 ## Simple payment link redirect
 
 ```php

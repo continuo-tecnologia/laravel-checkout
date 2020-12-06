@@ -2,32 +2,43 @@
 
 namespace MatheusFS\Laravel\Checkout\Facades;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use MatheusFS\Laravel\Checkout\Mail\Postback\Customer as PostbackToCustomer;
-use MatheusFS\Laravel\Checkout\Mail\Postback\Development as PostbackToDevelopment;
-use MatheusFS\Laravel\Checkout\Mail\Postback\Supplier as PostbackToSupplier;
 
 class Mailer {
 
-    const DEVELOPMENT = ['matheus@refresher.com.br', 'marketplace@refresher.com.br'];
-    const SUPPLIER = 'falkk@studiomenin.com';
+    public static function copies(){
+        
+        $default_from = env('MAIL_FROM_ADDRESS', 'example@domain.com');
+        $default_to = env('MAIL_TO_ADDRESS', $default_from);
+        return config('checkout.copies', [ $default_to ]);
+    }
 
-    public static function sendMailsToInvolved($data) {
+    /**
+     * Send transaction status update for customer entity
+     * 
+     * @param string $email
+     * @param \MatheusFS\Laravel\Checkout\Mail\Postback\Customer $mailable
+     */
+    public static function mailCustomer($email, $mailable) {
 
-        Mail::to(Mailer::DEVELOPMENT)->send(new PostbackToCustomer($data));
-        Mail::to(Mailer::DEVELOPMENT)->send(new PostbackToSupplier($data));
-        Logger::log('sent', 'Sent mail to ' . implode('; ', Mailer::DEVELOPMENT));
+        $recipients = array_merge($email, self::copies());
 
-        Mail::to($data['customer']['email'])->send(new PostbackToCustomer($data));
-        Logger::log('sent', 'Sent mail to ' . $data['customer']['email']);
+        Mail::to($recipients)->send($mailable);
+        Log::info("Sent mail to $email and copies to " . implode(', ', self::copies()) . '.');
+    }
 
-        if(in_array($data['status'], [
-            'authorized', 'paid'
-        ])){
-            
-            Mail::to(Mailer::SUPPLIER)->send(new PostbackToSupplier($data));
-            Logger::log('sent', 'Sent mail to ' . Mailer::SUPPLIER);
-        }
+    /**
+     * Send transaction status update for supplier entity
+     * 
+     * @param string $email
+     * @param \MatheusFS\Laravel\Checkout\Mail\Postback\Supplier $mailable
+     */
+    public static function mailSupplier($email, $mailable){
+        
+        $recipients = array_merge($email, self::copies());
+
+        Mail::to($recipients)->send($mailable);
+        Log::info("Sent mail to $email");
     }
 }

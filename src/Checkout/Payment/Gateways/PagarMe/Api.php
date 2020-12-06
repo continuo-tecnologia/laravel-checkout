@@ -7,19 +7,20 @@ use PagarMe\Client;
 
 class Api {
 
-    const KEY = 'ak_live_uLF749Vstvw6jeNx8AH5uroEH0XAC9';
-    const SANDBOX_KEY = 'ak_test_ZfkuJKLEYICsa9IB38dmMDDCc9nvHH';
-
     public static function client(bool $sandbox = false): Client {
 
-        return new Client(env('APP_ENV') == 'production' ? Api::KEY : Api::SANDBOX_KEY);
+        $api_key = env('APP_ENV') == 'production' 
+        ? config('checkout.pagarme.api_key', 'ak_live_xxxxxx')
+        : config('checkout.pagarme.api_sandbox_key', 'ak_test_xxxxxx');
+
+        return new Client($api_key);
     }
 
     public static function order($id){
         
         $client = new GuzzleHttpClient(['base_uri' => 'https://api.pagar.me/1/']);
 
-        $payload = ['api_key' => Api::KEY];
+        $payload = ['api_key' => config('checkout.pagarme.api_key', 'ak_live_xxxxxx')];
         $request = $client->get("orders?id=$id", ['form_params' => $payload]);
 
         $response = $request->getBody();

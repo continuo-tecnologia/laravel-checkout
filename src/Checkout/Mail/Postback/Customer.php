@@ -2,7 +2,7 @@
 
 namespace MatheusFS\Laravel\Checkout\Mail\Postback;
 
-use DateTime;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -12,27 +12,38 @@ class Customer extends Mailable {
 
     use Queueable, SerializesModels;
 
-    const FROM = 'contato@refreshertrends.com.br';
-    public $data;
-    public $status = Status::class;
-    public $name;
-    public $delivery_days;
+    public $customer;
+    public $shipping;
+    public $days_to_deliver;
+    public $items;
+    public $status;
+    public $payment_method;
+    public $boleto;
 
-    public function __construct($data) {
-        
-        $this->data = (array) $data;
-        $this->name = explode(' ', $this->data['customer']['name'])[0];
-
-        $delivery_date = new DateTime($this->data['shipping']['delivery_date']);
-        $this->delivery_days = (new DateTime())->diff($delivery_date)->d;
+    public function __construct(
+        $customer,
+        $shipping,
+        $items,
+        $status,
+        $payment_method,
+        $boleto
+    ) {
+        $this->customer = $customer;
+        $this->shipping = $shipping;
+        $this->days_to_deliver = Carbon::now()->diffInDays(Carbon::parse($shipping['delivery_date']));
+        $this->items = $items;
+        $this->status = $status;
+        $this->payment_method = $payment_method;
+        $this->boleto = $boleto;
     }
 
     public function build() {
 
         setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-        date_default_timezone_set('America/Sao_Paulo');
-        return $this->subject(Status::subject($this->data['status']))
-        ->from(Customer::FROM, 'REFRESHER Shop')
+        date_default_timezone_set(config('checkout.date_timezone'));
+
+        return $this->subject($this->status['subject'])
+        ->from(config('checkout.mailling.from'), config('checkout.name'))
         ->markdown('checkout::mail.postback.customer');
     }
 }
