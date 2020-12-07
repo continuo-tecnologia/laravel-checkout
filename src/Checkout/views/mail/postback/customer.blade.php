@@ -2,8 +2,12 @@
 
 <h2>Olá {{ $customer['name'] }}, {{ strtolower($status['alias']) }}</h2>
 {!! $status['instruction'] !!}
+
+@if($status['id']=='waiting_payment')
 <br>
 @include('checkout::mail.postback.components.boleto')
+@endif
+
 <br><hr><br>
 
 <h2>Itens comprados</h2>
@@ -11,9 +15,9 @@
 <br><hr><br>
 
 @isset($shipping)
-    <h2>Seu pedido será entregue por {{ $shipping['name'] }} em</h2>
-    @include('checkout::mail.postback.components.shipping')
-    <br><hr><br>
+<h2>Seu pedido será entregue por {{ $shipping['name'] }} em</h2>
+@include('checkout::mail.postback.components.shipping')
+<br><hr><br>
 @endisset
 
 <h2>Suas informações</h2>

@@ -42,6 +42,8 @@ class Mailer {
             $suppliers[$supplier_id]['items'][] = $item;
         }
 
+        Log::debug('Suppliers in transaction', $suppliers);
+
         foreach($suppliers as $supplier_id => $items){
     
             $supplier = config('checkout.supplier.model')::find($supplier_id);
@@ -78,6 +80,7 @@ class Mailer {
         $status = $normalized['status'];
 
         $status = [
+            'id' => $status,
             'subject' => Status::subject($status),
             'alias' => Status::as($status),
             'instruction' => Status::instruction($status)
@@ -98,6 +101,7 @@ class Mailer {
         $status = $normalized['status'];
 
         $status = [
+            'id' => $status,
             'subject' => Status::subject($status),
             'alias' => Status::as($status),
             'instruction' => Status::instruction($status)
