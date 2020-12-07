@@ -28,7 +28,7 @@ class Mailer {
      */
     public static function mailCustomer($email, $mailable) {
 
-        $recipients = array_merge($email, self::copies());
+        $recipients = array_merge([$email], self::copies());
 
         Mail::to($recipients)->send($mailable);
         Log::info("Sent mail to $email and copies to " . implode(', ', self::copies()) . '.');
@@ -67,7 +67,7 @@ class Mailer {
      */
     public static function mailSupplier($email, $mailable){
         
-        $recipients = array_merge($email, self::copies());
+        $recipients = array_merge([$email], self::copies());
 
         Mail::to($recipients)->send($mailable);
         Log::info("Sent mail to $email");
