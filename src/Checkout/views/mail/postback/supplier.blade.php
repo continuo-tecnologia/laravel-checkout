@@ -3,7 +3,7 @@
 <div style="display: grid; grid-template-columns: 90px 50px 90px; align-items: center; width: 100%; justify-content: space-around">
     <img src="{{ $supplier_logo }}" alt="{{ $supplier_name }}" width="90">
     <b style="font-size: 50px; text-align: center">+</b>
-    <img src="{{ config('checkout.logo') }}" width="90">
+    <img src="{{ Storage::disk(config('checkout.disk'))->url(config('checkout.logo')) }}" width="90">
 </div>
 <br>
 # Parabéns! Você acabou de vender no {{ config('checkout.name') }}!
