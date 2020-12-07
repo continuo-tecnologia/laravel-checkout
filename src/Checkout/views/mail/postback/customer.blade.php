@@ -1,7 +1,7 @@
 @component('mail::message')
 
-<h2>Olá {{ $name }}, {{ strtolower($status::as($data['status'])) }}</h2>
-{!!$status::instruction($data['status'])!!}
+<h2>Olá {{ $customer['name'] }}, {{ strtolower($status['alias']) }}</h2>
+{!! $status['instruction'] !!}
 <br>
 @include('checkout::mail.postback.components.boleto')
 <br><hr><br>
@@ -10,8 +10,8 @@
 @include('checkout::mail.postback.components.items')
 <br><hr><br>
 
-@isset($data['shipping'])
-    <h2>Seu pedido será entregue por {{ $data['shipping']['name'] }} em</h2>
+@isset($shipping)
+    <h2>Seu pedido será entregue por {{ $shipping['name'] }} em</h2>
     @include('checkout::mail.postback.components.shipping')
     <br><hr><br>
 @endisset
