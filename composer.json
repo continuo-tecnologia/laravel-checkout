@@ -4,7 +4,8 @@
     "type": "library",
     "require": {
         "phpunit/phpunit": "^8.0",
-        "pagarme/pagarme-php": "^4.0.4"
+        "pagarme/pagarme-php": "^4.0.4",
+        "flyingluscas/correios-php": "^2.4"
     },
     "homepage": "https://github.com/matheusfs/laravel-checkout",
     "license": "MIT",

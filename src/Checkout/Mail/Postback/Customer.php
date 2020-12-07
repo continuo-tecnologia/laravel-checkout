@@ -14,7 +14,6 @@ class Customer extends Mailable {
 
     public $customer;
     public $shipping;
-    public $days_to_deliver;
     public $items;
     public $status;
     public $payment_method;
@@ -30,7 +29,6 @@ class Customer extends Mailable {
     ) {
         $this->customer = $customer;
         $this->shipping = $shipping;
-        $this->days_to_deliver = Carbon::now()->diffInDays(Carbon::parse($shipping['delivery_date']));
         $this->items = $items;
         $this->status = $status;
         $this->payment_method = $payment_method;

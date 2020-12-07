@@ -10,14 +10,20 @@ use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Status;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use MatheusFS\Laravel\Checkout\Shipping\Carriers\Correios\Api;
 
 class Mailer {
 
-    public static function copies(){
+    public static function sendMails($normalized){
         
-        $default_from = env('MAIL_FROM_ADDRESS', 'example@domain.com');
-        $default_to = env('MAIL_TO_ADDRESS', $default_from);
-        return config('checkout.copies', [ $default_to ]);
+        $customer_email = $normalized['customer']['email'];
+        $customer_mailable = self::getCustomerMailable($normalized);
+        self::mailCustomer($customer_email, $customer_mailable);
+
+        if($normalized['status'] == 'paid') {
+
+            self::mailSuppliers($normalized);
+        }
     }
 
     /**
@@ -55,6 +61,9 @@ class Mailer {
             ];
 
             $normalized['items'] = $items;
+
+            $customer_zipcode = $normalized['shipping']['address']['zipcode'];
+            $normalized['shipping']['days_to_deliver'] = (new Api)->getFreight($supplier->zipcode, $customer_zipcode)[1]['deadline'];
 
             $supplier_mailable = self::getSupplierMailable($normalized);
             self::mailSupplier($normalized['supplier']['email'], $supplier_mailable);
@@ -116,5 +125,12 @@ class Mailer {
             $status,
             $normalized['payment_method']
         );
+    }
+
+    public static function copies(){
+        
+        $default_from = env('MAIL_FROM_ADDRESS', 'example@domain.com');
+        $default_to = env('MAIL_TO_ADDRESS', $default_from);
+        return config('checkout.copies', [ $default_to ]);
     }
 }

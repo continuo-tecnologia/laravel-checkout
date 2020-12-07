@@ -6,12 +6,12 @@ use MatheusFS\Laravel\Checkout\Facades\Mailer;
 use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Api;
 use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Postback;
 
-Route::namespace('MatheusFS\Laravel\Checkout')->group(function(){
+Route::prefix('checkout')->name('checkout.')->namespace('MatheusFS\Laravel\Checkout')->group(function(){
 
-    Route::post('checkout/pagarme/postback/orders', 'Payment\Gateways\PagarMe\Postback@orders')->name('checkout.pagarme.postback.orders');
-    Route::post('checkout/pagarme/postback/transactions', 'Payment\Gateways\PagarMe\Postback@transactions')->name('checkout.pagarme.postback.transactions');
+    Route::post('pagarme/postback/orders', 'Payment\Gateways\PagarMe\Postback@orders')->name('pagarme.postback.orders');
+    Route::post('pagarme/postback/transactions', 'Payment\Gateways\PagarMe\Postback@transactions')->name('pagarme.postback.transactions');
     
-    Route::post('checkout/pagarme/capture', function(Request $request){
+    Route::post('pagarme/capture', function(Request $request){
         
         $captured_transaction = Api::client()->transactions()->capture([
             'id' => $request->id,
@@ -19,13 +19,16 @@ Route::namespace('MatheusFS\Laravel\Checkout')->group(function(){
         ]);
         
         return response()->json($captured_transaction);
-    })->name('checkout.pagarme.capture');
+    })->name('pagarme.capture');
     
-    Route::post('checkout/mail/postback/customer/render', function(Request $request){
+    Route::post('mail/postback/customer/render', function(Request $request){
         
         $normalized = Postback::normalizeTransactionData($request);
         return (Mailer::getCustomerMailable($normalized))->render();
-    })->name('checkout.mail.postback.customer.render');
+    })->name('mail.postback.customer.render');
+
+    Route::post('shipping/correios/freight/{from}/{to}', 'Shipping\Carriers\Correios@getFreight')->name('shipping.correios.freight');
+    Route::post('shipping/correios/zipcode/{zipcode}', 'Shipping\Carriers\Correios@getZipcode')->name('shipping.correios.zipcode');
     
     // Route::post('cart/count', 'Controllers\CartController@count')->name('cart.count');
     // Route::post('cart/html', 'Controllers\CartController@html')->name('cart.html');

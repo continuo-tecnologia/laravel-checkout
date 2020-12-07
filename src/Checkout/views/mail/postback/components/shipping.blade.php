@@ -11,5 +11,5 @@
 
 <p style="text-align: center">
     Data estimada (após confirmação do pagamento): 
-    <b>{{ $days_to_deliver ?? 21 }} dia(s) úteis</b>
+    <b>{{ $shipping['days_to_deliver'] ?? 21 }} dia(s) úteis</b>
 </p>

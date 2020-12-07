@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use MatheusFS\Laravel\Checkout\Facades\Mailer;
+use MatheusFS\Laravel\Checkout\Shipping\Carriers\Correios\Api;
 
 class Postback {
 
@@ -15,7 +16,7 @@ class Postback {
 
         // $user_agent = $this->validateAndGetAgent($request);
         // $normalized = Postback::normalizeOrderData($request);
-        // $this->sendMails($normalized);
+        // Mailer::sendMails($normalized);
 
         // Log::info("Succesfully processed order id: $request->id (Agent: $user_agent)", $normalized);
         
@@ -33,7 +34,7 @@ class Postback {
 
         if(in_array($normalized['status'], array_keys(Status::MAP))){
 
-            $this->sendMails($normalized);
+            Mailer::sendMails($normalized);
         }
         
         if($normalized['status'] == 'paid'){
@@ -75,18 +76,6 @@ class Postback {
                     $options
                 );
             }
-        }
-    }
-
-    public function sendMails($normalized){
-        
-        $customer_email = $normalized['customer']['email'];
-        $customer_mailable = Mailer::getCustomerMailable($normalized);
-        Mailer::mailCustomer($customer_email, $customer_mailable);
-
-        if($normalized['status'] == 'paid') {
-
-            Mailer::mailSuppliers($normalized);
         }
     }
 
@@ -159,7 +148,7 @@ class Postback {
         $order = Api::order($request->transaction['order_id']);
 
         $shipping = $request->transaction['shipping'] == ""
-        ? $request->transaction['billing']
+        ? null #$request->transaction['billing']
         : $request->transaction['shipping'];
 
         return [

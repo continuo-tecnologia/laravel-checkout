@@ -15,7 +15,6 @@ class Supplier extends Mailable {
     public $supplier_logo;
     public $customer;
     public $shipping;
-    public $days_to_deliver;
     public $items;
     public $status;
     public $payment_method;
@@ -33,7 +32,6 @@ class Supplier extends Mailable {
         $this->supplier_logo = $supplier_logo;
         $this->customer = $customer;
         $this->shipping = $shipping;
-        $this->days_to_deliver = Carbon::now()->diffInDays(Carbon::parse($shipping['delivery_date']));
         $this->items = $items;
         $this->status = $status;
         $this->payment_method = $payment_method;
