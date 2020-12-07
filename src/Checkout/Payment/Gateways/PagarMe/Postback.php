@@ -13,11 +13,11 @@ class Postback {
 
     public function orders(Request $request) {
 
-        $user_agent = $this->validateAndGetAgent($request);
-        $normalized = Postback::normalizeOrderData($request);
-        $this->sendMails($normalized);
+        // $user_agent = $this->validateAndGetAgent($request);
+        // $normalized = Postback::normalizeOrderData($request);
+        // $this->sendMails($normalized);
 
-        Log::info("Succesfully processed order id: $request->id (Agent: $user_agent)", $normalized);
+        // Log::info("Succesfully processed order id: $request->id (Agent: $user_agent)", $normalized);
         
         return response()->json([
             'error' => null,
@@ -33,7 +33,7 @@ class Postback {
         $this->sendMails($normalized);
         
         if($normalized['status'] == 'paid'){
-            
+
             $this->sendFacebookPixelEvents($normalized);
         }
 
