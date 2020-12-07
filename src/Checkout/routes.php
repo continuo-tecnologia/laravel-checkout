@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use MatheusFS\Laravel\Checkout\Mail\Postback\Customer;
+use MatheusFS\Laravel\Checkout\Facades\Mailer;
 use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Api;
 use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Postback;
 
@@ -23,8 +23,8 @@ Route::namespace('MatheusFS\Laravel\Checkout')->group(function(){
     
     Route::post('checkout/mail/postback/customer/render', function(Request $request){
         
-        $transaction = Postback::normalizeTransactionData($request);
-        return (new Customer($transaction))->render();
+        $normalized = Postback::normalizeTransactionData($request);
+        return (Mailer::getCustomerMailable($normalized))->render();
     })->name('checkout.mail.postback.customer.render');
     
     // Route::post('cart/count', 'Controllers\CartController@count')->name('cart.count');
