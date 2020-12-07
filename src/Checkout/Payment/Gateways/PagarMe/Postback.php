@@ -93,7 +93,7 @@ class Postback {
     public function validateAndGetAgent(Request $request){
         
         $user_agent = $request->header('User-Agent');
-        Log::debug("Received order postback from agent: $user_agent");
+        Log::info("Received order postback from agent: $user_agent");
 
         Postback::validate($request);
         return $user_agent;
@@ -101,21 +101,17 @@ class Postback {
 
     public static function validate($request) {
 
-        $caller_method = debug_backtrace()[1]['function'];
-
         $body = $request->getContent();
         $signature = $request->header('X-Hub-Signature');
         $user_agent = $request->header('User-Agent');
 
         $is_valid = Api::client()->postbacks()->validate($body, $signature);
-        
-        $type = $is_valid ? 'valid' : 'invalid';
 
         $message = $is_valid 
-        ? "Validated request for $caller_method id: $request->id" 
-        : "Invalid request for $caller_method id: $request->id";
+        ? "Validated request for " . request()->getRequestUri() . " id: $request->id" 
+        : "Invalid request for " . request()->getRequestUri() . " id: $request->id";
 
-        Log::debug("$message (Agent: $user_agent)", [$caller_method]);
+        Log::info("$message (Agent: $user_agent)");
 
         return $is_valid ? true : abort(403, $message);
     }
@@ -162,6 +158,10 @@ class Postback {
 
         $order = Api::order($request->transaction['order_id']);
 
+        $shipping = $request->transaction['shipping'] == ""
+        ? $request->transaction['billing']
+        : $request->transaction['shipping'];
+
         return [
             'transaction_id' => $request->id,
             'status' => $request->transaction['status'] ?? 'undefined',
@@ -171,7 +171,7 @@ class Postback {
             'payment_method' => $request->transaction['payment_method'],
             'customer' => $request->transaction['customer'],
             'billing' => $request->transaction['billing'],
-            'shipping' => $request->transaction['shipping']
+            'shipping' => $shipping
         ];
     }
 }
