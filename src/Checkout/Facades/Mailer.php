@@ -39,7 +39,7 @@ class Mailer {
         foreach($normalized['items'] as $item){
     
             $supplier_id = Product::find($item['id'])->supplier->getKey();
-            $suppliers[$supplier_id]['items'][] = $item;
+            $suppliers[$supplier_id][] = $item;
         }
 
         Log::debug('Suppliers in transaction', $suppliers);
