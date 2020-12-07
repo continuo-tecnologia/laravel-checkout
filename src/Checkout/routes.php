@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use MatheusFS\Laravel\Checkout\Mail\Postback\Customer;
 use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Api;
 use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Postback;

@@ -3,17 +3,11 @@
 namespace MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe;
 
 use App\Models\Marketplace\Product;
-use App\Models\User\Supplier;
 use Carbon\Carbon;
-use DateTime;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use MatheusFS\Laravel\Checkout\Facades\Mailer;
-use MatheusFS\Laravel\Checkout\Mail\Postback\Customer as PostbackToCustomer;
-use MatheusFS\Laravel\Checkout\Mail\Postback\Development as PostbackToDevelopment;
-use MatheusFS\Laravel\Checkout\Mail\Postback\Supplier as PostbackToSupplier;
 
 class Postback {
 
@@ -79,48 +73,13 @@ class Postback {
 
     public function sendMails($normalized){
         
-        $customer = $normalized['customer'];
-        $shipping = $normalized['shipping'];
-        $items = $normalized['items'];
-        $status = $normalized['status'];
-        $payment_method = $normalized['payment_method'];
-        $boleto = $normalized['boleto'];
+        $customer_email = $normalized['customer']['email'];
+        $customer_mailable = Mailer::getCustomerMailable($normalized);
+        Mailer::mailCustomer($customer_email, $customer_mailable);
 
-        $status = [
-            'subject' => Status::subject($status),
-            'alias' => Status::as($status),
-            'instruction' => Status::instruction($status)
-        ];
+        if($normalized['status'] == 'paid') {
 
-        $customer_mailable = new PostbackToCustomer($customer, $shipping, $items, $status, $payment_method, $boleto);
-        Mailer::mailCustomer($customer['email'], $customer_mailable);
-
-        if($status == 'paid') {
-
-            foreach($items as $item){
-    
-                $supplier_id = Product::find($item['id'])->supplier->getKey();
-                $suppliers[$supplier_id]['items'][] = $item;
-            }
-            
-            foreach($suppliers as $supplier_id => $items){
-    
-                $supplier = config('checkout.supplier.model')::find($supplier_id);
-                $supplier_email = $supplier->{config('checkout.supplier.property_mapping.email')};
-                $supplier_name = $supplier->{config('checkout.supplier.property_mapping.name')};
-                $supplier_logo = $supplier->{config('checkout.supplier.property_mapping.logo')};
-        
-                $supplier_mailable = new PostbackToSupplier(
-                    $supplier_name,
-                    $supplier_logo,
-                    $shipping,
-                    $items,
-                    $status,
-                    $payment_method
-                );
-    
-                Mailer::mailSupplier($supplier_email, $supplier_mailable);
-            }
+            Mailer::mailSuppliers($normalized);
         }
     }
 
