@@ -32,7 +32,10 @@ class Postback {
         $normalized = Postback::normalizeTransactionData($request);
         $this->sendMails($normalized);
         
-        if($is_paid){ $this->sendFacebookPixelEvents($normalized); }
+        if($normalized['status'] == 'paid'){
+            
+            $this->sendFacebookPixelEvents($normalized);
+        }
 
         Log::info("Succesfully processed transaction id: $request->id (Agent: $user_agent)", $normalized);
 
