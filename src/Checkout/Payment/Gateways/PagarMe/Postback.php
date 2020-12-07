@@ -30,7 +30,11 @@ class Postback {
 
         $user_agent = $this->validateAndGetAgent($request);
         $normalized = Postback::normalizeTransactionData($request);
-        $this->sendMails($normalized);
+
+        if(in_array($normalized['status'], array_keys(Status::MAP))){
+
+            $this->sendMails($normalized);
+        }
         
         if($normalized['status'] == 'paid'){
 

@@ -11,16 +11,16 @@ class Status {
             'description' => 'Transação está em processo de autorização.',
             'instruction' => 'Estamos quase lá! Seu pagamento está sendo analisado pelo nosso sistema e logo que o processo for finalizado você receberá um e-mail de confirmação.',
         ],
-        'authorized' => [
-            'as' => 'Seu pagamento foi autorizado :)',
-            'subject' => 'Parabéns! Seu pagamento foi autorizado',
-            'description' => 'Transação foi autorizada. Cliente possui saldo na conta e este valor foi
-            reservado para futura captura, que deve acontecer em até 5 dias para transações criadas com api_key.
-            Caso não seja capturada, a autorização é cancelada automaticamente pelo banco emissor, e o status
-            dela permanece como authorized.',
-            'instruction' => 'Recebemos seu pagamento e sua compra está aprovada!.<br><br>
-            Em breve você receberá um novo e-mail com as instruções sobre a entrega do seu produto.',
-        ],
+        // 'authorized' => [
+        //     'as' => 'Seu pagamento foi autorizado :)',
+        //     'subject' => 'Parabéns! Seu pagamento foi autorizado',
+        //     'description' => 'Transação foi autorizada. Cliente possui saldo na conta e este valor foi
+        //     reservado para futura captura, que deve acontecer em até 5 dias para transações criadas com api_key.
+        //     Caso não seja capturada, a autorização é cancelada automaticamente pelo banco emissor, e o status
+        //     dela permanece como authorized.',
+        //     'instruction' => 'Recebemos seu pagamento e sua compra está aprovada!.<br><br>
+        //     Em breve você receberá um novo e-mail com as instruções sobre a entrega do seu produto.',
+        // ],
         'paid' => [
             'as' => 'Pagamento identificado',
             'subject' => 'Parabéns! Seu pagamento foi aprovado :)',
