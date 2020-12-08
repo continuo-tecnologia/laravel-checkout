@@ -18,7 +18,6 @@
 <br><hr><br>
 
 @isset($shipping)
-# O pedido será entregue por {{ $shipping['name'] }} em
 @include('checkout::mail.postback.components.shipping')
 <br><hr><br>
 @endisset

@@ -1,3 +1,4 @@
+<h2>Seu pedido será entregue em</h2>
 @component('mail::panel')
 <p style="text-align: center">
 {{ $shipping['address']['street'] }},

@@ -15,7 +15,6 @@
 <br><hr><br>
 
 @isset($shipping)
-<h2>Seu pedido será entregue por {{ $shipping['name'] }} em</h2>
 @include('checkout::mail.postback.components.shipping')
 <br><hr><br>
 @endisset
