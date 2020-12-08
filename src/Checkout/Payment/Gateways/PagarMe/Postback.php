@@ -53,29 +53,29 @@ class Postback {
     public function sendFacebookPixelEvents($normalized){
 
         $pixel_id = config('checkout.facebook.pixel_id');
+        $pixel_event_endpoint = "https://graph.facebook.com/v8.0/$pixel_id/events";
         
         foreach($normalized['items'] as $item){
 
-            $json_array = json_encode([[
-                'event_name' => 'Purchase',
-                'event_time' => Carbon::now(),
-                'custom_data' => [
-                    'value' => $item['unit_price'] / 100,
-                    'currency' => 'BRL',
-                    'transaction_id' => $normalized['transaction_id'],
-                    'product_id' => $item['id'],
-                    'payment_type' => $normalized['payment_method'],
+            $options['json'] = [
+                'data' => [
+                    [
+                        'event_name' => 'Purchase',
+                        'event_time' => Carbon::now(),
+                        'custom_data' => [
+                            'value' => $item['unit_price'] / 100,
+                            'currency' => 'BRL',
+                            'transaction_id' => $normalized['transaction_id'],
+                            'product_id' => $item['id'],
+                            'payment_type' => $normalized['payment_method'],
+                        ]
+                    ]
                 ]
-            ]]);
-
-            $options['form_params'] = ['data' => $json_array];
+            ];
 
             for($i = 0; $i < $item['quantity']; $i++){
 
-                (new Client)->post(
-                    "https://graph.facebook.com/v8.0/$pixel_id/events",
-                    $options
-                );
+                (new Client)->post($pixel_event_endpoint, $options);
             }
         }
     }
