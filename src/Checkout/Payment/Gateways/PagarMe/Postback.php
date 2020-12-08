@@ -8,7 +8,6 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use MatheusFS\Laravel\Checkout\Facades\Mailer;
-use MatheusFS\Laravel\Checkout\Shipping\Carriers\Correios\Api;
 
 class Postback {
 
