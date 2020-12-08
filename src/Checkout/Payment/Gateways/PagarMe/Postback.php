@@ -56,7 +56,7 @@ class Postback {
         
         foreach($normalized['items'] as $item){
 
-            $options['json'] = [
+            $options['json']['data'] = [
                 'event_name' => 'Purchase',
                 'event_time' => Carbon::now(),
                 'custom_data' => [
