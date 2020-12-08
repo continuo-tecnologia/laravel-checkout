@@ -64,6 +64,10 @@ class Postback {
                     [
                         'event_name' => 'Purchase',
                         'event_time' => Carbon::now()->timestamp,
+                        'user_data' => [
+                            'em' => hash('sha256', $normalized['customer']['email']),
+                            'ph' => hash('sha256', ltrim($normalized['customer']['phone_numbers'][0],'+')),
+                        ],
                         'custom_data' => [
                             'value' => $item['unit_price'] / 100,
                             'currency' => 'BRL',
