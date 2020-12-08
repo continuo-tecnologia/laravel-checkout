@@ -37,6 +37,8 @@ return [
 
     'facebook' => [
 
-        'pixel_id' => '000'
+        'graph_api_version' => 'v8.0',
+        'graph_api_access_token' => '',
+        'pixel_id' => '0000'
     ]
 ];

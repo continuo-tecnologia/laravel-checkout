@@ -53,7 +53,9 @@ class Postback {
     public function sendFacebookPixelEvents($normalized){
 
         $pixel_id = config('checkout.facebook.pixel_id');
-        $pixel_event_endpoint = "https://graph.facebook.com/v8.0/$pixel_id/events";
+        $access_token = config('checkout.facebook.graph_api_access_token');
+        $version = config('checkout.facebook.graph_api_version');
+        $pixel_event_endpoint = "https://graph.facebook.com/$version/$pixel_id/events?access_token=$access_token";
         
         foreach($normalized['items'] as $item){
 
