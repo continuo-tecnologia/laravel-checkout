@@ -62,7 +62,7 @@ class Postback {
                 'custom_data' => [
                     'value' => $item['unit_price'] / 100,
                     'currency' => 'BRL',
-                    'transaction_id' => $normalized['id'],
+                    'transaction_id' => $normalized['transaction_id'],
                     'product_id' => $item['id'],
                     'payment_type' => $normalized['payment_method'],
                 ]
