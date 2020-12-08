@@ -61,7 +61,7 @@ class Postback {
                 'data' => [
                     [
                         'event_name' => 'Purchase',
-                        'event_time' => Carbon::now(),
+                        'event_time' => Carbon::now()->timestamp,
                         'custom_data' => [
                             'value' => $item['unit_price'] / 100,
                             'currency' => 'BRL',
