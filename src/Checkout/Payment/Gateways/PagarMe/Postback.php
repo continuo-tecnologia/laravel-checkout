@@ -56,19 +56,19 @@ class Postback {
         
         foreach($normalized['items'] as $item){
 
-            $options['form_params'] = [
-                'data' => [
-                    'event_name' => 'Purchase',
-                    'event_time' => Carbon::now(),
-                    'custom_data' => [
-                        'value' => $item['unit_price'] / 100,
-                        'currency' => 'BRL',
-                        'transaction_id' => $normalized['transaction_id'],
-                        'product_id' => $item['id'],
-                        'payment_type' => $normalized['payment_method'],
-                    ]
+            $json_array = json_encode([[
+                'event_name' => 'Purchase',
+                'event_time' => Carbon::now(),
+                'custom_data' => [
+                    'value' => $item['unit_price'] / 100,
+                    'currency' => 'BRL',
+                    'transaction_id' => $normalized['transaction_id'],
+                    'product_id' => $item['id'],
+                    'payment_type' => $normalized['payment_method'],
                 ]
-            ];
+            ]]);
+
+            $options['form_params'] = ['data' => $json_array];
 
             for($i = 0; $i < $item['quantity']; $i++){
 
