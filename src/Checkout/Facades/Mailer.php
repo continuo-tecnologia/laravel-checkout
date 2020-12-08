@@ -61,6 +61,7 @@ class Mailer {
             ];
 
             $normalized['items'] = $items;
+            $normalized['shipping'] = $normalized['billing'];
 
             $customer_zipcode = $normalized['shipping']['address']['zipcode'];
             $normalized['shipping']['days_to_deliver'] = (new Api)->getFreight($supplier->zipcode, $customer_zipcode)[1]['deadline'];
