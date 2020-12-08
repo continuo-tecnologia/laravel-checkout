@@ -57,7 +57,7 @@ class Postback {
         foreach($normalized['items'] as $item){
 
             $options['form_params']['data'] = [
-                'event_name' => 'Purchase',
+                'event_name' => '"Purchase"',
                 'event_time' => Carbon::now(),
                 'custom_data' => [
                     'value' => $item['unit_price'] / 100,
