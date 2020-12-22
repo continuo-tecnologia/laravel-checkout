@@ -1,6 +1,10 @@
 # Checkout with Pagar.me
 Laravel checkout facade to Pagar.me v4 api
 
+## Instalation
+```bash
+composer require matheusfs/laravel-checkout
+```
 ```bash
 php artisan vendor:publish --provider="MatheusFS\Laravel\Checkout\CheckoutServiceProvider" --tag="config"
 ```
