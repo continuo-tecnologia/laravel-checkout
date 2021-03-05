@@ -2,11 +2,9 @@
 
 namespace MatheusFS\Laravel\Checkout\Mail\Postback;
 
-use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Status;
 
 class Customer extends Mailable {
 

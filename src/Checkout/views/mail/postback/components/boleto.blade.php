@@ -1,9 +1,19 @@
 @if($payment_method == 'boleto' && isset($boleto))
 
-@component('mail::panel')
-<small><i>Linha digitável</i></small><br>
-{{ $boleto['barcode'] }}
-@endcomponent
+<table class="panel" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+    <tr>
+        <td class="panel-content">
+            <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                <tr>
+                    <td class="panel-item">
+                        <small><i>Linha digitável</i></small><br>
+                        {{ $boleto['barcode'] }}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
 
 @component('mail::button', ['url' => $boleto['url']])
 Boleto completo

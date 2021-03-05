@@ -2,14 +2,13 @@
 
 namespace MatheusFS\Laravel\Checkout;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-class CheckoutServiceProvider extends ServiceProvider {
+class ServiceProvider extends BaseServiceProvider {
 
     public function register() {
 
         $this->mergeConfigFrom(__DIR__.'/../../config/checkout.php', 'checkout');
-        $this->app->make('MatheusFS\Laravel\Checkout\Checkout');
     }
     
     public function boot() {

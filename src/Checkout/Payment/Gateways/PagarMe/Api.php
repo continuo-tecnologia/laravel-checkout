@@ -3,6 +3,7 @@
 namespace MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe;
 
 use GuzzleHttp\Client as GuzzleHttpClient;
+use Illuminate\Http\Request;
 use PagarMe\Client;
 
 class Api {
@@ -27,5 +28,15 @@ class Api {
 
         $content = $response->getContents();
         return json_decode($content, true)[0];
+    }
+
+    public function capture(Request $request){
+
+        $captured_transaction = static::client()->transactions()->capture([
+            'id' => $request->id,
+            'amount' => $request->amount
+        ]);
+        
+        return response()->json($captured_transaction);
     }
 }

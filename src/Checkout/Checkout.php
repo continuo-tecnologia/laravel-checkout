@@ -16,10 +16,7 @@ namespace MatheusFS\Laravel\Checkout;
 
 use MatheusFS\Laravel\Checkout\Entities\Item;
 use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Api;
-use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Billing;
-use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Customer;
 use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\PaymentLink;
-use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Shipping;
 
 class Checkout {
 

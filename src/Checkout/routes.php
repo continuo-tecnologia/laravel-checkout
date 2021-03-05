@@ -1,31 +1,15 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use MatheusFS\Laravel\Checkout\Facades\Mailer;
-use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Api;
-use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Postback;
 
 Route::prefix('checkout')->name('checkout.')->namespace('MatheusFS\Laravel\Checkout')->group(function(){
 
     Route::post('pagarme/postback/orders', 'Payment\Gateways\PagarMe\Postback@orders')->name('pagarme.postback.orders');
     Route::post('pagarme/postback/transactions', 'Payment\Gateways\PagarMe\Postback@transactions')->name('pagarme.postback.transactions');
     
-    Route::post('pagarme/capture', function(Request $request){
-        
-        $captured_transaction = Api::client()->transactions()->capture([
-            'id' => $request->id,
-            'amount' => $request->amount
-        ]);
-        
-        return response()->json($captured_transaction);
-    })->name('pagarme.capture');
+    Route::post('pagarme/capture', 'Payment\Gateways\PagarMe\Api@capture')->name('pagarme.capture');
     
-    Route::post('mail/postback/customer/render', function(Request $request){
-        
-        $normalized = Postback::normalizeTransactionData($request);
-        return (Mailer::getCustomerMailable($normalized))->render();
-    })->name('mail.postback.customer.render');
+    Route::post('mail/postback/customer/render', 'Controllers\PostbackController@render_normalized')->name('mail.postback.customer.render');
 
     Route::post('shipping/correios/freight', 'Shipping\Carriers\Correios\Api@getFreight')->name('shipping.correios.freight');
     Route::post('shipping/correios/zipcode', 'Shipping\Carriers\Correios\Api@getZipcode')->name('shipping.correios.zipcode');
