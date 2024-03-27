@@ -11,8 +11,8 @@ Route::prefix('checkout')->name('checkout.')->namespace('MatheusFS\Laravel\Check
     
     Route::post('mail/postback/customer/render', 'Controllers\PostbackController@render_normalized')->name('mail.postback.customer.render');
 
-    Route::post('shipping/correios/freight', 'Shipping\Carriers\Correios\Api@getFreight')->name('shipping.correios.freight');
-    Route::post('shipping/correios/zipcode', 'Shipping\Carriers\Correios\Api@getZipcode')->name('shipping.correios.zipcode');
+    Route::get('shipping/correios/freight', 'Shipping\Carriers\Correios\Api@getFreight')->name('shipping.correios.freight');
+    Route::get('shipping/correios/zipcode', 'Shipping\Carriers\Correios\Api@getZipcode')->name('shipping.correios.zipcode');
     
     // Route::post('cart/count', 'Controllers\CartController@count')->name('cart.count');
     // Route::post('cart/html', 'Controllers\CartController@html')->name('cart.html');
