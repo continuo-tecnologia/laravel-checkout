@@ -2,23 +2,36 @@
 
 namespace MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe;
 
-class Status {
+class Status{
+
+    const PROCESSING = [
+        'processing',
+        'waiting_payment',
+        'analyzing',
+        'pending_review',
+    ];
+
+    const CANCELLED = [
+        'refused',
+        'chargedback',
+        'refunded',
+    ];
 
     const MAP = [
         'processing' => [
-            'as' => 'Pagamento processando',
+            'as' => 'Processando pagamento',
             'subject' => 'Quase lá! Seu pagamento está sendo processado',
             'description' => 'Transação está em processo de autorização.',
             'instruction' => 'Estamos quase lá! Seu pagamento está sendo analisado pelo nosso sistema e logo que o processo for finalizado você receberá um e-mail de confirmação.',
         ],
         // 'authorized' => [
-        //     'as' => 'Seu pagamento foi autorizado :)',
-        //     'subject' => 'Parabéns! Seu pagamento foi autorizado',
+        //     'as' => 'Pedido solicitado',
+        //     'subject' => 'Recebemos seu pedido de compra',
         //     'description' => 'Transação foi autorizada. Cliente possui saldo na conta e este valor foi
         //     reservado para futura captura, que deve acontecer em até 5 dias para transações criadas com api_key.
         //     Caso não seja capturada, a autorização é cancelada automaticamente pelo banco emissor, e o status
         //     dela permanece como authorized.',
-        //     'instruction' => 'Recebemos seu pagamento e sua compra está aprovada!.<br><br>
+        //     'instruction' => 'Recebemos seu pedido de compra!.<br><br>
         //     Em breve você receberá um novo e-mail com as instruções sobre a entrega do seu produto.',
         // ],
         'paid' => [

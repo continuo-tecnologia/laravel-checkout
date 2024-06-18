@@ -19,6 +19,11 @@ return [
         ]
     ],
 
+    'user' => [
+
+        'model' => Illuminate\Foundation\Auth\User::class,
+    ],
+
     'supplier' => [
 
         'model' => App\Models\User\Supplier::class,

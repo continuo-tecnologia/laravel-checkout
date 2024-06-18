@@ -6,11 +6,11 @@ use GuzzleHttp\Client as GuzzleHttpClient;
 use Illuminate\Http\Request;
 use PagarMe\Client;
 
-class Api {
+class Api{
 
-    public static function client(bool $sandbox = false): Client {
+    public static function client(): Client{
 
-        $api_key = env('APP_ENV') == 'production' 
+        $api_key = app()->environment('production')
         ? config('checkout.pagarme.api_key', 'ak_live_xxxxxx')
         : config('checkout.pagarme.api_sandbox_key', 'ak_test_xxxxxx');
 
@@ -32,11 +32,16 @@ class Api {
 
     public function capture(Request $request){
 
-        $captured_transaction = static::client()->transactions()->capture([
-            'id' => $request->id,
-            'amount' => $request->amount
-        ]);
-        
+        $request->validate(['id' => 'required|integer']);
+
+        $id = $request->input('id');
+
+        $transaction = static::client()->transactions()->get(compact('id'));
+
+        $amount = optional($transaction)->amount;
+
+        $captured_transaction = static::client()->transactions()->capture(compact('id', 'amount'));
+
         return response()->json($captured_transaction);
     }
 }

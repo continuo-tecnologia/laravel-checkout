@@ -15,12 +15,12 @@ use MatheusFS\Laravel\Checkout\Shipping\Carriers\Correios\Api;
 class Mailer {
 
     public static function sendMails($normalized){
-        
+
         $customer_email = $normalized['customer']['email'];
         $customer_mailable = self::getCustomerMailable($normalized);
         self::mailCustomer($customer_email, $customer_mailable);
 
-        if($normalized['status'] == 'paid') {
+        if($normalized['status'] == 'paid'){
 
             self::mailSuppliers($normalized);
         }
@@ -41,17 +41,39 @@ class Mailer {
     }
 
     public static function mailSuppliers($normalized){
-        
+
+        $suppliers = [];
+
         foreach($normalized['items'] as $item){
-    
-            $supplier_id = Product::find($item['id'])->supplier->getKey();
-            $suppliers[$supplier_id][] = $item;
+
+            $id = $item['id'];
+            $product = Product::find($id);
+
+            if($product){
+
+                $supplier_id = $product->supplier->getKey();
+                $suppliers[$supplier_id][] = $item;
+                continue;
+            }
+
+            $exploded = explode(':', $id);
+            $class = $exploded[0];
+            $key = $exploded[1];
+
+            if($model = $class::find($key)){
+
+                if($supplier = $model->supplier){
+
+                    $supplier_id = $supplier->getKey();
+                    $suppliers[$supplier_id][] = $item;
+                }
+            }
         }
 
         Log::debug('Suppliers in transaction', $suppliers);
 
         foreach($suppliers as $supplier_id => $items){
-    
+
             $supplier = config('checkout.supplier.model')::find($supplier_id);
 
             $normalized['supplier'] = [
@@ -78,7 +100,7 @@ class Mailer {
      * @param \MatheusFS\Laravel\Checkout\Mail\Postback\Supplier $mailable
      */
     public static function mailSupplier($email, $mailable){
-        
+
         $recipients = array_merge([$email], self::copies());
 
         Mail::to($recipients)->send($mailable);
@@ -86,7 +108,7 @@ class Mailer {
     }
 
     public static function getCustomerMailable($normalized){
-        
+
         $status = $normalized['status'];
 
         $status = [
@@ -107,7 +129,7 @@ class Mailer {
     }
 
     public static function getSupplierMailable($normalized){
-        
+
         $status = $normalized['status'];
 
         $status = [
@@ -129,7 +151,7 @@ class Mailer {
     }
 
     public static function copies(){
-        
+
         $default_from = env('MAIL_FROM_ADDRESS', 'example@domain.com');
         $default_to = env('MAIL_TO_ADDRESS', $default_from);
         return config('checkout.copies', [ $default_to ]);

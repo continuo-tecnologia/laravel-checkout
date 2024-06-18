@@ -2,16 +2,18 @@
 
 namespace MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe;
 
-use App\Models\Marketplace\Product;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use MatheusFS\Laravel\Checkout\Checkout;
+use MatheusFS\Laravel\Checkout\Events\PaymentCancelled;
+use MatheusFS\Laravel\Checkout\Events\PaymentConfirmed;
 use MatheusFS\Laravel\Checkout\Facades\Mailer;
 
-class Postback {
+class Postback{
 
-    public function orders(Request $request) {
+    public function orders(Request $request){
 
         // $user_agent = $this->validateAndGetAgent($request);
         // $normalized = Postback::normalizeOrderData($request);
@@ -26,19 +28,43 @@ class Postback {
         ]);
     }
 
-    public function transactions(Request $request) {
+    public function transactions(Request $request){
 
         $user_agent = $this->validateAndGetAgent($request);
         $normalized = Postback::normalizeTransactionData($request);
 
-        if(in_array($normalized['status'], array_keys(Status::MAP))){
+        $status = $normalized['status'];
+
+        if(in_array($status, array_keys(Status::MAP))){
 
             Mailer::sendMails($normalized);
         }
-        
-        if($normalized['status'] == 'paid'){
 
-            $this->sendFacebookPixelEvents($normalized);
+        if($status === 'paid'){
+
+            if(app()->environment('production')){
+
+                $this->sendFacebookPixelEvents($normalized);
+            }
+
+            PaymentConfirmed::dispatch($normalized);
+        }
+        elseif(collect(Status::CANCELLED)->contains($status)){
+
+            PaymentCancelled::dispatch($normalized);
+        }
+
+        $external_id = $normalized['customer']['external_id'];
+        $user_model = config('checkout.user.model');
+        $user = $user_model::find($external_id) ?? $user_model::whereEmail($external_id)->first();
+
+        if($user){
+
+            Checkout::invalidate_user_orders($user);
+        }
+        else{
+
+            dd(compact('external_id', 'user_model', 'user'));
         }
 
         Log::info("Succesfully processed transaction id: $request->id (Agent: $user_agent)", $normalized);
@@ -56,7 +82,7 @@ class Postback {
         $access_token = config('checkout.facebook.graph_api_access_token');
         $version = config('checkout.facebook.graph_api_version');
         $pixel_event_endpoint = "https://graph.facebook.com/$version/$pixel_id/events?access_token=$access_token";
-        
+
         foreach($normalized['items'] as $item){
 
             $options['json'] = [
@@ -87,17 +113,19 @@ class Postback {
     }
 
     public function validateAndGetAgent(Request $request){
-        
+
         $user_agent = $request->header('User-Agent');
-        Log::info("Received order postback from agent: $user_agent");
+        Log::info("Received postback from agent: $user_agent");
 
         Postback::validate($request);
+
         return $user_agent;
     }
 
-    public static function validate($request) {
+    public static function validate(Request $request){
 
         $body = $request->getContent();
+
         $signature = $request->header('X-Hub-Signature');
         $user_agent = $request->header('User-Agent');
 
@@ -109,7 +137,7 @@ class Postback {
 
         Log::info("$message (Agent: $user_agent)");
 
-        return $is_valid ? true : abort(403, $message);
+        return $is_valid ? null : abort(403, $message);
     }
 
     public static function normalizeOrderData($request): array{

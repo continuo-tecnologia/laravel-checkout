@@ -2,12 +2,11 @@
 
 namespace MatheusFS\Laravel\Checkout\Mail\Postback;
 
-use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class Supplier extends Mailable {
+class Supplier extends Mailable{
 
     use Queueable, SerializesModels;
 

@@ -2,14 +2,23 @@
 
 namespace MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe;
 
-class Transaction {
+class Transaction{
 
-    public function createTransaction() {
+    protected $client;
+    protected $transaction;
+    protected $payment_method;
+    protected $customer;
+    protected $billing;
+    protected $shipping;
+    protected $items;
+    protected $boleto_url;
+
+    public function createTransaction(){
 
         return $this->client->transactions()->create($this->transaction);
     }
 
-    public function buildTransaction(float $amount) {
+    public function buildTransaction(float $amount){
 
         $this->transaction = [
             'amount' => $amount,
@@ -21,7 +30,8 @@ class Transaction {
         ];
     }
 
-    public function getTransactionEvents() {
+    public function getTransactionEvents(){
+
         //
     }
 }

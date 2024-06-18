@@ -5,15 +5,19 @@ namespace MatheusFS\Laravel\Checkout\Shipping\Carriers\Correios;
 use FlyingLuscas\Correios\Client;
 use FlyingLuscas\Correios\Service;
 
-class Api {
+class Api{
 
     protected $api;
 
-    public function __construct() {
+    public function __construct(){
+
         $this->api = new Client;
     }
 
-    public function getFreight($from, $to): array{
+    public function getFreight(): array{
+
+        $from = request()->input('from');
+        $to = request()->input('to');
 
         $from = preg_replace('/(\d{5})/', '$1-', preg_replace('/\D/', '', $from));
         $to = preg_replace('/(\d{5})/', '$1-', preg_replace('/\D/', '', $to));
@@ -26,8 +30,8 @@ class Api {
             ->calculate();
     }
 
-    public function getZipcode($zipcode) {
-        
+    public function getZipcode($zipcode){
+
         return $this->api->zipcode()->find($zipcode);
     }
 }

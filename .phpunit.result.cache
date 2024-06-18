@@ -1,0 +1,1 @@
+{"version":1,"defects":{"Tests\\Unit\\CheckoutTest::test_boleto_payment_should_return_correct_status":5},"times":{"Tests\\Unit\\CheckoutTest::test_boleto_payment_should_return_correct_status":0.002}}

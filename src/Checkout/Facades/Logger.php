@@ -24,7 +24,7 @@ class Logger {
 
     protected static function _logInFile($message) {
 
-        $file_path = '/matheusfs/laravel-checkout-pagarme/postback.log';
+        $file_path = '/checkout/logger.log';
         $disk = Storage::disk('storage_logs');
         $date_string = '[' . date('Y-m-d H:i:s') . ']';
         $content = "$date_string $message " . PHP_EOL;
