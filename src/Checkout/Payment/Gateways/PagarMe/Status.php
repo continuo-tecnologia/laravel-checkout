@@ -71,8 +71,8 @@ class Status{
             Pode ser que o cartão já tenha vencido, esteja faltando limite, ou algum outro problema.<br><br>Deseja tentar novamente?',
         ],
         'chargedback' => [
-            'as' => 'Chargeback',
-            'subject' => 'Chargeback da sua compra',
+            'as' => 'Pagamento contestado',
+            'subject' => 'Cancelamento da sua compra',
             'description' => 'Transação sofreu chargeback. Veja mais sobre isso em nossa central de ajuda',
             'instruction' => 'Olá. Sua transação sofreu chargeback. Ou seja, provavelmente houve uma contestação da sua compra  diretamente com a administradora do cartão,
             e o pagamento foi cancelado.<br><br>
