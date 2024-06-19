@@ -93,7 +93,8 @@ class Checkout{
         }
         catch(Exception $exception){
 
-            $this->invalidate_user_orders('authorized');
+            $this->invalidate_user_orders(request()->user(), 'authorized');
+            $this->invalidate_user_orders(request()->user());
 
             Log::debug('Checkout: Error capturing transaction. Invalidated authorized user orders cache', compact('exception'));
         }
@@ -117,8 +118,7 @@ class Checkout{
             "checkout:orders:$status_label",
             "checkout:orders:{$user->key}:$status_label",
         ];
-        $prefix =  $cache_tags[1];
-        $cache_key = "$prefix:$status_label";
+        $cache_key = $cache_tags[3];
 
         $expires_at = now()->addMinutes(30);
 
@@ -156,8 +156,7 @@ class Checkout{
             'checkout:orders',
             "checkout:orders:$status_label"
         ];
-        $prefix =  $cache_tags[0];
-        $cache_key = "$prefix:$status_label";
+        $cache_key = $cache_tags[1];
 
         $expires_at = now()->addMinutes(30);
         $payload = compact('status');
@@ -249,7 +248,7 @@ class Checkout{
 
         if($user = request()->user()){
 
-            self::invalidate_user_orders($user->getKey(), $status);
+            self::invalidate_user_orders($user, $status);
         }
         else{
 
