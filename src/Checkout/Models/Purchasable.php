@@ -3,10 +3,12 @@
 namespace MatheusFS\Laravel\Checkout\Models;
 
 use App\Models\SuperModel;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Log;
 use MatheusFS\Laravel\Checkout\Events\PaymentConfirmed;
 
-class Purchasable extends SuperModel{
+class Purchasable extends Model{
 
     const UPDATED_AT = null;
     const CREATED_AT = null;
@@ -66,7 +68,7 @@ class Purchasable extends SuperModel{
         $message = "Found item payment for unpermitted user. Dispatching PaymentConfirmed...";
 
         $user_id = $user->getKey();
-        $external_key = $this->purchasable->external_key;
+        $external_key = $this->external_key;
 
         Log::info($message, compact('user_id', 'external_key'));
 
@@ -75,7 +77,7 @@ class Purchasable extends SuperModel{
                 'external_id' => $user->key,
             ],
             'items' => [
-                ['id' => $this->external_key],
+                ['id' => $external_key],
             ]
         ];
 
