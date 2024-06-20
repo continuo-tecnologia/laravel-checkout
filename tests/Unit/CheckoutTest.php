@@ -1,16 +1,11 @@
 <?php
 
-namespace Tests\Unit;
+namespace MatheusFS\Laravel\Checkout\Tests\Unit;
 
 use MatheusFS\Laravel\Checkout\Checkout;
-use PHPUnit\Framework\TestCase;
+use MatheusFS\Laravel\Checkout\Tests\TestCase;
 
 class CheckoutTest extends TestCase{
-
-    public function setUp(): void{
-
-        parent::setUp();
-    }
 
     public function test_boleto_payment_should_return_correct_status(){
 
@@ -18,9 +13,9 @@ class CheckoutTest extends TestCase{
         $expected_status = 'requested_boleto_payment';
 
         # Act
-        Checkout::payment_status('course_1');
+        $status = Checkout::payment_status('course_1');
 
         # Assert
-        //
+        $this->assertEquals($expected_status, $status);
     }
 }

@@ -15,10 +15,11 @@
 namespace MatheusFS\Laravel\Checkout;
 
 use Exception;
+
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Log;
+
 use MatheusFS\Laravel\Checkout\Entities\Item;
-use MatheusFS\Laravel\Checkout\Facades\Logger;
 use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Api;
 use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\PaymentLink;
 use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Status;

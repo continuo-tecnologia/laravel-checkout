@@ -10,9 +10,11 @@ class Api{
 
     public static function client(): Client{
 
-        $api_key = app()->environment('production')
-        ? config('checkout.pagarme.api_key', 'ak_live_xxxxxx')
-        : config('checkout.pagarme.api_sandbox_key', 'ak_test_xxxxxx');
+        $is_production = app()->environment('production');
+
+        $api_key = $is_production
+        ? config('checkout.pagarme.api_key')
+        : config('checkout.pagarme.api_sandbox_key');
 
         return new Client($api_key);
     }

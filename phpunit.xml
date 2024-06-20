@@ -8,10 +8,14 @@
 >
     <php>
         <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
+        <env name="CHECKOUT_PAGARME_API_SANDBOX_KEY" value="ak_test_ZfkuJKLEYICsa9IB38dmMDDCc9nvHH"/>
     </php>
     <testsuites>
-        <testsuite name="Library Program Test Suite">
-            <directory suffix=".php">./tests/</directory>
+        <testsuite name="Api">
+            <directory suffix="Test.php">./tests/Api</directory>
+        </testsuite>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
     </testsuites>
 </phpunit>
