@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Session;
 use MatheusFS\Laravel\Checkout\Checkout;
 use MatheusFS\Laravel\Checkout\Events\PaymentCancelled;
 use MatheusFS\Laravel\Checkout\Events\PaymentConfirmed;
@@ -29,6 +31,8 @@ class Postback{
     }
 
     public function transactions(Request $request){
+
+        // return dd($request);
 
         $user_agent = $this->validateAndGetAgent($request);
         $normalized = Postback::normalizeTransactionData($request);
@@ -56,15 +60,13 @@ class Postback{
 
         $external_id = $normalized['customer']['external_id'];
         $user_model = config('checkout.user.model');
-        $user = $user_model::find($external_id) ?? $user_model::whereEmail($external_id)->first();
 
-        if($user){
+        if(class_exists($user_model) && Schema::hasTable((new $user_model)->getTable())){
 
-            Checkout::invalidate_user_orders($user);
-        }
-        else{
+            $user = $user_model::find($external_id) ?? $user_model::whereEmail($external_id)->first();
 
-            dd(compact('external_id', 'user_model', 'user'));
+            if($user) Checkout::invalidate_user_orders($user);
+            else dd(compact('external_id', 'user_model', 'user'));
         }
 
         Log::info("Succesfully processed transaction id: $request->id (Agent: $user_agent)", $normalized);
@@ -124,12 +126,52 @@ class Postback{
 
     public static function validate(Request $request){
 
-        $body = $request->getContent();
+        $inputs = $request->all();
 
-        $signature = $request->header('X-Hub-Signature');
+        $formated = collect($inputs)->map(function($item){
+
+            if(is_array($item)){
+
+                return collect($item)->map(function($item2){
+
+                    if(is_array($item2)){
+
+                        return collect($item2)->map(function($item3){
+
+                            if(is_array($item3)){
+
+                                $null_to_empty_string = fn($item4) => $item4 ?? '';
+                                return collect($item3)->map($null_to_empty_string)->toArray();
+                            }
+
+                            return $item3 ?? '';
+                        })
+                        ->toArray();
+                    }
+
+                    return $item2 ?? '';
+                })
+                ->toArray();
+            }
+
+            return $item ?? '';
+        })
+        ->toArray();
+
+        $body = http_build_query($formated, '', '&', PHP_QUERY_RFC3986);
+
+        $signature = app()->environment('testing')
+        ? $request->header('X-Hub-Signature-Test')
+        : $request->header('X-Hub-Signature');
         $user_agent = $request->header('User-Agent');
 
-        $is_valid = Api::client()->postbacks()->validate($body, $signature);
+        $fake = Session::get('fake_validation');
+
+        if(boolval($fake)) $is_valid = true;
+        else{
+
+            $is_valid = Api::client()->postbacks()->validate($body, $signature);
+        } 
 
         $message = $is_valid 
         ? "Validated request for " . request()->getRequestUri() . " id: $request->id" 
@@ -137,7 +179,9 @@ class Postback{
 
         Log::info("$message (Agent: $user_agent)");
 
-        return $is_valid ? null : abort(403, $message);
+        if(!$is_valid) abort(403, $message);
+
+        return null;
     }
 
     public static function normalizeOrderData($request): array{

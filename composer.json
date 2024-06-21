@@ -25,8 +25,12 @@
     "autoload": {
         "psr-4": {
             "MatheusFS\\Laravel\\Checkout\\": "src",
-            "MatheusFS\\Laravel\\Checkout\\Tests\\": "tests",
             "PagarMe\\": "vendor/pagarme/pagarme-php/src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
         }
     },
     "extra": {

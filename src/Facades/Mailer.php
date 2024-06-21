@@ -2,14 +2,14 @@
 
 namespace MatheusFS\Laravel\Checkout\Facades;
 
-use App\Models\Marketplace\Product;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+
 use MatheusFS\Laravel\Checkout\Mail\Postback\Customer as PostbackToCustomer;
 use MatheusFS\Laravel\Checkout\Mail\Postback\Development as PostbackToDevelopment;
 use MatheusFS\Laravel\Checkout\Mail\Postback\Supplier as PostbackToSupplier;
 use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Status;
-
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
+use MatheusFS\Laravel\Checkout\Models\Product;
 use MatheusFS\Laravel\Checkout\Shipping\Carriers\Correios\Api;
 
 class Mailer {
@@ -47,9 +47,10 @@ class Mailer {
         foreach($normalized['items'] as $item){
 
             $id = $item['id'];
-            $product = Product::find($id);
 
-            if($product){
+            try{ $product = Product::find($id); }catch(\Exception $exception){}
+
+            if(isset($product) && $product instanceof Product){
 
                 $supplier_id = $product->supplier->getKey();
                 $suppliers[$supplier_id][] = $item;
@@ -60,7 +61,7 @@ class Mailer {
             $class = $exploded[0];
             $key = $exploded[1];
 
-            if($model = $class::find($key)){
+            if(class_exists($class) && $model = $class::find($key)){
 
                 if($supplier = $model->supplier){
 

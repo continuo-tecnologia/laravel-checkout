@@ -1,0 +1,125 @@
+{
+    "payload": {
+        
+    },
+    "headers": {
+        "X-Hub-Signature": "sha1=1f46059e2e7457365a70daef86f1ffcf8c15728c",
+        "Content-Type":"application/x-www-form-urlencoded",
+        "Accept-Encoding":"gzip, deflate, br",
+        "Accept":"application/x-www-form-urlencoded",
+        "X-PagarMe-Event":"transaction_status_changed",
+        "User-Agent":"PagarMe-Hookshot/1.0",
+        "X-PagarMe-Operation":"po_clxovk1886bqp01l8f5fb88kx"
+    }
+}
+// id:2205032705
+// fingerprint:d8e2630d401581520eac19a05e4465626a80ee88
+// event:transaction_status_changed
+// old_status:processing
+// desired_status:authorized
+// current_status:authorized
+// object:transaction
+// transaction[object]:transaction
+// transaction[status]:authorized
+// transaction[refuse_reason]:
+// transaction[status_reason]:acquirer
+// transaction[acquirer_response_code]:
+// transaction[acquirer_response_message]:
+// transaction[acquirer_name]:pagarme
+// transaction[acquirer_id]:5e9c76b5054c161d6508e889
+// transaction[authorization_code]:
+// transaction[soft_descriptor]:
+// transaction[tid]:2205032705
+// transaction[nsu]:2205032705
+// transaction[date_created]:2024-06-21T15:57:33.977Z
+// transaction[date_updated]:2024-06-21T15:57:34.066Z
+// transaction[amount]:44730
+// transaction[authorized_amount]:44730
+// transaction[paid_amount]:0
+// transaction[refunded_amount]:0
+// transaction[installments]:1
+// transaction[id]:2205032705
+// transaction[cost]:0
+// transaction[card_holder_name]:
+// transaction[card_last_digits]:
+// transaction[card_first_digits]:
+// transaction[card_brand]:
+// transaction[card_pin_mode]:
+// transaction[card_magstripe_fallback]:false
+// transaction[card_funding_source]:
+// transaction[cvm_pin]:false
+// transaction[postback_url]:http://matheus:8000/checkout/pagarme/postback/transactions
+// transaction[payment_method]:boleto
+// transaction[capture_method]:ecommerce
+// transaction[antifraud_score]:
+// transaction[boleto_url]:
+// transaction[boleto_barcode]:
+// transaction[boleto_expiration_date]:2024-06-28T03:00:00.000Z
+// transaction[boleto]:
+// transaction[referer]:encryption_key
+// transaction[ip]:138.36.83.182
+// transaction[subscription_id]:
+// transaction[phone]:
+// transaction[address]:
+// transaction[customer][object]:customer
+// transaction[customer][id]:19039042
+// transaction[customer][external_id]:dev.premium2@refresher.com.br
+// transaction[customer][type]:corporation
+// transaction[customer][country]:br
+// transaction[customer][document_number]:
+// transaction[customer][document_type]:cpf
+// transaction[customer][name]:Dev PREMIUM
+// transaction[customer][email]:dev.premium2@refresher.com.br
+// transaction[customer][phone_numbers][0]:+5554984016377
+// transaction[customer][born_at]:
+// transaction[customer][birthday]:
+// transaction[customer][gender]:
+// transaction[customer][date_created]:2024-06-21T15:57:33.934Z
+// transaction[customer][documents][0][object]:document
+// transaction[customer][documents][0][id]:doc_clxovk12y00ra019tg00ehyh7
+// transaction[customer][documents][0][type]:cnpj
+// transaction[customer][documents][0][number]:26232712000120
+// transaction[customer][client_since]:
+// transaction[customer][risk_indicator]:
+// transaction[billing][object]:billing
+// transaction[billing][id]:8367019
+// transaction[billing][name]:Billing
+// transaction[billing][address][object]:address
+// transaction[billing][address][street]:Rua Visconde de São Gabriel
+// transaction[billing][address][complementary]:
+// transaction[billing][address][street_number]:396
+// transaction[billing][address][neighborhood]:
+// transaction[billing][address][city]:Bento Gonçalves
+// transaction[billing][address][state]:RS
+// transaction[billing][address][zipcode]:95700118
+// transaction[billing][address][country]:br
+// transaction[billing][address][id]:13984538
+// transaction[shipping]:
+// transaction[items][0][object]:item
+// transaction[items][0][id]:App\Models\Content\Course:dW1RU0pNUWRuV3dXc2lmTlhVQmN3QT09
+// transaction[items][0][title]:REFRESHER OTIMIZA
+// transaction[items][0][unit_price]:49700
+// transaction[items][0][quantity]:1
+// transaction[items][0][category]:
+// transaction[items][0][tangible]:false
+// transaction[items][0][venue]:
+// transaction[items][0][date]:
+// transaction[card]:
+// transaction[split_rules]:
+// transaction[reference_key]:
+// transaction[device]:
+// transaction[local_transaction_id]:
+// transaction[local_time]:
+// transaction[fraud_covered]:false
+// transaction[fraud_reimbursed]:
+// transaction[order_id]:
+// transaction[risk_level]:unknown
+// transaction[receipt_url]:
+// transaction[payment]:
+// transaction[addition]:
+// transaction[discount]:
+// transaction[private_label]:
+// transaction[pix_data]:
+// transaction[pix_qr_code]:
+// transaction[pix_expiration_date]:
+// transaction[service_referer_name]:

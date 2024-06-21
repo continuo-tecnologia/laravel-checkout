@@ -1,0 +1,142 @@
+{
+    "payload": {
+        "id": "2204997718",
+        "fingerprint": "8730d075b6bd0c0a6dd688defda48abe8f8c4e1b",
+        "event": "transaction_status_changed",
+        "old_status": "waiting_payment",
+        "desired_status": "refunded",
+        "current_status": "refunded",
+        "object": "transaction",
+        "transaction": {
+            "object": "transaction",
+            "status": "refunded",
+            "refuse_reason": null,
+            "status_reason": "acquirer",
+            "acquirer_response_code": null,
+            "acquirer_response_message": null,
+            "acquirer_name": "pagarme",
+            "acquirer_id": "5e9c76b5054c161d6508e889",
+            "authorization_code": null,
+            "soft_descriptor": null,
+            "tid": "2204997718",
+            "nsu": "2204997718",
+            "date_created": "2024-06-19T15:44:09.928Z",
+            "date_updated": "2024-06-19T16:43:16.053Z",
+            "amount": "35730",
+            "authorized_amount": "35730",
+            "paid_amount": "35730",
+            "refunded_amount": "0",
+            "installments": "1",
+            "id": "2204997718",
+            "cost": "0",
+            "card_holder_name": null,
+            "card_last_digits": null,
+            "card_first_digits": null,
+            "card_brand": null,
+            "card_pin_mode": null,
+            "card_magstripe_fallback": "false",
+            "card_funding_source": null,
+            "cvm_pin": "false",
+            "postback_url": "http://matheus:8000/checkout/pagarme/postback/transactions",
+            "payment_method": "boleto",
+            "capture_method": "ecommerce",
+            "antifraud_score": null,
+            "boleto_url": "https://pagar.me",
+            "boleto_barcode": "1234 5678",
+            "boleto_expiration_date": "2024-06-26T03:00:00.000Z",
+            "boleto": {
+                "paid_interest_and_fine": "0",
+                "discount": "0"
+            },
+            "referer": "encryption_key",
+            "ip": "138.36.83.182",
+            "subscription_id": null,
+            "phone": null,
+            "address": null,
+            "customer": {
+                "object": "customer",
+                "id": "19007405",
+                "external_id": "dev.free@refresher.com.br",
+                "type": "corporation",
+                "country": "br",
+                "document_number": null,
+                "document_type": "cpf",
+                "name": "Dev - FREE",
+                "email": "dev.free@refresher.com.br",
+                "phone_numbers": [
+                    "+5554996697754"
+                ],
+                "born_at": null,
+                "birthday": null,
+                "gender": null,
+                "date_created": "2024-06-19T15:44:09.889Z",
+                "documents": [
+                    {
+                        "object": "document",
+                        "id": "doc_clxm073cc050b019t5g3kr144",
+                        "type": "cnpj",
+                        "number": "26232712000120"
+                    }
+                ],
+                "client_since": null,
+                "risk_indicator": null
+            },
+            "billing": {
+                "object": "billing",
+                "id": "8350640",
+                "name": "Billing",
+                "address": {
+                    "object": "address",
+                    "street": "Rua Visconde de São Gabriel",
+                    "complementary": null,
+                    "street_number": "396",
+                    "neighborhood": null,
+                    "city": "Bento Gonçalves",
+                    "state": "RS",
+                    "zipcode": "95700118",
+                    "country": "br",
+                    "id": "13961625"
+                }
+            },
+            "shipping": null,
+            "items": [
+                {
+                    "object": "item",
+                    "id": "App\\Models\\Content\\Course:TmhBVmxKT2RiWko1SmtNanhON2RMZz09",
+                    "title": "Ergonomia e Dimensionamento",
+                    "unit_price": "39700",
+                    "quantity": "1",
+                    "category": null,
+                    "tangible": "false",
+                    "venue": null,
+                    "date": null
+                }
+            ],
+            "card": null,
+            "split_rules": null,
+            "reference_key": null,
+            "device": null,
+            "local_transaction_id": null,
+            "local_time": null,
+            "fraud_covered": "false",
+            "fraud_reimbursed": null,
+            "order_id": null,
+            "risk_level": "unknown",
+            "receipt_url": null,
+            "payment": null,
+            "addition": null,
+            "discount": null,
+            "private_label": null,
+            "pix_data": null,
+            "pix_qr_code": null,
+            "pix_expiration_date": null,
+            "service_referer_name": null
+        }
+    },
+    "headers": {
+        "X-Hub-Signature": "sha1=71e8e56829229a233ba8e4acc3d337d6de5405ed",
+        "Content-Type":"application/x-www-form-urlencoded",
+        "X-PagarMe-Event":"transaction_status_changed",
+        "X-PagarMe-Operation":"po_clxovk1886bqp01l8f5fb88kx"
+    }
+}

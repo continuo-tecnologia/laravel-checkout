@@ -1,0 +1,79 @@
+[
+    {
+        "object": "postback",
+        "status": "waiting_retry",
+        "model": "transaction",
+        "model_id": "2205032705",
+        "headers": "{\"Content-Type\":\"application/x-www-form-urlencoded\",\"Accept-Encoding\":\"gzip, deflate, br\",\"Accept\":\"application/x-www-form-urlencoded\",\"X-PagarMe-Event\":\"transaction_status_changed\",\"X-Hub-Signature\":\"sha1=1f46059e2e7457365a70daef86f1ffcf8c15728c\",\"User-Agent\":\"PagarMe-Hookshot/1.0\",\"X-PagarMe-Operation\":\"po_clxovk1886bqp01l8f5fb88kx\"}",
+        "payload": "id=2205032705&fingerprint=d8e2630d401581520eac19a05e4465626a80ee88&event=transaction_status_changed&old_status=processing&desired_status=authorized&current_status=authorized&object=transaction&transaction%5Bobject%5D=transaction&transaction%5Bstatus%5D=authorized&transaction%5Brefuse_reason%5D=&transaction%5Bstatus_reason%5D=acquirer&transaction%5Bacquirer_response_code%5D=&transaction%5Bacquirer_response_message%5D=&transaction%5Bacquirer_name%5D=pagarme&transaction%5Bacquirer_id%5D=5e9c76b5054c161d6508e889&transaction%5Bauthorization_code%5D=&transaction%5Bsoft_descriptor%5D=&transaction%5Btid%5D=2205032705&transaction%5Bnsu%5D=2205032705&transaction%5Bdate_created%5D=2024-06-21T15%3A57%3A33.977Z&transaction%5Bdate_updated%5D=2024-06-21T15%3A57%3A34.066Z&transaction%5Bamount%5D=44730&transaction%5Bauthorized_amount%5D=44730&transaction%5Bpaid_amount%5D=0&transaction%5Brefunded_amount%5D=0&transaction%5Binstallments%5D=1&transaction%5Bid%5D=2205032705&transaction%5Bcost%5D=0&transaction%5Bcard_holder_name%5D=&transaction%5Bcard_last_digits%5D=&transaction%5Bcard_first_digits%5D=&transaction%5Bcard_brand%5D=&transaction%5Bcard_pin_mode%5D=&transaction%5Bcard_magstripe_fallback%5D=false&transaction%5Bcard_funding_source%5D=&transaction%5Bcvm_pin%5D=false&transaction%5Bpostback_url%5D=http%3A%2F%2Fmatheus%3A8000%2Fcheckout%2Fpagarme%2Fpostback%2Ftransactions&transaction%5Bpayment_method%5D=boleto&transaction%5Bcapture_method%5D=ecommerce&transaction%5Bantifraud_score%5D=&transaction%5Bboleto_url%5D=&transaction%5Bboleto_barcode%5D=&transaction%5Bboleto_expiration_date%5D=2024-06-28T03%3A00%3A00.000Z&transaction%5Bboleto%5D=&transaction%5Breferer%5D=encryption_key&transaction%5Bip%5D=138.36.83.182&transaction%5Bsubscription_id%5D=&transaction%5Bphone%5D=&transaction%5Baddress%5D=&transaction%5Bcustomer%5D%5Bobject%5D=customer&transaction%5Bcustomer%5D%5Bid%5D=19039042&transaction%5Bcustomer%5D%5Bexternal_id%5D=dev.premium2%40refresher.com.br&transaction%5Bcustomer%5D%5Btype%5D=corporation&transaction%5Bcustomer%5D%5Bcountry%5D=br&transaction%5Bcustomer%5D%5Bdocument_number%5D=&transaction%5Bcustomer%5D%5Bdocument_type%5D=cpf&transaction%5Bcustomer%5D%5Bname%5D=Dev%20PREMIUM&transaction%5Bcustomer%5D%5Bemail%5D=dev.premium2%40refresher.com.br&transaction%5Bcustomer%5D%5Bphone_numbers%5D%5B0%5D=%2B5554984016377&transaction%5Bcustomer%5D%5Bborn_at%5D=&transaction%5Bcustomer%5D%5Bbirthday%5D=&transaction%5Bcustomer%5D%5Bgender%5D=&transaction%5Bcustomer%5D%5Bdate_created%5D=2024-06-21T15%3A57%3A33.934Z&transaction%5Bcustomer%5D%5Bdocuments%5D%5B0%5D%5Bobject%5D=document&transaction%5Bcustomer%5D%5Bdocuments%5D%5B0%5D%5Bid%5D=doc_clxovk12y00ra019tg00ehyh7&transaction%5Bcustomer%5D%5Bdocuments%5D%5B0%5D%5Btype%5D=cnpj&transaction%5Bcustomer%5D%5Bdocuments%5D%5B0%5D%5Bnumber%5D=26232712000120&transaction%5Bcustomer%5D%5Bclient_since%5D=&transaction%5Bcustomer%5D%5Brisk_indicator%5D=&transaction%5Bbilling%5D%5Bobject%5D=billing&transaction%5Bbilling%5D%5Bid%5D=8367019&transaction%5Bbilling%5D%5Bname%5D=Billing&transaction%5Bbilling%5D%5Baddress%5D%5Bobject%5D=address&transaction%5Bbilling%5D%5Baddress%5D%5Bstreet%5D=Rua%20Visconde%20de%20S%C3%A3o%20Gabriel&transaction%5Bbilling%5D%5Baddress%5D%5Bcomplementary%5D=&transaction%5Bbilling%5D%5Baddress%5D%5Bstreet_number%5D=396&transaction%5Bbilling%5D%5Baddress%5D%5Bneighborhood%5D=&transaction%5Bbilling%5D%5Baddress%5D%5Bcity%5D=Bento%20Gon%C3%A7alves&transaction%5Bbilling%5D%5Baddress%5D%5Bstate%5D=RS&transaction%5Bbilling%5D%5Baddress%5D%5Bzipcode%5D=95700118&transaction%5Bbilling%5D%5Baddress%5D%5Bcountry%5D=br&transaction%5Bbilling%5D%5Baddress%5D%5Bid%5D=13984538&transaction%5Bshipping%5D=&transaction%5Bitems%5D%5B0%5D%5Bobject%5D=item&transaction%5Bitems%5D%5B0%5D%5Bid%5D=App%5CModels%5CContent%5CCourse%3AdW1RU0pNUWRuV3dXc2lmTlhVQmN3QT09&transaction%5Bitems%5D%5B0%5D%5Btitle%5D=REFRESHER%20OTIMIZA&transaction%5Bitems%5D%5B0%5D%5Bunit_price%5D=49700&transaction%5Bitems%5D%5B0%5D%5Bquantity%5D=1&transaction%5Bitems%5D%5B0%5D%5Bcategory%5D=&transaction%5Bitems%5D%5B0%5D%5Btangible%5D=false&transaction%5Bitems%5D%5B0%5D%5Bvenue%5D=&transaction%5Bitems%5D%5B0%5D%5Bdate%5D=&transaction%5Bcard%5D=&transaction%5Bsplit_rules%5D=&transaction%5Breference_key%5D=&transaction%5Bdevice%5D=&transaction%5Blocal_transaction_id%5D=&transaction%5Blocal_time%5D=&transaction%5Bfraud_covered%5D=false&transaction%5Bfraud_reimbursed%5D=&transaction%5Border_id%5D=&transaction%5Brisk_level%5D=unknown&transaction%5Breceipt_url%5D=&transaction%5Bpayment%5D=&transaction%5Baddition%5D=&transaction%5Bdiscount%5D=&transaction%5Bprivate_label%5D=&transaction%5Bpix_data%5D=&transaction%5Bpix_qr_code%5D=&transaction%5Bpix_expiration_date%5D=&transaction%5Bservice_referer_name%5D=",
+        "request_url": "http://matheus:8000/checkout/pagarme/postback/transactions",
+        "retries": 5,
+        "next_retry": "2024-06-21T16:10:45.061Z",
+        "deliveries": [
+            {
+                "object": "postback_delivery",
+                "status": "failed",
+                "status_reason": "timeout",
+                "status_code": "0",
+                "response_time": 4,
+                "response_headers": "{}",
+                "response_body": "Resource temporarily unavailable",
+                "date_created": "2024-06-21T15:57:34.16Z",
+                "date_updated": "2024-06-21T15:57:34.761Z",
+                "id": "pd_pW0or2xSRSP6m5gk"
+            },
+            {
+                "object": "postback_delivery",
+                "status": "failed",
+                "status_reason": "timeout",
+                "status_code": "0",
+                "response_time": 3,
+                "response_headers": "{}",
+                "response_body": "Resource temporarily unavailable",
+                "date_created": "2024-06-21T15:58:35.915Z",
+                "date_updated": "2024-06-21T15:58:36.764Z",
+                "id": "pd_gVYraZDtQt7zQ56o"
+            },
+            {
+                "object": "postback_delivery",
+                "status": "failed",
+                "status_reason": "timeout",
+                "status_code": "0",
+                "response_time": 4,
+                "response_headers": "{}",
+                "response_body": "Resource temporarily unavailable",
+                "date_created": "2024-06-21T15:59:38.018Z",
+                "date_updated": "2024-06-21T15:59:38.843Z",
+                "id": "pd_aZqArXxt1tore82W"
+            },
+            {
+                "object": "postback_delivery",
+                "status": "failed",
+                "status_reason": "timeout",
+                "status_code": "0",
+                "response_time": 4,
+                "response_headers": "{}",
+                "response_body": "Resource temporarily unavailable",
+                "date_created": "2024-06-21T16:00:40.402Z",
+                "date_updated": "2024-06-21T16:00:41.279Z",
+                "id": "pd_RveJKlOSNS2PdXMx"
+            },
+            {
+                "object": "postback_delivery",
+                "status": "failed",
+                "status_reason": "timeout",
+                "status_code": "0",
+                "response_time": 4,
+                "response_headers": "{}",
+                "response_body": "Resource temporarily unavailable",
+                "date_created": "2024-06-21T16:05:44.246Z",
+                "date_updated": "2024-06-21T16:05:45.061Z",
+                "id": "pd_q72JzeRh5hlXwm6E"
+            }
+        ],
+        "date_created": "2024-06-21T15:57:34.136Z",
+        "date_updated": "2024-06-21T16:05:45.061Z",
+        "signature": "sha1=1f46059e2e7457365a70daef86f1ffcf8c15728c",
+        "id": "po_clxovk1886bqp01l8f5fb88kx"
+    }
+]

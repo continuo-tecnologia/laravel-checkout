@@ -8,7 +8,7 @@ class ServiceProvider extends BaseServiceProvider{
 
     public function register(){
 
-        $this->mergeConfigFrom(__DIR__.'/../config/checkout.php', 'checkout');
+        $this->mergeConfigFrom($this->get_path('/config/checkout.php'), 'checkout');
     }
 
     public function boot(){
@@ -16,12 +16,18 @@ class ServiceProvider extends BaseServiceProvider{
         if($this->app->runningInConsole()){
 
             $this->publishes([
-                __DIR__.'/../config/checkout.php' => config_path('checkout.php'),
+                $this->get_path('/config/checkout.php') => config_path('checkout.php'),
             ], 'config');
         }
 
-        $this->loadViewsFrom(__DIR__.'/views', 'checkout');
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
-        $this->loadRoutesFrom(__DIR__.'/routes.php');
+        $this->loadViewsFrom($this->get_path('/views'), 'checkout');
+        $this->loadMigrationsFrom($this->get_path('/database/migrations'));
+        $this->loadRoutesFrom($this->get_path('/routes/api.php'));
+        $this->loadRoutesFrom($this->get_path('/routes/console.php'));
+    }
+
+    function get_path($path = ''){
+
+        return dirname(__DIR__) . $path;
     }
 }

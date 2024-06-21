@@ -1,0 +1,40 @@
+name: Run tests
+
+on:
+  push:
+
+jobs:
+
+  phpunit:
+    name: Run PHPUnit
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+
+      - uses: php-actions/composer@v6
+        with:
+          php_version: '7.4'
+          php_extensions: gd intl mysqlnd igbinary redis bcmath ctype fileinfo json mbstring openssl pdo tokenizer xml zip xdebug
+
+      - name: Run PHPUnit tests
+        run: |
+          echo "$ENV_FILE" > .env
+          echo PHP VERSION $(php -v)
+          sudo chmod -R 0777 vendor/orchestra/testbench-core/laravel/bootstrap/*
+          sudo chmod -R 0777 vendor/orchestra/testbench-core/laravel/storage/*
+          vendor/bin/phpunit --coverage-clover coverage.xml
+        shell: bash
+        env:
+          ENV_FILE: ${{ secrets.ENV }}
+          XDEBUG_MODE: coverage
+
+      - uses: codecov/codecov-action@v3
+        with:
+            token: ${{ secrets.CODECOV_TOKEN }}
+            files: coverage.xml

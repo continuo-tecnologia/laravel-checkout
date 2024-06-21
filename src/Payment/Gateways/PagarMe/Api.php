@@ -20,16 +20,23 @@ class Api{
     }
 
     public static function order($id){
-        
-        $client = new GuzzleHttpClient(['base_uri' => 'https://api.pagar.me/1/']);
 
-        $payload = ['api_key' => config('checkout.pagarme.api_key', 'ak_live_xxxxxx')];
-        $request = $client->get("orders?id=$id", ['form_params' => $payload]);
+        try{
 
-        $response = $request->getBody();
+            $client = new GuzzleHttpClient(['base_uri' => 'https://api.pagar.me/1/']);
 
-        $content = $response->getContents();
-        return json_decode($content, true)[0];
+            $payload = ['api_key' => config('checkout.pagarme.api_key')];
+            $request = $client->get("orders?id=$id", ['form_params' => $payload]);
+
+            $response = $request->getBody();
+
+            $content = $response->getContents();
+            return json_decode($content, true)[0];
+        }
+        catch(\Exception $exception){
+
+            //
+        }
     }
 
     public function capture(Request $request){
