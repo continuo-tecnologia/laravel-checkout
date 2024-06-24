@@ -2,7 +2,7 @@
 
 namespace MatheusFS\Laravel\Checkout\Traits;
 
-trait NumericStringable {
+trait NumericStringable{
 
     /** 
      * @var integer 
@@ -15,7 +15,7 @@ trait NumericStringable {
      * @return string
      */
     public function __toString(){
-        
+
         return (string) $this->number;
     }
 }

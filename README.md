@@ -1,4 +1,6 @@
 # Checkout with Pagar.me
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/matheusfs/laravel-checkout/tests.yml)
+
 Laravel checkout facade to Pagar.me v4 api
 
 ## Instalation

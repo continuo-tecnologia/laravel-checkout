@@ -2,17 +2,25 @@
 
 namespace Tests;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use MatheusFS\Laravel\Checkout\ServiceProvider;
 use Orchestra\Testbench\TestCase as TestbenchTestCase;
 
 class TestCase extends TestbenchTestCase{
 
+    use RefreshDatabase;
+
     protected $loadEnvironmentVariables = true;
 
     public function setUp(): void{
 
         parent::setUp();
+    }
+
+    public static function applicationBasePath(){
+
+        return dirname(__DIR__);
     }
 
     protected function getPackageProviders($app){

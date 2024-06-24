@@ -5,10 +5,7 @@
     "headers": {
         "X-Hub-Signature": "sha1=1f46059e2e7457365a70daef86f1ffcf8c15728c",
         "Content-Type":"application/x-www-form-urlencoded",
-        "Accept-Encoding":"gzip, deflate, br",
-        "Accept":"application/x-www-form-urlencoded",
         "X-PagarMe-Event":"transaction_status_changed",
-        "User-Agent":"PagarMe-Hookshot/1.0",
         "X-PagarMe-Operation":"po_clxovk1886bqp01l8f5fb88kx"
     }
 }

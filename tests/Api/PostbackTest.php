@@ -55,7 +55,7 @@ class PostbackTest extends TestCase{
 
     public function send_postback($status){
 
-        $name = "postback.$status";
+        $name = "postback/$status";
 
         $endpoint = '/checkout/pagarme/postback/transactions';
 

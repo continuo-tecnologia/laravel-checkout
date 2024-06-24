@@ -36,10 +36,8 @@ return [
 
     'pagarme' => [
 
-        'api_key' => env('CHECKOUT_PAGARME_API_KEY', 'ak_live_xxxxxx'),
-        'api_sandbox_key' => env('CHECKOUT_PAGARME_API_SANDBOX_KEY', 'ak_test_xxxxxx'),
-        'encryption_key' => env('CHECKOUT_PAGARME_ENCRYPTION_KEY'),
-        'encryption_sandbox_key' => env('CHECKOUT_PAGARME_ENCRYPTION_SANDBOX_KEY'),
+        'api_key' => env('CHECKOUT_PAGARME_API_KEY', 'ak_test_xxxxxx'),
+        'encryption_key' => env('CHECKOUT_PAGARME_ENCRYPTION_KEY', 'ek_test_xxxxxx'),
     ],
 
     'facebook' => [

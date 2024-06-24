@@ -4,14 +4,16 @@ namespace MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe;
 
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
+
 use MatheusFS\Laravel\Checkout\Checkout;
 use MatheusFS\Laravel\Checkout\Events\PaymentCancelled;
 use MatheusFS\Laravel\Checkout\Events\PaymentConfirmed;
 use MatheusFS\Laravel\Checkout\Facades\Mailer;
+use MatheusFS\Laravel\Checkout\Support\Facades\Order;
 
 class Postback{
 
@@ -32,17 +34,15 @@ class Postback{
 
     public function transactions(Request $request){
 
-        // return dd($request);
-
         $user_agent = $this->validateAndGetAgent($request);
         $normalized = Postback::normalizeTransactionData($request);
 
-        $status = $normalized['status'];
+        $status = Order::status($normalized);
+        $user = Order::customer($normalized);
 
-        if(in_array($status, array_keys(Status::MAP))){
+        $mapped_status = in_array($status, array_keys(Status::MAP));
 
-            Mailer::sendMails($normalized);
-        }
+        if($mapped_status) Mailer::sendMails($normalized);
 
         if($status === 'paid'){
 
@@ -58,16 +58,7 @@ class Postback{
             PaymentCancelled::dispatch($normalized);
         }
 
-        $external_id = $normalized['customer']['external_id'];
-        $user_model = config('checkout.user.model');
-
-        if(class_exists($user_model) && Schema::hasTable((new $user_model)->getTable())){
-
-            $user = $user_model::find($external_id) ?? $user_model::whereEmail($external_id)->first();
-
-            if($user) Checkout::invalidate_user_orders($user);
-            else dd(compact('external_id', 'user_model', 'user'));
-        }
+        if($user) Checkout::invalidate_user_orders($user);
 
         Log::info("Succesfully processed transaction id: $request->id (Agent: $user_agent)", $normalized);
 
@@ -160,9 +151,7 @@ class Postback{
 
         $body = http_build_query($formated, '', '&', PHP_QUERY_RFC3986);
 
-        $signature = app()->environment('testing')
-        ? $request->header('X-Hub-Signature-Test')
-        : $request->header('X-Hub-Signature');
+        $signature = $request->header('X-Hub-Signature');
         $user_agent = $request->header('User-Agent');
 
         $fake = Session::get('fake_validation');

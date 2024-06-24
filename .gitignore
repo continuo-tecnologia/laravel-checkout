@@ -1,4 +1,7 @@
 vendor
 .env
+.env.*
 .phpunit.result.cache
 coverage.xml
+storage/framework
+storage/logs

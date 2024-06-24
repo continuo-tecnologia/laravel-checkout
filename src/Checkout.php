@@ -8,26 +8,25 @@
  * @copyright 2020 Natheus Ferreira da Silva
  * @license https://raw.githubusercontent.com/MatheusFS/laravel-checkout-pagarme/master/LICENSE MIT License
  * @version Release: @package_version@
- * @link https://packagist.org/packages/matheusfs/laravel-checkout-pagarme
+ * @link https://packagist.org/packages/matheusfs/laravel-checkout
  * @since Class available since Release 0.1
  */
 
 namespace MatheusFS\Laravel\Checkout;
 
-use Exception;
-
 use Illuminate\Foundation\Auth\User;
-use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Session;
 use MatheusFS\Laravel\Checkout\Entities\Item;
+use MatheusFS\Laravel\Checkout\Models\CreditCard;
+use MatheusFS\Laravel\Checkout\Models\Transaction;
 use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Api;
 use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\PaymentLink;
-use MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe\Status;
 use MatheusFS\Laravel\Checkout\Support\Facades\Order;
+use MatheusFS\Laravel\Checkout\Support\Facades\Payment;
 
 class Checkout{
 
-    protected $client;
+    public $client;
     protected $payment_method;
     public $customer;
     public $billing;
@@ -48,60 +47,34 @@ class Checkout{
 
     static function payment_status($item_key){
 
-        $last_transaction = Order::last($item_key);
-
-        if(is_null($last_transaction)) return 'needs_payment';
-
-        $last_status = $last_transaction->status;
-
-        if($last_status === 'authorized'){
-
-            (new Checkout)->confirm_order($last_transaction);
-
-            return 'requested_payment';
-        }
-
-        if($last_status === 'paid') return 'paid';
-
-        $is_processing = collect(Status::PROCESSING)->contains($last_status);
-        $is_cancelled = collect(Status::CANCELLED)->contains($last_status);
-
-        if($is_processing){
-
-            $method = $last_transaction->payment_method;
-
-            if($method === 'boleto') return 'requested_boleto_payment';
-            if($method === 'pix') return 'requested_pix_payment';
-            if($method === 'credit_card') return 'requested_cc_payment';
-        }
-        elseif($is_cancelled) return 'needs_payment';
-
-        dd(compact('item_key', 'last_transaction', 'last_status'));
+        return Payment::status($item_key);
     }
 
     function confirm_order($transaction){
 
-        $id = $transaction->id;
-        $amount = $transaction->amount;
+        Order::confirm($transaction);
+    }
 
-        Log::info('Checkout: Identified uncaptured transaction. Capturing...', compact('transaction'));
+    function fake_transactions($payload){
 
-        try{
+        $customer = optional($payload)['customer'];
+        $external_id = optional($customer)['external_id'];
+        $status = $payload['status'];
 
-            $response = $this->client->transactions()->capture(compact('id', 'amount'));
+        $where = [
+            ['data', 'like', "%$external_id%"],
+            ['data', 'like', "%$status%"],
+        ];
 
-            Log::info('Checkout: Captured transaction', compact('response'));
-        }
-        catch(Exception $exception){
-
-            $this->invalidate_user_orders(request()->user(), 'authorized');
-            $this->invalidate_user_orders(request()->user());
-
-            Log::debug('Checkout: Error capturing transaction. Invalidated authorized user orders cache', compact('exception'));
-        }
+        return Transaction::where($where)->pluck('data')->map(fn($data) => json_decode($data));
     }
 
     function pagarme_transactions($payload){
+
+        if($this->is_fake()){
+
+            return $this->fake_transactions($payload);
+        }
 
         return collect($this->client->transactions()->getList($payload));
     }
@@ -121,7 +94,7 @@ class Checkout{
         ];
         $cache_key = $cache_tags[3];
 
-        $expires_at = now()->addMinutes(30);
+        $expires_at = now()->addMinutes(10);
 
         if($cache->getDefaultDriver() === 'redis'){
 
@@ -142,9 +115,9 @@ class Checkout{
             $transactions_by_key = $this->pagarme_transactions($payload_by_key);
             $transactions_by_email = $this->pagarme_transactions($payload_by_email);
 
-            $transactions = $transactions_by_key->concat($transactions_by_email)->all();
+            $transactions = $transactions_by_key->concat($transactions_by_email);
 
-            return $transactions;
+            return $transactions->all();
         });
     }
 
@@ -159,10 +132,12 @@ class Checkout{
         ];
         $cache_key = $cache_tags[1];
 
-        $expires_at = now()->addMinutes(30);
+        $expires_at = now()->addMinutes(10);
         $payload = compact('status');
 
-        $get_status_list = fn() => $this->client->transactions()->getList($payload);
+        $get_status_list = $this->is_fake()
+        ? fn() => $this->fake_transactions($payload)
+        : fn() => $this->client->transactions()->getList($payload);
 
         if($cache->getDefaultDriver() === 'redis'){
 
@@ -237,12 +212,10 @@ class Checkout{
 
     function createCreditCard(string $name, string $number, string $exp, string $cvv): string {
 
-        return $this->client->cards()->create([
-            'holder_name' => $name,
-            'number' => $number,
-            'expiration_date' => $exp,
-            'cvv' => $cvv,
-        ])->id;
+        $cc = new CreditCard($name, $number, $exp, $cvv);
+        $cc->save();
+
+        return $cc->getKey();
     }
 
     static function invalidate_orders($status = null){
@@ -341,5 +314,25 @@ class Checkout{
         $status_label = $status ?? 'all';
 
         return "$user_tag:$status_label";
+    }
+
+    static function pagarme_encryption_key(){
+
+        return config('checkout.pagarme.encryption_key');
+    }
+
+    static function fake(){
+
+        Session::put('fake_checkout', 'true');
+    }
+
+    static function unfake(){
+
+        Session::forget('fake_checkout');
+    }
+
+    static function is_fake(){
+
+        return Session::get('fake_checkout') === 'true';
     }
 }

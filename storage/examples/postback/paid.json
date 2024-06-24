@@ -135,7 +135,6 @@
     },
     "headers": {
         "X-Hub-Signature": "sha1=71e8e56829229a233ba8e4acc3d337d6de5405ed",
-        "X-Hub-Signature-Test": "sha1=b07d38803605712a31d088cb40bc082b4bfaae9b",
         "Content-Type":"application/x-www-form-urlencoded",
         "X-PagarMe-Event":"transaction_status_changed",
         "X-PagarMe-Operation":"po_clxovk1886bqp01l8f5fb88kx"

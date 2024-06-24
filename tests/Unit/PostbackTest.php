@@ -12,7 +12,7 @@ class PostbackTest extends TestCase{
     public function test_normalize_should_return_correct_keys(){
 
         # Arrange
-        $request = $this->create_request_from_example('postback.paid');
+        $request = $this->create_request_from_example('postback/paid');
 
         # Act
         $normalized = Postback::normalizeTransactionData($request);
@@ -36,7 +36,7 @@ class PostbackTest extends TestCase{
     public function test_validade_should_allow_valid_request(){
 
         # Arrange
-        $request = $this->create_request_from_example('postback.paid');
+        $request = $this->create_request_from_example('postback/paid');
 
         # Act
         $result = Postback::validate($request);
@@ -48,7 +48,7 @@ class PostbackTest extends TestCase{
     public function test_validade_should_reject_invalid_request(){
 
         # Arrange
-        $request = $this->create_request_from_example('postback.refused');
+        $request = $this->create_request_from_example('postback/refused');
         $this->expectException(HttpException::class);
 
         # Act

@@ -2,7 +2,7 @@
 
 namespace MatheusFS\Laravel\Checkout\Payment\Gateways\PagarMe;
 
-use GuzzleHttp\Client as GuzzleHttpClient;
+use GuzzleHttp\Client as HttpClient;
 use Illuminate\Http\Request;
 use PagarMe\Client;
 
@@ -10,46 +10,70 @@ class Api{
 
     public static function client(): Client{
 
-        $is_production = app()->environment('production');
-
-        $api_key = $is_production
-        ? config('checkout.pagarme.api_key')
-        : config('checkout.pagarme.api_sandbox_key');
+        $api_key = config('checkout.pagarme.api_key');
 
         return new Client($api_key);
+    }
+
+    public static function http_client(): HttpClient{
+
+        $api_key = config('checkout.pagarme.api_key');
+
+        $client = new HttpClient([
+            'base_uri' => 'https://api.pagar.me/1/',
+            'headers' => [
+                'Authorization' => 'Basic ' . base64_encode("$api_key:x"),
+            ]
+        ]);
+
+        return $client;
+    }
+
+    static function get($endpoint){
+
+        $request = Api::http_client()->get($endpoint);
+
+        $response = $request->getBody();
+
+        $content = $response->getContents();
+
+        return json_decode($content, true)[0];
+    }
+
+    static function post($endpoint, $payload){
+
+        $request = Api::http_client()->post($endpoint, ['json' => $payload]);
+
+        $response = $request->getBody();
+
+        $content = $response->getContents();
+
+        return json_decode($content, true)[0];
     }
 
     public static function order($id){
 
         try{
 
-            $client = new GuzzleHttpClient(['base_uri' => 'https://api.pagar.me/1/']);
-
-            $payload = ['api_key' => config('checkout.pagarme.api_key')];
-            $request = $client->get("orders?id=$id", ['form_params' => $payload]);
-
-            $response = $request->getBody();
-
-            $content = $response->getContents();
-            return json_decode($content, true)[0];
+            return Api::get("orders?id=$id");
         }
-        catch(\Exception $exception){
-
-            //
-        }
+        catch(\Exception $exception){}
     }
 
     public function capture(Request $request){
 
-        $request->validate(['id' => 'required|integer']);
+        $request->validate([
+            'id' => 'required',
+            'amount' => 'integer',
+        ]);
 
         $id = $request->input('id');
+        $amount = $request->input('amount') * 100;
 
-        $transaction = static::client()->transactions()->get(compact('id'));
+        $payload = compact('id', 'amount');
 
-        $amount = optional($transaction)->amount;
-
-        $captured_transaction = static::client()->transactions()->capture(compact('id', 'amount'));
+        // $captured_transaction = Api::post("transactions/$id/capture", compact('amount'));
+        $captured_transaction = static::client()->transactions()->capture($payload);
 
         return response()->json($captured_transaction);
     }
