@@ -28,15 +28,23 @@ trait Purchasable{
 
     function getBoletoUrlAttribute(){
 
-        $last_order = Order::last($this->external_key);
-
-        return optional($last_order)->boleto_url;
+        return $this->get_from_last_order('boleto_url');
     }
 
     function getQrCodeAttribute(){
 
+        return $this->get_from_last_order('pix_qr_code');
+    }
+
+    function getTransactionIdAttribute(){
+
+        return $this->get_from_last_order('tid');
+    }
+
+    function get_from_last_order($attribute){
+
         $last_order = Order::last($this->external_key);
 
-        return optional($last_order)->pix_qr_code;
+        return optional($last_order)->{$attribute};
     }
 }

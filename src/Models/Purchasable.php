@@ -28,6 +28,7 @@ class Purchasable extends Model{
         'external_link_label',
         'boleto_url',
         'qr_code',
+        'transaction_id',
         'payment_status',
         'external_key',
     ];

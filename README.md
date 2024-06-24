@@ -1,7 +1,12 @@
 # Checkout with Pagar.me
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/matheusfs/laravel-checkout/tests.yml)
 
 Laravel checkout facade to Pagar.me v4 api
+
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/matheusfs/laravel-checkout/tests.yml)
+[![codecov](https://codecov.io/gh/MatheusFS/laravel-checkout/graph/badge.svg?token=M2Z0NW32LQ)](https://codecov.io/gh/MatheusFS/laravel-checkout)
+
+#### Test coverage map
+![](https://codecov.io/gh/MatheusFS/laravel-checkout/graphs/tree.svg?token=M2Z0NW32LQ)
 
 ## Instalation
 ```bash
