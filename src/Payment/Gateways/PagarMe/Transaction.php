@@ -91,4 +91,13 @@ class Transaction{
 
         $this->fake = true;
     }
+
+    static function get_example($name, $as_array = true){
+
+        $parent = dirname(dirname(dirname(dirname(__DIR__))));
+        $directory = $parent . '/storage/examples/transaction';
+        $example = file_get_contents("$directory/$name.json");
+
+        return json_decode($example, $as_array);
+    }
 }

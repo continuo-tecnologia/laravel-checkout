@@ -32,4 +32,11 @@ trait Purchasable{
 
         return optional($last_order)->boleto_url;
     }
+
+    function getQrCodeAttribute(){
+
+        $last_order = Order::last($this->external_key);
+
+        return optional($last_order)->pix_qr_code;
+    }
 }

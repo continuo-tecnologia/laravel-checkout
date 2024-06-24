@@ -10,17 +10,17 @@ class Payment{
 
     public static function status($item_key){
 
-        $last_transaction = Order::last($item_key);
+        $last_order = Order::last($item_key);
 
-        if(is_null($last_transaction)) return 'needs_payment';
+        if(is_null($last_order)) return 'needs_payment';
 
-        $last_status = $last_transaction->status;
+        $last_status = $last_order->status;
 
-        Log::debug(__CLASS__.'@'.__FUNCTION__, compact('item_key', 'last_transaction', 'last_status'));
+        Log::debug(__CLASS__.'@'.__FUNCTION__, compact('item_key', 'last_order', 'last_status'));
 
         if($last_status === 'authorized'){
 
-            (new Checkout)->confirm_order($last_transaction);
+            (new Checkout)->confirm_order($last_order);
 
             return 'requested_payment';
         }
@@ -32,7 +32,7 @@ class Payment{
 
         if($is_processing){
 
-            $method = $last_transaction->payment_method;
+            $method = $last_order->payment_method;
 
             if($method === 'boleto') return 'requested_boleto_payment';
             if($method === 'pix') return 'requested_pix_payment';

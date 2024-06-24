@@ -1,6 +1,6 @@
 {
     "object": "transaction",
-    "status": "refused",
+    "status": "waiting_payment",
     "refuse_reason": "no_acquirer",
     "status_reason": "no_acquirer",
     "acquirer_response_code": null,
@@ -106,7 +106,7 @@
     "discount": null,
     "private_label": null,
     "pix_data": null,
-    "pix_qr_code": null,
+    "pix_qr_code": "QRCODE.0123456789",
     "pix_expiration_date": "2024-06-14T15:25:13Z",
     "service_referer_name": null
 }
