@@ -168,7 +168,11 @@ class Postback{
 
         Log::info("$message (Agent: $user_agent)");
 
-        if(!$is_valid) abort(403, $message);
+        if(!$is_valid){
+
+            dump(compact('body', 'signature'));
+            abort(403, $message);
+        }
 
         return null;
     }
