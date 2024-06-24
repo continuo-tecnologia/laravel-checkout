@@ -76,7 +76,11 @@ class Checkout{
             return $this->fake_transactions($payload);
         }
 
-        return collect($this->client->transactions()->getList($payload));
+        try {
+
+            return collect($this->client->transactions()->getList($payload));
+        }
+        catch(\Throwable $th){}
     }
 
     function user_orders($status = null){
