@@ -170,7 +170,8 @@ class Postback{
 
         if(!$is_valid){
 
-            dump(compact('body', 'signature'));
+            $actual_signature = hash_hmac('sha1', $body, Api::client()->getApiKey());
+            dump(compact('body', 'signature', 'actual_signature'));
             abort(403, $message);
         }
 
