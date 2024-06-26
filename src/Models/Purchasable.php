@@ -18,6 +18,7 @@ class Purchasable extends Model{
     public $purchasable_base = [
         'label',
         'description',
+        'full_price',
         'price',
         'image',
         'privacy',
