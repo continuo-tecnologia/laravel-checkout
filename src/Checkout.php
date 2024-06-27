@@ -80,7 +80,10 @@ class Checkout{
 
             return collect($this->client->transactions()->getList($payload));
         }
-        catch(\Throwable $th){}
+        catch(\Throwable $th){
+
+            return collect();
+        }
     }
 
     function user_orders($status = null){
