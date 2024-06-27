@@ -4,7 +4,6 @@
     "type": "library",
     "require": {
         "pagarme/pagarme-php": "^4.0.4",
-        "flyingluscas/correios-php": "^2.4",
         "laravel/framework": "^7.0|^8.0|^9.0"
     },
     "require-dev": {
