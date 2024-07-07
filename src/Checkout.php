@@ -14,6 +14,7 @@
 
 namespace MatheusFS\Laravel\Checkout;
 
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Session;
 use MatheusFS\Laravel\Checkout\Entities\Item;
@@ -142,16 +143,22 @@ class Checkout{
         $expires_at = now()->addMinutes(10);
         $payload = compact('status');
 
-        $get_status_list = $this->is_fake()
-        ? fn() => $this->fake_transactions($payload)
-        : fn() => $this->client->transactions()->getList($payload);
+        try{
 
-        if($cache->getDefaultDriver() === 'redis'){
+            $transactions = $this->client->transactions();
 
-            $cache = $cache->tags($cache_tags);
+            $get_status_list = $this->is_fake()
+            ? fn() => $this->fake_transactions($payload)
+            : fn() => $transactions->getList($payload);
+
+            if($cache->getDefaultDriver() === 'redis'){
+
+                $cache = $cache->tags($cache_tags);
+            }
+
+            return $cache->remember($cache_key, $expires_at, $get_status_list);
         }
-
-        return $cache->remember($cache_key, $expires_at, $get_status_list);
+        catch(\Throwable $e){}
     }
 
     public function redirectToPaymentLink(){
