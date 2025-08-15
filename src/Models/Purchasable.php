@@ -15,6 +15,11 @@ class Purchasable extends Model{
 
     protected $table = 'purchasables';
 
+    protected $fillable = [
+        'image',
+    ];
+
+
     public $purchasable_base = [
         'label',
         'description',
