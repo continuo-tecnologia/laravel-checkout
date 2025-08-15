@@ -2,7 +2,6 @@
 
 namespace MatheusFS\Laravel\Checkout\Models;
 
-use App\Models\SuperModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Log;
@@ -14,10 +13,6 @@ class Purchasable extends Model{
     const CREATED_AT = null;
 
     protected $table = 'purchasables';
-
-    protected $fillable = [
-        'image',
-    ];
 
 
     public $purchasable_base = [
