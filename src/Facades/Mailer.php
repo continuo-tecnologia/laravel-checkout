@@ -71,8 +71,6 @@ class Mailer {
             }
         }
 
-        Log::debug('Suppliers in transaction', $suppliers);
-
         foreach($suppliers as $supplier_id => $items){
 
             $supplier = config('checkout.supplier.model')::find($supplier_id);
